@@ -1,0 +1,1438 @@
+{
+  "stats" : {
+    "totalLogs" : 200,
+    "sourceDistribution" : {
+      "Authentication" : 100,
+      "System" : 100
+    },
+    "levelDistribution" : {
+      "warning" : 3,
+      "error" : 3,
+      "info" : 194
+    }
+  },
+  "parsed_logs" : [ {
+    "full_message" : "2025-08-27T15:20:10.315613+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "timestamp" : "8/27/2025 3:20:10 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:10.685418+07:00 tran-thanh-tinh gnome-shell[2270]: Launching DING process",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Launching DING process",
+    "timestamp" : "8/27/2025 3:20:10 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:11.221755+07:00 tran-thanh-tinh gnome-shell[2270]: DING: ** Message: 15:20:11.190: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: ** Message: 15:20:11.190: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "timestamp" : "8/27/2025 3:20:11 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:14.321497+07:00 tran-thanh-tinh gnome-shell[2270]: Launching DING process",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Launching DING process",
+    "timestamp" : "8/27/2025 3:20:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:15.959238+07:00 tran-thanh-tinh dbus-daemon[1915]: [session uid=1000 pid=1915] Activating service name='org.gnome.Nautilus' requested by ':1.126' (uid=1000 pid=9992 comm=\"gjs /usr/share/gnome-shell/extensions/ding@rasters\" label=\"unconfined\")",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "[session uid=1000 pid=1915] Activating service name='org.gnome.Nautilus' requested by ':1.126' (uid=1000 pid=9992 comm=\"gjs /usr/share/gnome-shell/extensions/ding@rasters\" label=\"unconfined\")",
+    "timestamp" : "8/27/2025 3:20:15 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:16.219245+07:00 tran-thanh-tinh nautilus[10004]: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "timestamp" : "8/27/2025 3:20:16 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:16.229088+07:00 tran-thanh-tinh dbus-daemon[1915]: [session uid=1000 pid=1915] Successfully activated service 'org.gnome.Nautilus'",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "[session uid=1000 pid=1915] Successfully activated service 'org.gnome.Nautilus'",
+    "timestamp" : "8/27/2025 3:20:16 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:16.478607+07:00 tran-thanh-tinh gnome-shell[2270]: DING: Detected async api for thumbnails",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: Detected async api for thumbnails",
+    "timestamp" : "8/27/2025 3:20:16 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:17.218428+07:00 tran-thanh-tinh gnome-shell[2270]: DING: (gjs:9992): Gjs-WARNING **: 15:20:17.212: GLib.unix_signal_add has been moved to a separate platform-specific library. Please update your code to use GLibUnix.signal_add instead.",
+    "level" : "warning",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: (gjs:9992): Gjs-WARNING **: 15:20:17.212: GLib.unix_signal_add has been moved to a separate platform-specific library. Please update your code to use GLibUnix.signal_add instead.",
+    "timestamp" : "8/27/2025 3:20:17 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:17.219685+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 0 DesktopManager() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/desktopManager.js\":264:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 0 DesktopManager() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/desktopManager.js\":264:12]",
+    "timestamp" : "8/27/2025 3:20:17 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:17.222547+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 1 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":180:25]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 1 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":180:25]",
+    "timestamp" : "8/27/2025 3:20:17 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:17.222961+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 2 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":197:20]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 2 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":197:20]",
+    "timestamp" : "8/27/2025 3:20:17 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:17.223514+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "timestamp" : "8/27/2025 3:20:17 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:17.667483+07:00 tran-thanh-tinh gnome-shell[2270]: Launching DING process",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Launching DING process",
+    "timestamp" : "8/27/2025 3:20:17 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:18.011456+07:00 tran-thanh-tinh gnome-shell[2270]: DING: ** Message: 15:20:18.000: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: ** Message: 15:20:18.000: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "timestamp" : "8/27/2025 3:20:18 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:18.973524+07:00 tran-thanh-tinh gnome-shell[2270]: DING: Detected async api for thumbnails",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: Detected async api for thumbnails",
+    "timestamp" : "8/27/2025 3:20:18 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:19.351556+07:00 tran-thanh-tinh gnome-shell[2270]: DING: (gjs:10021): Gjs-WARNING **: 15:20:19.344: GLib.unix_signal_add has been moved to a separate platform-specific library. Please update your code to use GLibUnix.signal_add instead.",
+    "level" : "warning",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: (gjs:10021): Gjs-WARNING **: 15:20:19.344: GLib.unix_signal_add has been moved to a separate platform-specific library. Please update your code to use GLibUnix.signal_add instead.",
+    "timestamp" : "8/27/2025 3:20:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:19.356565+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 0 DesktopManager() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/desktopManager.js\":264:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 0 DesktopManager() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/desktopManager.js\":264:12]",
+    "timestamp" : "8/27/2025 3:20:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:19.359313+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 1 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":180:25]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 1 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":180:25]",
+    "timestamp" : "8/27/2025 3:20:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:19.366254+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 2 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":197:20]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 2 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":197:20]",
+    "timestamp" : "8/27/2025 3:20:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:19.367220+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "timestamp" : "8/27/2025 3:20:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:20.500533+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Nautilus (org.gnome.Nautilus.FileOperations2) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Nautilus (org.gnome.Nautilus.FileOperations2) is now available.",
+    "timestamp" : "8/27/2025 3:20:20 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:20.529614+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Nautilus (org.freedesktop.FileManager1) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Nautilus (org.freedesktop.FileManager1) is now available.",
+    "timestamp" : "8/27/2025 3:20:20 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:20.530319+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Gvfs daemon (org.gtk.vfs.Metadata) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Gvfs daemon (org.gtk.vfs.Metadata) is now available.",
+    "timestamp" : "8/27/2025 3:20:20 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:20.530847+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Switcheroo control (net.hadess.SwitcherooControl) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Switcheroo control (net.hadess.SwitcherooControl) is now available.",
+    "timestamp" : "8/27/2025 3:20:20 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:20.686975+07:00 tran-thanh-tinh gnome-shell[2270]: DING: ** Message: 15:20:20.597: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: ** Message: 15:20:20.597: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "timestamp" : "8/27/2025 3:20:20 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:20.692357+07:00 tran-thanh-tinh gnome-shell[2270]: DING: GNOME nautilus 46.4",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: GNOME nautilus 46.4",
+    "timestamp" : "8/27/2025 3:20:20 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:21.111195+07:00 tran-thanh-tinh gnome-shell[2270]: Launching DING process",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Launching DING process",
+    "timestamp" : "8/27/2025 3:20:21 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.418480+07:00 tran-thanh-tinh gnome-shell[2270]: DING: Detected async api for thumbnails",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: Detected async api for thumbnails",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.757829+07:00 tran-thanh-tinh gnome-shell[2270]: DING: (gjs:10057): Gjs-WARNING **: 15:20:22.750: GLib.unix_signal_add has been moved to a separate platform-specific library. Please update your code to use GLibUnix.signal_add instead.",
+    "level" : "warning",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: (gjs:10057): Gjs-WARNING **: 15:20:22.750: GLib.unix_signal_add has been moved to a separate platform-specific library. Please update your code to use GLibUnix.signal_add instead.",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.758513+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 0 DesktopManager() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/desktopManager.js\":264:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 0 DesktopManager() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/desktopManager.js\":264:12]",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.758925+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 1 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":180:25]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 1 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":180:25]",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.759332+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 2 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":197:20]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 2 anonymous() [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":197:20]",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.759814+07:00 tran-thanh-tinh gnome-shell[2270]: DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: 3 <TOP LEVEL> [\"/usr/share/gnome-shell/extensions/ding@rastersoft.com/app/ding.js\":206:12]",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:22.960537+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Switcheroo control (net.hadess.SwitcherooControl) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Switcheroo control (net.hadess.SwitcherooControl) is now available.",
+    "timestamp" : "8/27/2025 3:20:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:23.280814+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Gvfs daemon (org.gtk.vfs.Metadata) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Gvfs daemon (org.gtk.vfs.Metadata) is now available.",
+    "timestamp" : "8/27/2025 3:20:23 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:23.284490+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Nautilus (org.gnome.Nautilus.FileOperations2) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Nautilus (org.gnome.Nautilus.FileOperations2) is now available.",
+    "timestamp" : "8/27/2025 3:20:23 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:23.289171+07:00 tran-thanh-tinh gnome-shell[2270]: DING: DBus interface for Nautilus (org.freedesktop.FileManager1) is now available.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: DBus interface for Nautilus (org.freedesktop.FileManager1) is now available.",
+    "timestamp" : "8/27/2025 3:20:23 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:23.474128+07:00 tran-thanh-tinh gnome-shell[2270]: DING: ** Message: 15:20:23.451: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: ** Message: 15:20:23.451: Connecting to org.freedesktop.Tracker3.Miner.Files",
+    "timestamp" : "8/27/2025 3:20:23 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:23.522494+07:00 tran-thanh-tinh gnome-shell[2270]: DING: GNOME nautilus 46.4",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "DING: GNOME nautilus 46.4",
+    "timestamp" : "8/27/2025 3:20:23 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:23.662796+07:00 tran-thanh-tinh gnome-shell[2270]: Received notification for window. 0 notifications remaining.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Received notification for window. 0 notifications remaining.",
+    "timestamp" : "8/27/2025 3:20:23 PM"
+  }, {
+    "full_message" : "2025-08-27T15:21:13.292875+07:00 tran-thanh-tinh systemd[1]: Started session-119.scope - Session 119 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-119.scope - Session 119 of User b2203743.",
+    "timestamp" : "8/27/2025 3:21:13 PM"
+  }, {
+    "full_message" : "2025-08-27T15:21:14.053167+07:00 tran-thanh-tinh systemd[1]: session-119.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-119.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:21:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:21:30.114568+07:00 tran-thanh-tinh systemd[1]: Started session-120.scope - Session 120 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-120.scope - Session 120 of User b2203743.",
+    "timestamp" : "8/27/2025 3:21:30 PM"
+  }, {
+    "full_message" : "2025-08-27T15:21:30.869662+07:00 tran-thanh-tinh systemd[1]: session-120.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-120.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:21:30 PM"
+  }, {
+    "full_message" : "2025-08-27T15:23:57.822788+07:00 tran-thanh-tinh systemd[1]: Started session-121.scope - Session 121 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-121.scope - Session 121 of User b2203743.",
+    "timestamp" : "8/27/2025 3:23:57 PM"
+  }, {
+    "full_message" : "2025-08-27T15:23:58.555198+07:00 tran-thanh-tinh systemd[1]: session-121.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-121.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:23:58 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:32.440627+07:00 tran-thanh-tinh systemd[1]: Started session-122.scope - Session 122 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-122.scope - Session 122 of User b2203743.",
+    "timestamp" : "8/27/2025 3:24:32 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:33.235638+07:00 tran-thanh-tinh systemd[1]: session-122.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-122.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:24:33 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.427408+07:00 tran-thanh-tinh update-notifier[3179]: gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "level" : "error",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.473347+07:00 tran-thanh-tinh update-notifier[3179]: gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "level" : "error",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.568979+07:00 tran-thanh-tinh rtkit-daemon[1333]: Successfully made thread 2312 of process 2270 owned by '1000' high priority at nice level 0.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Successfully made thread 2312 of process 2270 owned by '1000' high priority at nice level 0.",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.576351+07:00 tran-thanh-tinh rtkit-daemon[1333]: Supervising 1 threads of 1 processes of 1 users.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Supervising 1 threads of 1 processes of 1 users.",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.592874+07:00 tran-thanh-tinh rtkit-daemon[1333]: Supervising 0 threads of 0 processes of 1 users.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Supervising 0 threads of 0 processes of 1 users.",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.601766+07:00 tran-thanh-tinh rtkit-daemon[1333]: Supervising 0 threads of 0 processes of 1 users.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Supervising 0 threads of 0 processes of 1 users.",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.622733+07:00 tran-thanh-tinh rtkit-daemon[1333]: Successfully made thread 2312 of process 2270 owned by '1000' RT at priority 20.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Successfully made thread 2312 of process 2270 owned by '1000' RT at priority 20.",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.623542+07:00 tran-thanh-tinh rtkit-daemon[1333]: Supervising 1 threads of 1 processes of 1 users.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Supervising 1 threads of 1 processes of 1 users.",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:54.648551+07:00 tran-thanh-tinh gnome-shell[2270]: Cursor update failed: drmModeAtomicCommit: Invalid argument",
+    "level" : "error",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Cursor update failed: drmModeAtomicCommit: Invalid argument",
+    "timestamp" : "8/27/2025 3:24:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:58.124909+07:00 tran-thanh-tinh systemd[1]: Started session-123.scope - Session 123 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-123.scope - Session 123 of User b2203743.",
+    "timestamp" : "8/27/2025 3:24:58 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:58.812844+07:00 tran-thanh-tinh systemd[1]: session-123.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-123.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:24:58 PM"
+  }, {
+    "full_message" : "2025-08-27T15:25:01.537771+07:00 tran-thanh-tinh CRON[10401]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "(root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "timestamp" : "8/27/2025 3:25:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:25:24.125739+07:00 tran-thanh-tinh systemd[1]: Started session-125.scope - Session 125 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-125.scope - Session 125 of User b2203743.",
+    "timestamp" : "8/27/2025 3:25:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:25:24.993534+07:00 tran-thanh-tinh systemd[1]: session-125.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-125.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:25:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:29:58.499959+07:00 tran-thanh-tinh systemd[1]: Started session-126.scope - Session 126 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-126.scope - Session 126 of User b2203743.",
+    "timestamp" : "8/27/2025 3:29:58 PM"
+  }, {
+    "full_message" : "2025-08-27T15:29:59.206944+07:00 tran-thanh-tinh systemd[1]: session-126.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-126.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:29:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:30:01.583290+07:00 tran-thanh-tinh CRON[10568]: (root) CMD ([ -x /etc/init.d/anacron ] && if [ ! -d /run/systemd/system ]; then /usr/sbin/invoke-rc.d anacron start >/dev/null; fi)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "(root) CMD ([ -x /etc/init.d/anacron ] && if [ ! -d /run/systemd/system ]; then /usr/sbin/invoke-rc.d anacron start >/dev/null; fi)",
+    "timestamp" : "8/27/2025 3:30:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:30:02.403424+07:00 tran-thanh-tinh systemd[1]: Starting sysstat-collect.service - system activity accounting tool...",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Starting sysstat-collect.service - system activity accounting tool...",
+    "timestamp" : "8/27/2025 3:30:02 PM"
+  }, {
+    "full_message" : "2025-08-27T15:30:02.477733+07:00 tran-thanh-tinh systemd[1]: sysstat-collect.service: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "sysstat-collect.service: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:30:02 PM"
+  }, {
+    "full_message" : "2025-08-27T15:30:02.478612+07:00 tran-thanh-tinh systemd[1]: Finished sysstat-collect.service - system activity accounting tool.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Finished sysstat-collect.service - system activity accounting tool.",
+    "timestamp" : "8/27/2025 3:30:02 PM"
+  }, {
+    "full_message" : "2025-08-27T15:30:39.736298+07:00 tran-thanh-tinh systemd[1]: Started session-128.scope - Session 128 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-128.scope - Session 128 of User b2203743.",
+    "timestamp" : "8/27/2025 3:30:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:30:40.428994+07:00 tran-thanh-tinh systemd[1]: session-128.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-128.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:30:40 PM"
+  }, {
+    "full_message" : "2025-08-27T15:31:49.079955+07:00 tran-thanh-tinh systemd[1]: Started session-129.scope - Session 129 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-129.scope - Session 129 of User b2203743.",
+    "timestamp" : "8/27/2025 3:31:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:31:49.832170+07:00 tran-thanh-tinh systemd[1]: session-129.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "session-129.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:31:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:31:50.825681+07:00 tran-thanh-tinh systemd[1]: Started session-130.scope - Session 130 of User b2203743.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started session-130.scope - Session 130 of User b2203743.",
+    "timestamp" : "8/27/2025 3:31:50 PM"
+  }, {
+    "full_message" : "2025-08-27T15:32:54.376060+07:00 tran-thanh-tinh systemd-timesyncd[421]: Timed out waiting for reply from 115.165.161.155:123 (0.ubuntu.pool.ntp.org).",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Timed out waiting for reply from 115.165.161.155:123 (0.ubuntu.pool.ntp.org).",
+    "timestamp" : "8/27/2025 3:32:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:04.618593+07:00 tran-thanh-tinh systemd-timesyncd[421]: Timed out waiting for reply from 115.165.161.155:123 (1.ubuntu.pool.ntp.org).",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Timed out waiting for reply from 115.165.161.155:123 (1.ubuntu.pool.ntp.org).",
+    "timestamp" : "8/27/2025 3:33:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:04.668584+07:00 tran-thanh-tinh systemd[1]: Started anacron.service - Run anacron jobs.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started anacron.service - Run anacron jobs.",
+    "timestamp" : "8/27/2025 3:33:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:04.711903+07:00 tran-thanh-tinh anacron[10825]: Anacron 2.3 started on 2025-08-27",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Anacron 2.3 started on 2025-08-27",
+    "timestamp" : "8/27/2025 3:33:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:04.724250+07:00 tran-thanh-tinh anacron[10825]: Normal exit (0 jobs run)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Normal exit (0 jobs run)",
+    "timestamp" : "8/27/2025 3:33:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:04.738346+07:00 tran-thanh-tinh systemd[1]: anacron.service: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "anacron.service: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:33:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:14.862230+07:00 tran-thanh-tinh systemd-timesyncd[421]: Timed out waiting for reply from 115.165.161.155:123 (2.ubuntu.pool.ntp.org).",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Timed out waiting for reply from 115.165.161.155:123 (2.ubuntu.pool.ntp.org).",
+    "timestamp" : "8/27/2025 3:33:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:33:25.106522+07:00 tran-thanh-tinh systemd-timesyncd[421]: Timed out waiting for reply from 115.165.161.155:123 (3.ubuntu.pool.ntp.org).",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Timed out waiting for reply from 115.165.161.155:123 (3.ubuntu.pool.ntp.org).",
+    "timestamp" : "8/27/2025 3:33:25 PM"
+  }, {
+    "full_message" : "2025-08-27T15:35:01.647705+07:00 tran-thanh-tinh CRON[10870]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "(root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "timestamp" : "8/27/2025 3:35:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:39:01.741854+07:00 tran-thanh-tinh CRON[10990]: (root) CMD (  [ -x /usr/lib/php/sessionclean ] && if [ ! -d /run/systemd/system ]; then /usr/lib/php/sessionclean; fi)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "(root) CMD (  [ -x /usr/lib/php/sessionclean ] && if [ ! -d /run/systemd/system ]; then /usr/lib/php/sessionclean; fi)",
+    "timestamp" : "8/27/2025 3:39:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:39:01.745032+07:00 tran-thanh-tinh systemd[1]: Starting phpsessionclean.service - Clean php session files...",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Starting phpsessionclean.service - Clean php session files...",
+    "timestamp" : "8/27/2025 3:39:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:39:02.860642+07:00 tran-thanh-tinh systemd[1]: phpsessionclean.service: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "phpsessionclean.service: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:39:02 PM"
+  }, {
+    "full_message" : "2025-08-27T15:39:02.878763+07:00 tran-thanh-tinh systemd[1]: Finished phpsessionclean.service - Clean php session files.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Finished phpsessionclean.service - Clean php session files.",
+    "timestamp" : "8/27/2025 3:39:02 PM"
+  }, {
+    "full_message" : "2025-08-27T15:39:02.879245+07:00 tran-thanh-tinh systemd[1]: phpsessionclean.service: Consumed 1.084s CPU time.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "phpsessionclean.service: Consumed 1.084s CPU time.",
+    "timestamp" : "8/27/2025 3:39:02 PM"
+  }, {
+    "full_message" : "2025-08-27T15:39:47.837454+07:00 tran-thanh-tinh kernel: workqueue: blk_mq_requeue_work hogged CPU for >10000us 4 times, consider switching to WQ_UNBOUND",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "39:47.837454+07:00 tran-thanh-tinh kernel: workqueue: blk_mq_requeue_work hogged CPU for >10000us 4 times, consider switching to WQ_UNBOUND",
+    "timestamp" : "8/27/2025 3:39:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:01.370774+07:00 tran-thanh-tinh systemd[1]: Starting sysstat-collect.service - system activity accounting tool...",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Starting sysstat-collect.service - system activity accounting tool...",
+    "timestamp" : "8/27/2025 3:40:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:01.440281+07:00 tran-thanh-tinh systemd[1]: sysstat-collect.service: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "sysstat-collect.service: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:40:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:01.442822+07:00 tran-thanh-tinh systemd[1]: Finished sysstat-collect.service - system activity accounting tool.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Finished sysstat-collect.service - system activity accounting tool.",
+    "timestamp" : "8/27/2025 3:40:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:37.001564+07:00 tran-thanh-tinh NetworkManager[836]: <info>  [1756284037.0010] dhcp4 (enp0s3): state changed new lease, address=172.20.10.4",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "<info>  [1756284037.0010] dhcp4 (enp0s3): state changed new lease, address=172.20.10.4",
+    "timestamp" : "8/27/2025 3:40:37 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:37.056416+07:00 tran-thanh-tinh dbus-daemon[619]: [system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.14' (uid=0 pid=836 comm=\"/usr/sbin/NetworkManager --no-daemon\" label=\"unconfined\")",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "[system] Activating via systemd: service name='org.freedesktop.nm_dispatcher' unit='dbus-org.freedesktop.nm-dispatcher.service' requested by ':1.14' (uid=0 pid=836 comm=\"/usr/sbin/NetworkManager --no-daemon\" label=\"unconfined\")",
+    "timestamp" : "8/27/2025 3:40:37 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:37.092207+07:00 tran-thanh-tinh systemd[1]: Starting NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service...",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Starting NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service...",
+    "timestamp" : "8/27/2025 3:40:37 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:37.164612+07:00 tran-thanh-tinh dbus-daemon[619]: [system] Successfully activated service 'org.freedesktop.nm_dispatcher'",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "[system] Successfully activated service 'org.freedesktop.nm_dispatcher'",
+    "timestamp" : "8/27/2025 3:40:37 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:37.165476+07:00 tran-thanh-tinh systemd[1]: Started NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Started NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service.",
+    "timestamp" : "8/27/2025 3:40:37 PM"
+  }, {
+    "full_message" : "2025-08-27T15:40:47.189464+07:00 tran-thanh-tinh systemd[1]: NetworkManager-dispatcher.service: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "NetworkManager-dispatcher.service: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:40:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:01.795750+07:00 tran-thanh-tinh CRON[11500]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "(root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "timestamp" : "8/27/2025 3:45:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:37.181688+07:00 tran-thanh-tinh kernel: workqueue: blk_mq_requeue_work hogged CPU for >10000us 5 times, consider switching to WQ_UNBOUND",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "45:37.181688+07:00 tran-thanh-tinh kernel: workqueue: blk_mq_requeue_work hogged CPU for >10000us 5 times, consider switching to WQ_UNBOUND",
+    "timestamp" : "8/27/2025 3:45:37 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:04.749367+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:09.677410+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:09.693783+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:09.703881+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:09.708972+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:09.731734+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:09.753712+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:14.793280+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:14.813620+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:14.845327+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:14.850690+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:14.862299+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:14.897036+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:19.685547+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:19.688177+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:19.697821+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:19.709283+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:19.728053+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:19.743764+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:24.653508+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:24.655647+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:24.674931+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:24.681704+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:24.704764+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:24.718614+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:29.660978+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:29.663668+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:29.679640+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:29.682195+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:29.698431+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:29.716619+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:34.637356+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:34 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:34.646384+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:34 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:34.678659+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:34 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:34.705259+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:34 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:34.708194+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:34 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:34.727432+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:34 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:39.653310+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:39.674653+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:39.694533+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:39.698974+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:39.713518+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:39.732906+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:39 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:44.643485+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:44.660923+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:44.693157+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:44.717552+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:44.720024+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:44.743533+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:49.687500+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:49.690789+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:49.724023+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:49.734647+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:49.752758+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:49.771375+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:54.639450+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:54.642318+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:54.674004+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:54.681574+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:54.682673+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:54.716013+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:54 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:59.650101+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:45:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:59.652339+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:59.683469+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:45:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:59.685098+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:59.698565+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:45:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:45:59.722248+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:45:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:04.653934+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:46:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:04.657461+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:04.679285+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:46:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:04.681365+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:04.703614+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:04.716262+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:04 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:09.661475+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:46:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:09.677324+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:09.682705+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:46:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:09.688438+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:09.718517+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:09.722201+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:09 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:14.655429+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:46:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:14.658276+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:14.669081+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:46:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:14.676070+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:14.705206+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:14.717100+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:19.661461+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:46:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:19.675389+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:19.692177+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:46:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:19.697962+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:19.717030+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:19.739737+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:19 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:24.660267+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:46:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:24.667743+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:24.669910+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:46:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:24.679729+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:24.727535+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:24.743393+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:46:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:29.662494+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:46:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:29.683549+07:00 tran-thanh-tinh sudo: b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "b2203743 : PWD=/home/b2203743 ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:46:29 PM"
+  }, {
+    "full_message" : "2025-08-27T15:46:29.684469+07:00 tran-thanh-tinh sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.4",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743(uid=1000)",
+    "timestamp" : "8/27/2025 3:46:29 PM"
+  } ],
+  "anomalies" : [ {
+    "full_message" : "2025-08-27T15:24:53.427408+07:00 tran-thanh-tinh update-notifier[3179]: gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "level" : "error",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:53.473347+07:00 tran-thanh-tinh update-notifier[3179]: gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "level" : "error",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "gtk_widget_get_scale_factor: assertion 'GTK_IS_WIDGET (widget)' failed",
+    "timestamp" : "8/27/2025 3:24:53 PM"
+  }, {
+    "full_message" : "2025-08-27T15:24:54.648551+07:00 tran-thanh-tinh gnome-shell[2270]: Cursor update failed: drmModeAtomicCommit: Invalid argument",
+    "level" : "error",
+    "host" : "172.20.10.4",
+    "source" : "System",
+    "message" : "Cursor update failed: drmModeAtomicCommit: Invalid argument",
+    "timestamp" : "8/27/2025 3:24:54 PM"
+  } ],
+  "timestamp" : "2025-08-27 15:46:31"
+}

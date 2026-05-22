@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <title>IDS - Thông tin hệ thống</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav-server.css}" />
+    <link rel="stylesheet" th:href="@{/css/server.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/nav-server.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ansi_up@5.1.0/ansi_up.min.js"></script>
+
+    <style>
+      :root {
+        --primary-color: #ff7000;
+        --primary-light: #fff3e6;
+        --primary-shadow: rgba(255, 112, 0, 0.1);
+        --text-color: #333;
+        --border-radius: 8px;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .container1 {
+        width: 90%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 10px;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        align-content: center;
+        justify-content: center;
+        display: flex;
+        margin-top: 10px;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+      }
+
+      .info-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-color);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .info-card h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: var(--primary-color);
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .info-card p {
+        margin: 5px 0;
+        justify-content: left;
+        gap: 15px;
+        font-weight: bold;
+        font-size: 0.95rem;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+      }
+
+      .info-card p span:last-child {
+        font-weight: 500;
+        color: #000;
+      }
+
+      .progress-container {
+        margin: 5px 0;
+        margin-bottom: 5px;
+      }
+
+      .progress-label {
+        display: flex;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+
+      .progress-bar {
+        height: 18px;
+        background-color: #e9ecef;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4da6ff, #0066cc);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+      }
+
+      pre {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        padding: 12px;
+        overflow: auto;
+        max-height: 200px;
+        font-size: 13px;
+        line-height: 1.4;
+        margin: 10px 0 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .section-title {
+        font-size: 16px;
+        margin: 15px 0 10px;
+        color: #555;
+        font-weight: 600;
+      }
+
+      /* Tab Navigation Styles */
+      .tab-nav {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        align-content: center;
+        justify-content: center;
+      }
+
+      .tab-nav-item {
+        padding: 8px 16px;
+        background: #f0f0f0;
+        border-radius: 20px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border: 1px solid #ddd;
+        margin-block: auto;
+      }
+
+      .tab-nav-item:hover {
+        background: #e0e0e0;
+      }
+
+      .tab-nav-item.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .tab-nav::-webkit-scrollbar {
+        height: 5px;
+      }
+
+      .tab-nav::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+      }
+
+      /* Card filtering system */
+      .info-card {
+        display: block;
+        transition: all 0.3s ease;
+      }
+
+      .info-card.hidden {
+        display: none;
+      }
+
+      /* Detail button styles */
+      .detail-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+
+      .detail-btn:hover {
+        background: #e65c00;
+      }
+
+      /* Detail modal styles */
+      .detail-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .detail-modal-content {
+        background: white;
+        border-radius: var(--border-radius);
+        width: 80%;
+        max-width: 900px;
+        max-height: 80vh;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow-y: auto;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        color: #aaa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .close-modal:hover {
+        color: var(--primary-color);
+      }
+
+      .modal-title {
+        color: var(--primary-color);
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+
+      .modal-section {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .modal-section p {
+        display: flex;
+        padding: 0;
+      }
+      .modal-section-title {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+
+      .modal-section p strong {
+        min-width: 180px;
+        color: #555;
+      }
+
+      @media (max-width: 768px) {
+        .grid-container {
+          grid-template-columns: 1fr;
+        }
+
+        .container1 {
+          width: 95%;
+          padding: 5px;
+        }
+
+        .tab-nav {
+          gap: 8px;
+        }
+
+        .tab-nav-item {
+          padding: 6px 12px;
+          font-size: 14px;
+        }
+
+        .detail-modal-content {
+          width: 95%;
+          max-height: 85vh;
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar-server::sidebar-server"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <h1>Thông tin hệ thống</h1>
+      <div class="tab-nav">
+        <div class="tab-nav-item active" data-tab="all">Tất cả</div>
+        <div class="tab-nav-item" data-tab="cpu">CPU</div>
+        <div class="tab-nav-item" data-tab="ram">RAM</div>
+        <div class="tab-nav-item" data-tab="disk">Ổ cứng</div>
+        <div class="tab-nav-item" data-tab="network">Mạng</div>
+        <div class="tab-nav-item" data-tab="os">Hệ điều hành</div>
+        <div class="tab-nav-item" data-tab="security">Bảo mật</div>
+        <div class="tab-nav-item" data-tab="software">Phần mềm</div>
+        <div class="tab-nav-item" data-tab="user">User</div>
+      </div>
+      <div class="container">
+        <div class="container1">
+          <div class="grid-container">
+            <!-- CPU -->
+            <div class="info-card" data-tab="cpu">
+              <button class="detail-btn" data-detail="cpu">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-microchip"></i> Thông tin CPU</h3>
+              <p>Tên CPU: <span id="cpuname">...</span></p>
+              <p>Physical Cores: <span id="phcores">...</span></p>
+              <p>Logical Cores: <span id="logiccores">...</span></p>
+              <p>Tốc độ CPU: <span id="speedcpu">...</span></p>
+              <p>Kiến trúc: <span id="ktcpu">...</span></p>
+              <p>%CPU(s): <span id="hscpu">...</span></p>
+            </div>
+
+            <!-- RAM -->
+            <div class="info-card" data-tab="ram">
+              <button class="detail-btn" data-detail="ram">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-memory"></i> Thông tin RAM</h3>
+              <p>Tổng RAM: <span id="ramtotal">...</span></p>
+              <p style="display: none">
+                RAM đã dùng: <span id="ramused">...</span>
+              </p>
+              <p style="display: none">
+                RAM trống: <span id="ramfree">...</span>
+              </p>
+              <div class="progress-container">
+                <div class="progress-label">
+                  <p>Tỉ lệ sử dụng RAM</p>
+                  <p id="ramPercent">0%</p>
+                </div>
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    id="ramBar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+              </div>
+              <p>Swap Total: <span id="swaptotal">...</span></p>
+              <p>Swap Used: <span id="swapused">...</span></p>
+            </div>
+
+            <!-- Ổ cứng -->
+            <div class="info-card" data-tab="disk">
+              <button class="detail-btn" data-detail="disk">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-hdd"></i> Thông tin Ổ cứng</h3>
+              <p>Tổng dung lượng: <span id="disktotal">...</span></p>
+              <p style="display: none">
+                Đã sử dụng: <span id="diskused">...</span>
+              </p>
+              <p style="display: none">
+                Còn trống: <span id="diskfree">...</span>
+              </p>
+              <div class="progress-container">
+                <div class="progress-label">
+                  <p>Tỉ lệ sử dụng ổ cứng</p>
+                  <p id="diskPercent">0%</p>
+                </div>
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    id="diskBar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+              </div>
+              <p>Filesystem: <span id="diskfs">...</span></p>
+              <p>Danh sách ổ đĩa:</p>
+              <pre id="disklist">...</pre>
+            </div>
+
+            <!-- Mạng -->
+            <div class="info-card" data-tab="network">
+              <button class="detail-btn" data-detail="network">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-network-wired"></i> Thông tin Mạng</h3>
+              <p>Địa chỉ IP: <span id="ipaddr">...</span></p>
+              <p>Gateway: <span id="gateway">...</span></p>
+              <p>DNS: <span id="dns">...</span></p>
+              <p>Tốc độ: <span id="netspeed">...</span></p>
+              <p>Cổng đang mở:</p>
+              <pre id="netstat">...</pre>
+            </div>
+
+            <!-- Hệ điều hành -->
+            <div class="info-card" data-tab="os">
+              <button class="detail-btn" data-detail="os">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-desktop"></i> Thông tin Hệ điều hành</h3>
+              <p>Hostname: <span id="hostname">...</span></p>
+              <p>OS: <span id="osinfo">...</span></p>
+              <p>Kernel: <span id="kernel">...</span></p>
+              <p>Uptime: <span id="uptime">...</span></p>
+              <p>Thời gian hoạt động: <span id="boottime">...</span></p>
+            </div>
+
+            <!-- Bảo mật -->
+            <div class="info-card" data-tab="security">
+              <button class="detail-btn" data-detail="security">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-shield-alt"></i> Thông tin Bảo mật</h3>
+              <div class="section-title">Đăng nhập gần đây:</div>
+              <pre id="lastlogins">...</pre>
+            </div>
+
+            <!-- Phần mềm -->
+            <div class="info-card" data-tab="software">
+              <button class="detail-btn" data-detail="software">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-box"></i> Phần mềm</h3>
+              <div class="section-title">Cập nhật hệ thống:</div>
+              <pre id="pendingupdates">...</pre>
+              <div class="section-title">Phiên bản phần mềm:</div>
+              <pre id="softwareversions">...</pre>
+            </div>
+
+            <!-- User -->
+            <div class="info-card" data-tab="user">
+              <button class="detail-btn" data-detail="user">
+                <i class="fas fa-info-circle"></i> Chi tiết
+              </button>
+              <h3><i class="fas fa-users"></i> Thông tin User</h3>
+              <div class="section-title">User đang login:</div>
+              <pre id="loggedusers">...</pre>
+              <div class="section-title">Danh sách user hệ thống:</div>
+              <pre id="systemusers">...</pre>
+              <div class="section-title">User sudoers:</div>
+              <pre id="sudoers">...</pre>
+              <div class="section-title">Session hiện tại:</div>
+              <pre id="usersessions">...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail-->
+    <div class="detail-modal" id="detailModal">
+      <div class="detail-modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 class="modal-title" id="modalTitle">Chi tiết</h3>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <div th:replace="sharedparts/nav-server::nav-server"></div>
+
+    <script th:inline="javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tab-nav
+        const tabItems = document.querySelectorAll(".tab-nav-item");
+        tabItems.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            tabItems.forEach((item) => item.classList.remove("active"));
+            this.classList.add("active");
+            const tabType = this.getAttribute("data-tab");
+            const cards = document.querySelectorAll(".info-card");
+
+            cards.forEach((card) => {
+              if (
+                tabType === "all" ||
+                card.getAttribute("data-tab") === tabType
+              ) {
+                card.classList.remove("hidden");
+              } else {
+                card.classList.add("hidden");
+              }
+            });
+          });
+        });
+
+        // Chức năng chi tiết
+        const modal = document.getElementById("detailModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalContent = document.getElementById("modalContent");
+        const closeBtn = document.querySelector(".close-modal");
+        const detailBtns = document.querySelectorAll(".detail-btn");
+        // Nhấn chi tiết mở chi tiết
+        detailBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const detailType = this.getAttribute("data-detail");
+            showDetailModal(detailType);
+          });
+        });
+        // nhấn x để đóng
+        closeBtn.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+        // đóng chi tiết khi nhấn ra ngoài
+        window.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+        // hiện chi tiết
+        function showDetailModal(detailType) {
+          const urlParams = new URLSearchParams(window.location.search);
+          const host = urlParams.get("host");
+
+          // quá trình tải
+          modalTitle.textContent = "Đang tải chi tiết...";
+          modalContent.innerHTML = "<p>Đang tải dữ liệu...</p>";
+          modal.style.display = "flex";
+          fetch(`/api/system-info/readFile?host=${host}`)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Không thể lấy dữ liệu chi tiết.");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (data.error) {
+                modalContent.innerHTML = `<p class="error">${data.error}</p>`;
+                return;
+              }
+              // Đặt tiêu đề modal dựa trên loại chi tiết
+              let title = "";
+              let content = "";
+
+              switch (detailType) {
+                case "cpu":
+                  title = "Chi tiết CPU";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin cơ bản</h4>
+                    <p><strong>Tên CPU:</strong> ${data.cpuname || "N/A"}</p>
+                    <p><strong>Số core vật lý:</strong> ${
+                      data.phcores || "N/A"
+                    }</p>
+                    <p><strong>Số core logic:</strong> ${
+                      data.logiccores || "N/A"
+                    }</p>
+                    <p><strong>Tốc độ:</strong> ${data.speedcpu || "N/A"}</p>
+                    <p><strong>Kiến trúc:</strong> ${data.ktcpu || "N/A"}</p>
+                    <p><strong>% Sử dụng:</strong> ${data.hscpu || "N/A"}</p>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin chi tiết</h4>
+                    <pre>${
+                      data.cpu_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "ram":
+                  title = "Chi tiết RAM";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin sử dụng</h4>
+                    <p><strong>Tổng RAM:</strong> ${data.ramtotal || "N/A"}</p>
+                    <p><strong>RAM đã dùng:</strong> ${
+                      data.ramused || "N/A"
+                    }</p>
+                    <p><strong>RAM trống:</strong> ${data.ramfree || "N/A"}</p>
+                    <p><strong>Tỉ lệ sử dụng:</strong> ${
+                      document.getElementById("ramPercent").textContent
+                    }</p>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin Swap</h4>
+                    <p><strong>Tổng Swap:</strong> ${
+                      data.swaptotal || "N/A"
+                    }</p>
+                    <p><strong>Swap đã dùng:</strong> ${
+                      data.swapused || "N/A"
+                    }</p>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Chi tiết bộ nhớ</h4>
+                    <pre>${
+                      data.ram_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "disk":
+                  title = "Chi tiết Ổ cứng";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin sử dụng</h4>
+                    <p><strong>Tổng dung lượng:</strong> ${
+                      data.disktotal || "N/A"
+                    }</p>
+                    <p><strong>Đã sử dụng:</strong> ${
+                      data.diskused || "N/A"
+                    }</p>
+                    <p><strong>Còn trống:</strong> ${data.diskfree || "N/A"}</p>
+                    <p><strong>Tỉ lệ sử dụng:</strong> ${
+                      document.getElementById("diskPercent").textContent
+                    }</p>
+                    <p><strong>Filesystem:</strong> ${data.diskfs || "N/A"}</p>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Danh sách ổ đĩa</h4>
+                    <pre>${data.disklist || "Không có thông tin"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin chi tiết</h4>
+                    <pre>${
+                      data.disk_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "network":
+                  title = "Chi tiết Mạng";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin kết nối</h4>
+                    <p><strong>Địa chỉ IP:</strong> ${data.ipaddr || "N/A"}</p>
+                    <p><strong>Gateway:</strong> ${data.gateway || "N/A"}</p>
+                    <p><strong>DNS:</strong> ${data.dns || "N/A"}</p>
+                    <p><strong>Tốc độ:</strong> ${data.netspeed || "N/A"}</p>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Cổng đang mở</h4>
+                    <pre>${data.netstat || "Không có kết nối"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin giao diện mạng</h4>
+                    <pre>${
+                      data.network_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "os":
+                  title = "Chi tiết Hệ điều hành";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin hệ thống</h4>
+                    <p><strong>Hostname:</strong> ${data.hostname || "N/A"}</p>
+                    <p><strong>Hệ điều hành:</strong> ${
+                      data.osinfo || "N/A"
+                    }</p>
+                    <p><strong>Kernel:</strong> ${data.kernel || "N/A"}</p>
+                    <p><strong>Uptime:</strong> ${data.uptime || "N/A"}</p>
+                    <p><strong>Thời gian hoạt động:</strong> ${
+                      data.boottime || "N/A"
+                    }</p>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin chi tiết</h4>
+                    <pre>${
+                      data.os_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "security":
+                  title = "Chi tiết Bảo mật";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Đăng nhập gần đây</h4>
+                    <pre>${data.lastlogins || "Không có dữ liệu"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin bảo mật</h4>
+                    <pre>${
+                      data.security_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "software":
+                  title = "Chi tiết Phần mềm";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Cập nhật hệ thống</h4>
+                    <pre>${data.pendingupdates || "Đã cập nhật đầy đủ"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Phiên bản phần mềm</h4>
+                    <pre>${data.softwareversions || "Không xác định"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin chi tiết</h4>
+                    <pre>${
+                      data.software_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                case "user":
+                  title = "Chi tiết User";
+                  content = `
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">User đang login</h4>
+                    <pre>${data.loggedusers || "Không có user đăng nhập"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Danh sách user hệ thống</h4>
+                    <pre>${data.systemusers || "Không có user"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">User sudoers</h4>
+                    <pre>${data.sudoers || "Không có sudoers"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Session hiện tại</h4>
+                    <pre>${data.usersessions || "Không có session"}</pre>
+                  </div>
+                  <div class="modal-section">
+                    <h4 class="modal-section-title">Thông tin chi tiết</h4>
+                    <pre>${
+                      data.user_details || "Không có thông tin chi tiết"
+                    }</pre>
+                  </div>
+                `;
+                  break;
+
+                default:
+                  title = "Chi tiết";
+                  content = "<p>Không có thông tin chi tiết cho mục này.</p>";
+              }
+
+              modalTitle.textContent = title;
+              modalContent.innerHTML = content;
+            })
+            .catch((err) => {
+              console.error("Lỗi khi tải thông tin chi tiết:", err);
+              modalContent.innerHTML = `<p class="error">Lỗi khi tải thông tin chi tiết: ${err.message}</p>`;
+            });
+        }
+
+        // lấy thông tin hệ thống
+        const urlParams = new URLSearchParams(window.location.search);
+        const host = urlParams.get("host");
+        fetch(`/api/system-info?host=${host}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Không thể lấy dữ liệu.");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.error) {
+              alert(data.error);
+              return;
+            }
+
+            // Cập nhật thông tin CPU
+            document.getElementById("cpuname").textContent =
+              data.cpuname || "N/A";
+            document.getElementById("phcores").textContent =
+              data.phcores || "N/A";
+            document.getElementById("logiccores").textContent =
+              data.logiccores || "N/A";
+            document.getElementById("speedcpu").textContent =
+              data.speedcpu || "N/A";
+            document.getElementById("ktcpu").textContent = data.ktcpu || "N/A";
+            document.getElementById("hscpu").textContent = data.hscpu || "N/A";
+
+            // Cập nhật thông tin RAM
+            document.getElementById("ramtotal").textContent =
+              data.ramtotal || "N/A";
+            document.getElementById("ramused").textContent =
+              data.ramused || "N/A";
+            document.getElementById("ramfree").textContent =
+              data.ramfree || "N/A";
+            document.getElementById("swaptotal").textContent =
+              data.swaptotal || "N/A";
+            document.getElementById("swapused").textContent =
+              data.swapused || "N/A";
+
+            // Cập nhật thông tin Ổ cứng
+            document.getElementById("disktotal").textContent =
+              data.disktotal || "N/A";
+            document.getElementById("diskused").textContent =
+              data.diskused || "N/A";
+            document.getElementById("diskfree").textContent =
+              data.diskfree || "N/A";
+            document.getElementById("diskfs").textContent =
+              data.diskfs || "N/A";
+            document.getElementById("disklist").textContent =
+              data.disklist || "Không có dữ liệu";
+
+            // Cập nhật thông tin Mạng
+            document.getElementById("ipaddr").textContent =
+              data.ipaddr || "N/A";
+            document.getElementById("gateway").textContent =
+              data.gateway || "N/A";
+            document.getElementById("dns").textContent = data.dns || "N/A";
+            document.getElementById("netspeed").textContent =
+              data.netspeed || "N/A";
+            document.getElementById("netstat").textContent =
+              data.netstat || "Không có kết nối";
+
+            // Cập nhật thông tin Hệ điều hành
+            document.getElementById("hostname").textContent =
+              data.hostname || "N/A";
+            document.getElementById("osinfo").textContent =
+              data.osinfo || "N/A";
+            document.getElementById("kernel").textContent =
+              data.kernel || "N/A";
+            document.getElementById("uptime").textContent =
+              data.uptime || "N/A";
+            document.getElementById("boottime").textContent =
+              data.boottime || "N/A";
+
+            // Cập nhật thông tin khác
+            document.getElementById("lastlogins").textContent =
+              data.lastlogins || "Không có dữ liệu";
+            document.getElementById("pendingupdates").textContent =
+              data.pendingupdates || "Đã cập nhật đầy đủ";
+            document.getElementById("softwareversions").textContent =
+              data.softwareversions || "Không xác định";
+            document.getElementById("loggedusers").textContent =
+              data.loggedusers || "Không có user đăng nhập";
+            document.getElementById("systemusers").textContent =
+              data.systemusers || "Không có user";
+            document.getElementById("sudoers").textContent =
+              data.sudoers || "Không có sudoers";
+            document.getElementById("usersessions").textContent =
+              data.usersessions || "Không có session";
+
+            // Cập nhật thanh tiến trình RAM
+            if (data.ramtotal && data.ramused) {
+              try {
+                const ramUsed = parseFloat(data.ramused);
+                const ramTotal = parseFloat(data.ramtotal);
+                if (!isNaN(ramUsed) && !isNaN(ramTotal) && ramTotal > 0) {
+                  const ramPercent = Math.round((ramUsed / ramTotal) * 100);
+                  document.getElementById("ramBar").style.width =
+                    ramPercent + "%";
+                  document.getElementById("ramPercent").textContent =
+                    ramPercent + "%";
+                }
+              } catch (e) {
+                console.error("Lỗi tính toán RAM:", e);
+              }
+            }
+
+            // Cập nhật thanh tiến trình Disk
+            if (data.disktotal && data.diskused) {
+              try {
+                const diskUsed = parseFloat(data.diskused);
+                const diskTotal = parseFloat(data.disktotal);
+                if (!isNaN(diskUsed) && !isNaN(diskTotal) && diskTotal > 0) {
+                  const diskPercent = Math.round((diskUsed / diskTotal) * 100);
+                  document.getElementById("diskBar").style.width =
+                    diskPercent + "%";
+                  document.getElementById("diskPercent").textContent =
+                    diskPercent + "%";
+                }
+              } catch (e) {
+                console.error("Lỗi tính toán Disk:", e);
+              }
+            }
+          })
+          .catch((err) => {
+            console.error("Lỗi khi tải thông tin:", err);
+            alert("Lỗi khi tải thông tin hệ thống.");
+          });
+      });
+    </script>
+  </body>
+</html>

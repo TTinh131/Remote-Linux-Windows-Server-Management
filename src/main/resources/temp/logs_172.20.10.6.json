@@ -1,0 +1,365 @@
+{
+  "stats" : {
+    "totalLogs" : 50,
+    "sourceDistribution" : {
+      "Authentication" : 25,
+      "System" : 25
+    },
+    "levelDistribution" : {
+      "info" : 50
+    }
+  },
+  "parsed_logs" : [ {
+    "full_message" : "2025-08-27T15:12:06.994794+07:00 b2203743 systemd[1]: session-99.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-99.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:12:06 PM"
+  }, {
+    "full_message" : "2025-08-27T15:13:06.407094+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 100 at /org/freedesktop/login1/session/_3100",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 100 at /org/freedesktop/login1/session/_3100",
+    "timestamp" : "8/27/2025 3:13:06 PM"
+  }, {
+    "full_message" : "2025-08-27T15:13:06.418757+07:00 b2203743 systemd[1]: Started session-100.scope - Session 100 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-100.scope - Session 100 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:13:06 PM"
+  }, {
+    "full_message" : "2025-08-27T15:13:07.058337+07:00 b2203743 systemd[1]: session-100.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-100.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:13:07 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:06.346666+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 101 at /org/freedesktop/login1/session/_3101",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 101 at /org/freedesktop/login1/session/_3101",
+    "timestamp" : "8/27/2025 3:14:06 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:06.396433+07:00 b2203743 systemd[1]: Started session-101.scope - Session 101 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-101.scope - Session 101 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:14:06 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:06.991723+07:00 b2203743 systemd[1]: session-101.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-101.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:14:06 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:44.483822+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 102 at /org/freedesktop/login1/session/_3102",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 102 at /org/freedesktop/login1/session/_3102",
+    "timestamp" : "8/27/2025 3:14:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:44.542126+07:00 b2203743 systemd[1]: Started session-102.scope - Session 102 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-102.scope - Session 102 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:14:44 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:45.196833+07:00 b2203743 systemd[1]: session-102.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-102.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:14:45 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:59.239089+07:00 b2203743 systemd[1]: Started session-103.scope - Session 103 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-103.scope - Session 103 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:14:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:59.247882+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 103 at /org/freedesktop/login1/session/_3103",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 103 at /org/freedesktop/login1/session/_3103",
+    "timestamp" : "8/27/2025 3:14:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:14:59.930626+07:00 b2203743 systemd[1]: session-103.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-103.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:14:59 PM"
+  }, {
+    "full_message" : "2025-08-27T15:15:01.313726+07:00 b2203743 CRON[7525]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "(root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)",
+    "timestamp" : "8/27/2025 3:15:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:15:49.283263+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 105 at /org/freedesktop/login1/session/_3105",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 105 at /org/freedesktop/login1/session/_3105",
+    "timestamp" : "8/27/2025 3:15:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:15:49.296246+07:00 b2203743 systemd[1]: Started session-105.scope - Session 105 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-105.scope - Session 105 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:15:49 PM"
+  }, {
+    "full_message" : "2025-08-27T15:15:50.016030+07:00 b2203743 systemd[1]: session-105.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-105.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:15:50 PM"
+  }, {
+    "full_message" : "2025-08-27T15:16:22.124491+07:00 b2203743 systemd[1]: Started session-106.scope - Session 106 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-106.scope - Session 106 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:16:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:16:22.155607+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 106 at /org/freedesktop/login1/session/_3106",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 106 at /org/freedesktop/login1/session/_3106",
+    "timestamp" : "8/27/2025 3:16:22 PM"
+  }, {
+    "full_message" : "2025-08-27T15:17:01.370699+07:00 b2203743 CRON[7648]: (root) CMD (cd / && run-parts --report /etc/cron.hourly)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "(root) CMD (cd / && run-parts --report /etc/cron.hourly)",
+    "timestamp" : "8/27/2025 3:17:01 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:24.404328+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 108 at /org/freedesktop/login1/session/_3108",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 108 at /org/freedesktop/login1/session/_3108",
+    "timestamp" : "8/27/2025 3:18:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:24.417280+07:00 b2203743 systemd[1]: Started session-108.scope - Session 108 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-108.scope - Session 108 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:18:24 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:25.150591+07:00 b2203743 systemd[1]: session-108.scope: Deactivated successfully.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "session-108.scope: Deactivated successfully.",
+    "timestamp" : "8/27/2025 3:18:25 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:27.246949+07:00 b2203743 snapd-desktop-i[2026]: Detected new session 109 at /org/freedesktop/login1/session/_3109",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Detected new session 109 at /org/freedesktop/login1/session/_3109",
+    "timestamp" : "8/27/2025 3:18:27 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:27.285349+07:00 b2203743 systemd[1]: Started session-109.scope - Session 109 of User b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "System",
+    "message" : "Started session-109.scope - Session 109 of User b2203743_server.",
+    "timestamp" : "8/27/2025 3:18:27 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:25.179353+07:00 b2203743 systemd-logind[697]: Removed session 108.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "Removed session 108.",
+    "timestamp" : "8/27/2025 3:18:25 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:27.148545+07:00 b2203743 sshd[7708]: Accepted password for b2203743_server from 172.20.10.3 port 24409 ssh2",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "Accepted password for b2203743_server from 172.20.10.3 port 24409 ssh2",
+    "timestamp" : "8/27/2025 3:18:27 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:27.155199+07:00 b2203743 sshd[7708]: pam_unix(sshd:session): session opened for user b2203743_server(uid=1000) by b2203743_server(uid=0)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sshd:session): session opened for user b2203743_server(uid=1000) by b2203743_server(uid=0)",
+    "timestamp" : "8/27/2025 3:18:27 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:27.184782+07:00 b2203743 systemd-logind[697]: New session 109 of user b2203743_server.",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "New session 109 of user b2203743_server.",
+    "timestamp" : "8/27/2025 3:18:27 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:36.640234+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:18:36 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:36.678927+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:18:36 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:36.681575+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:18:36 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:36.692002+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:18:36 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:36.713685+07:00 b2203743 sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:18:36 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:36.734097+07:00 b2203743 sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:18:36 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:47.699929+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:18:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:47.719705+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:18:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:47.726926+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 100 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:18:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:47.731476+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:18:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:47.752711+07:00 b2203743 sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:18:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:18:47.774194+07:00 b2203743 sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:18:47 PM"
+  }, {
+    "full_message" : "2025-08-27T15:19:52.536190+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:19:52 PM"
+  }, {
+    "full_message" : "2025-08-27T15:19:52.559257+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:19:52 PM"
+  }, {
+    "full_message" : "2025-08-27T15:19:52.563926+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:19:52 PM"
+  }, {
+    "full_message" : "2025-08-27T15:19:52.570056+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:19:52 PM"
+  }, {
+    "full_message" : "2025-08-27T15:19:52.579067+07:00 b2203743 sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:19:52 PM"
+  }, {
+    "full_message" : "2025-08-27T15:19:52.586401+07:00 b2203743 sudo: pam_unix(sudo:session): session closed for user root",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session closed for user root",
+    "timestamp" : "8/27/2025 3:19:52 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:14.604733+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/syslog",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/syslog",
+    "timestamp" : "8/27/2025 3:20:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:14.688295+07:00 b2203743 sudo: b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/auth.log",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "b2203743_server : PWD=/home/b2203743_server ; USER=root ; COMMAND=/usr/bin/tail -n 25 /var/log/auth.log",
+    "timestamp" : "8/27/2025 3:20:14 PM"
+  }, {
+    "full_message" : "2025-08-27T15:20:14.693529+07:00 b2203743 sudo: pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "level" : "info",
+    "host" : "172.20.10.6",
+    "source" : "Authentication",
+    "message" : "pam_unix(sudo:session): session opened for user root(uid=0) by b2203743_server(uid=1000)",
+    "timestamp" : "8/27/2025 3:20:14 PM"
+  } ],
+  "anomalies" : [ ],
+  "timestamp" : "2025-08-27 15:20:14"
+}

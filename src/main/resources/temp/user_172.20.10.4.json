@@ -1,0 +1,8 @@
+{
+  "active_users" : "b2203743",
+  "sudo_users" : "b2203743\nb33",
+  "all_users" : "b2203743:x:1000:1000:b2203743:/home/b2203743:/bin/bash\nuser4:x:1002:1002:,,,:/home/user4:/bin/bash\nb33:x:1003:1003:,,,:/home/b33:/bin/bash\nuser67:x:1001:1001:,,,:/home/user67:/bin/bash",
+  "last_logins" : "b2203743: Wed Aug 27 15:16:20\nuser4: Never\nb33: Never\nuser67: Never",
+  "current_user" : "b2203743",
+  "locked_accounts" : "user4"
+}

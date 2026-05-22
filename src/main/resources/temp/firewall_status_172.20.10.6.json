@@ -1,0 +1,6 @@
+{
+  "allow_rules" : "Error executing command: channel is not opened.",
+  "total_rules" : "Error executing command: channel is not opened.",
+  "deny_rules" : "Error executing command: channel is not opened.",
+  "status" : "inactive"
+}

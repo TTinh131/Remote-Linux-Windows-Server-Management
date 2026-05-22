@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDS - Thêm Server</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <link rel="stylesheet" th:href="@{/css/add-server.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/addserver.js}" defer></script>
+    <!--đoạn js này sẽ được thực thi sau khi DOM đã được tải xong-->
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar::sidebar"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <div class="container">
+        <div class="form-container">
+          <h1>Thêm Server</h1>
+          <form id="addServerForm" autocomplete="off">
+            <div class="form-group">
+              <label for="IPaddress">Địa chỉ IP</label>
+              <input
+                type="text"
+                maxlength="15"
+                id="IPaddress"
+                name="IPaddress"
+                placeholder="Nhập địa chỉ IP"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Nhập username"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="port">Cổng</label>
+              <input
+                type="number"
+                min="1"
+                max="65535"
+                id="port"
+                name="port"
+                placeholder="Nhập cổng kết nối"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Nhập password"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="alias">Tên thay thế</label>
+              <input
+                type="text"
+                id="alias"
+                name="alias"
+                placeholder="Nhập tên thay thế (không bắt buộc)"
+              />
+            </div>
+            <div class="form-group button-group">
+              <button type="reset">Xóa</button>
+              <button type="button" id="submitButton">Thêm</button>
+            </div>
+          </form>
+          <div id="responseMessage" style="margin-top: 1rem"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

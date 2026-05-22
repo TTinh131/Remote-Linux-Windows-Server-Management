@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <title>IDS - Multi Terminal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav-server.css}" />
+    <link rel="stylesheet" th:href="@{/css/server.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/nav-server.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ansi_up@5.1.0/ansi_up.min.js"></script>
+    <style>
+      /* Container-specific styles only */
+      .container {
+        --primary-color: #ff7000;
+        --primary-light: rgba(255, 112, 0, 0.1);
+        --linux-color: #28a745;
+        --windows-color: #007bff;
+        --success-color: #28a745;
+        --error-color: #dc3545;
+        --warning-color: #ffc107;
+        --dark-bg: #1e272e;
+        --terminal-bg: #0a0e12;
+        --terminal-green: #00ff9d;
+        --terminal-text: #e0e0e0;
+        --card-bg: #ffffff;
+        --text-color: #333333;
+        --border-color: #e0e0e0;
+
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 20px;
+        padding: 20px;
+        height: calc(100vh - var(--header-height) - 40px);
+        align-items: normal;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 1rem;
+      }
+      .container .left-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .container .right-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .header-section {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 90%;
+      }
+
+      .container .card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        border: 1px solid var(--border-color);
+      }
+
+      .container .card-title {
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin-top: 0;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+      }
+
+      .container .card-title i {
+        color: var(--primary-color);
+      }
+
+      .container .server-list-container {
+        flex-grow: 1;
+        overflow: hidden;
+        border-radius: 12px;
+        background-color: var(--card-bg);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container .server-list-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--card-bg);
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        cursor: pointer;
+        gap: 10px;
+      }
+
+      .container .server-list-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 0;
+        display: none; /* Ẩn ban đầu */
+      }
+
+      .container .server-list-container.expanded .server-list-body {
+        display: block; /* Hiển thị khi expanded */
+      }
+
+      .container .server-item {
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .container .server-item:hover {
+        background-color: #f8f9fa;
+      }
+
+      .container .server-item.selected {
+        background-color: var(--primary-light);
+      }
+
+      .container .server-item:last-child {
+        border-bottom: none;
+      }
+
+      .container .server-checkbox {
+        margin-right: 12px;
+        accent-color: var(--primary-color);
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+
+      .container .os-tag {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        margin-left: auto;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .container .linux-tag {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: var(--linux-color);
+        border: 1px solid var(--linux-color);
+      }
+
+      .container .windows-tag {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: var(--windows-color);
+        border: 1px solid var(--windows-color);
+      }
+
+      .container .terminals-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        gap: 20px;
+        overflow-y: auto;
+        padding-right: 5px;
+      }
+
+      .container .terminal {
+        background-color: var(--terminal-bg);
+        color: var(--terminal-text);
+        height: 350px;
+        border-radius: 12px;
+        overflow: hidden;
+        font-family: "Fira Code", "Courier New", monospace;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .container .terminal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .container .terminal-title {
+        font-weight: 600;
+        color: var(--terminal-text);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .container .terminal-title .os-icon {
+        font-size: 0.8rem;
+      }
+
+      .container .terminal-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .container .terminal-action-btn {
+        background: none;
+        border: none;
+        color: var(--terminal-text);
+        opacity: 0.6;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: all 0.2s;
+      }
+
+      .container .terminal-action-btn:hover {
+        opacity: 1;
+        color: var(--primary-color);
+      }
+
+      .container .terminal-status {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .container .status-success {
+        background-color: var(--success-color);
+        color: white;
+      }
+
+      .container .status-error {
+        background-color: var(--error-color);
+        color: white;
+      }
+
+      .container .status-warning {
+        background-color: var(--warning-color);
+        color: #2d3436;
+      }
+
+      .container .terminal-content {
+        flex-grow: 1;
+        padding: 15px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #555 var(--terminal-bg);
+      }
+
+      .container .terminal-content::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .container .terminal-content::-webkit-scrollbar-thumb {
+        background-color: #555;
+        border-radius: 3px;
+      }
+
+      .container .terminal-content::-webkit-scrollbar-track {
+        background-color: var(--terminal-bg);
+      }
+
+      .container .prompt-line {
+        margin-bottom: 10px;
+      }
+
+      .container .prompt {
+        color: var(--terminal-green);
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+
+      .container .command-line {
+        outline: none;
+        color: var(--terminal-text);
+        caret-color: var(--terminal-green);
+        flex-grow: 1;
+        background: transparent;
+        border: none;
+        font-family: inherit;
+        white-space: pre-wrap;
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .container .command-line:focus {
+        outline: none;
+      }
+
+      .container .output {
+        white-space: pre-wrap;
+        margin-bottom: 10px;
+        line-height: 1.5;
+        font-size: 0.9rem;
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .container .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #888;
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+        font-size: 0.85rem;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-primary {
+        background-color: #ff7000;
+        color: white;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      .btn-primary:hover {
+        background-color: #e05a00;
+      }
+
+      .container .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .container .btn-success {
+        background-color: var(--success-color);
+        color: white;
+      }
+
+      .container .btn-danger {
+        background-color: var(--error-color);
+        color: white;
+      }
+
+      .container .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+      }
+
+      .container .btn-outline:hover {
+        background-color: #f8f9fa;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .container .server-controls {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .container .search-box {
+        flex-grow: 1;
+        padding: 8px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+        min-width: 200px;
+      }
+
+      .container .search-box:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(255, 112, 0, 0.2);
+        outline: none;
+      }
+
+      .container .command-section {
+        margin-bottom: 0;
+      }
+
+      .container .command-section h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: var(--text-color);
+        font-size: 1.1rem;
+      }
+
+      .container .command-group {
+        margin-bottom: 15px;
+      }
+
+      .container .command-group-title {
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: var(--text-color);
+        font-size: 0.95rem;
+        padding: 5px;
+        border-radius: 6px;
+      }
+
+      .container .command-group-title:hover {
+        background-color: var(--primary-light);
+      }
+
+      .container .command-group-title i {
+        margin-right: 8px;
+        transition: transform 0.2s;
+        color: var(--primary-color);
+      }
+
+      .container .command-group.collapsed .command-group-title i {
+        transform: rotate(-90deg);
+      }
+
+      .container .command-group.collapsed .quick-commands {
+        display: none;
+      }
+
+      .container .quick-commands {
+        display: grid;
+        gap: 10px;
+      }
+
+      .container .quick-command-btn {
+        padding: 8px 12px;
+        background-color: #f8f9fa;
+        color: var(--text-color);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+        text-align: left;
+        font-family: "Fira Code", monospace;
+      }
+
+      .container .quick-command-btn:hover {
+        background-color: var(--primary-light);
+        transform: translateX(3px);
+        color: var(--primary-color);
+      }
+
+      .container .quick-command-btn i {
+        font-size: 0.8rem;
+        color: var(--primary-color);
+      }
+
+      .container .linux-command {
+        border-left: 3px solid var(--linux-color);
+      }
+
+      .container .windows-command {
+        border-left: 3px solid var(--windows-color);
+      }
+
+      .global-command-container h3 {
+        margin-bottom: 10px;
+      }
+      .gc-container {
+        display: flex;
+        gap: 10px;
+      }
+      .global-command-input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+      }
+
+      .container .global-command-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(255, 112, 0, 0.2);
+        outline: none;
+      }
+
+      .container .tab-container {
+        display: flex;
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .container .tab {
+        padding: 8px 16px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+
+      .container .tab.active {
+        border-bottom-color: var(--primary-color);
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .container .tab:hover {
+        color: var(--primary-color);
+      }
+
+      .container .tab-content {
+        display: none;
+      }
+
+      .container .tab-content.active {
+        display: block;
+      }
+
+      .container .command-description {
+        font-size: 0.75rem;
+        color: #6c757d;
+        margin-top: 4px;
+        display: block;
+      }
+
+      .container .server-count {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        margin-left: 5px;
+      }
+      .terminal-tabs {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .container .terminal-tab {
+        padding: 8px 16px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+      }
+
+      .container .terminal-tab.active {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .container .terminal-tab:hover:not(.active) {
+        background-color: var(--primary-light);
+        color: var(--primary-color);
+      }
+
+      /* New styles for the reorganized layout */
+      .server-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .server-control-section {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        border: 1px solid var(--border-color);
+      }
+
+      @media (max-width: 1200px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+
+        .container .terminals-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar::sidebar"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <h1>Multi Terminal</h1>
+      <div class="header-section">
+        <button class="btn btn-primary btn-sm" onclick="refreshServers()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </div>
+      <div class="container">
+        <div class="left-panel">
+          <div class="card command-section">
+            <h3>
+              <i class="fas fa-bolt" style="color: var(--primary-color)"></i>
+              Quick Commands
+            </h3>
+
+            <div class="tab-container">
+              <div
+                class="tab active"
+                onclick="switchTab(event, 'common-commands')"
+              >
+                Common
+              </div>
+              <div class="tab" onclick="switchTab(event, 'linux-commands')">
+                Linux
+              </div>
+              <div class="tab" onclick="switchTab(event, 'windows-commands')">
+                Windows
+              </div>
+            </div>
+
+            <div id="common-commands" class="tab-content active">
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> System Info
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('uptime')"
+                  >
+                    <i class="fas fa-clock"></i> uptime
+                    <span class="command-description">Show system uptime</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('uname -a')"
+                  >
+                    <i class="fas fa-info-circle"></i> uname -a
+                    <span class="command-description">System information</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('hostnamectl')"
+                  >
+                    <i class="fas fa-desktop"></i> hostnamectl
+                    <span class="command-description"
+                      >Hostname and OS info</span
+                    >
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('systeminfo')"
+                  >
+                    <i class="fas fa-info"></i> systeminfo
+                    <span class="command-description">Windows system info</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> Disk & Memory
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('df -h')"
+                  >
+                    <i class="fas fa-hdd"></i> df -h
+                    <span class="command-description">Disk space</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('free -m')"
+                  >
+                    <i class="fas fa-memory"></i> free -m
+                    <span class="command-description">Memory usage</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('du -sh *')"
+                  >
+                    <i class="fas fa-folder"></i> du -sh *
+                    <span class="command-description">Directory sizes</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand(`powershell -command &quot;Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{Name='Used (GB)';Expression={[math]::Round(($_.Used/1GB),2)}}, @{Name='Free (GB)';Expression={[math]::Round(($_.Free/1GB),2)}}&quot;`)"
+                  >
+                    <i class="fas fa-hdd"></i> disk size
+                    <span class="command-description">Windows disk size</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> Network
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('ifconfig || ip a')"
+                  >
+                    <i class="fas fa-network-wired"></i> ifconfig
+                    <span class="command-description">Network interfaces</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('netstat -tuln')"
+                  >
+                    <i class="fas fa-plug"></i> netstat
+                    <span class="command-description">Listening ports</span>
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('ping -c 4 google.com')"
+                  >
+                    <i class="fas fa-wifi"></i> ping
+                    <span class="command-description"
+                      >Network connectivity</span
+                    >
+                  </button>
+                  <button
+                    class="quick-command-btn"
+                    onclick="sendQuickCommand('ipconfig /all')"
+                  >
+                    <i class="fas fa-ethernet"></i> ipconfig
+                    <span class="command-description"
+                      >Windows network info</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="linux-commands" class="tab-content">
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> System Services
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn linux-command"
+                    onclick="sendQuickCommand('tail -n 30 /var/log/syslog')"
+                  >
+                    <i class="fas fa-book"></i> logs
+                    <span class="command-description">System logs</span>
+                  </button>
+                  <button
+                    class="quick-command-btn linux-command"
+                    onclick="sendQuickCommand('top -n 1 -b')"
+                  >
+                    <i class="fas fa-tasks"></i> top
+                    <span class="command-description">Process monitor</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> Package Management
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn linux-command"
+                    onclick="sendQuickCommand('apt update')"
+                  >
+                    <i class="fas fa-sync-alt"></i> updates
+                    <span class="command-description">Available updates</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="windows-commands" class="tab-content">
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> Windows Services
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn windows-command"
+                    onclick="sendQuickCommand('net start')"
+                  >
+                    <i class="fas fa-cogs"></i> running services
+                    <span class="command-description"
+                      >List running services</span
+                    >
+                  </button>
+                  <button
+                    class="quick-command-btn windows-command"
+                    onclick="sendQuickCommand('sc query')"
+                  >
+                    <i class="fas fa-list"></i> all services
+                    <span class="command-description">List all services</span>
+                  </button>
+                  <button
+                    class="quick-command-btn windows-command"
+                    onclick="sendQuickCommand('tasklist')"
+                  >
+                    <i class="fas fa-tasks"></i> processes
+                    <span class="command-description">Running processes</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="command-group">
+                <div
+                  class="command-group-title"
+                  onclick="toggleCommandGroup(event)"
+                >
+                  <i class="fas fa-chevron-down"></i> Windows Management
+                </div>
+                <div class="quick-commands">
+                  <button
+                    class="quick-command-btn windows-command"
+                    onclick='sendQuickCommand(`powershell -command "Install-PackageProvider -Name NuGet -Force; Install-Module PSWindowsUpdate -Force; Import-Module PSWindowsUpdate; Get-WindowsUpdate -AcceptAll -Install -AutoReboot"`)'
+                  >
+                    <i class="fas fa-windows"></i> updates
+                    <span class="command-description">Installed updates</span>
+                  </button>
+
+                  <button
+                    class="quick-command-btn windows-command"
+                    onclick="sendQuickCommand('gpresult /r')"
+                  >
+                    <i class="fas fa-shield-alt"></i> group policy
+                    <span class="command-description"
+                      >Group policy results</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-panel">
+          <div class="server-section">
+            <div class="server-list-container">
+              <div class="server-list-header" onclick="toggleServerList()">
+                <h3>
+                  <i
+                    class="fas fa-server"
+                    style="color: var(--primary-color)"
+                  ></i>
+                  Servers <span id="serverCount" class="server-count">0</span>
+                  <i
+                    class="fas fa-chevron-down"
+                    style="
+                      margin-left: 5px;
+                      transition: transform 0.2s;
+                      color: #ff7000;
+                    "
+                    id="serverListToggleIcon"
+                  ></i>
+                </h3>
+                <input
+                  type="text"
+                  class="search-box"
+                  id="serverSearch"
+                  placeholder="Search servers..."
+                  onkeyup="filterServers()"
+                />
+              </div>
+              <div class="server-list-body" id="serverList">
+                <div
+                  th:each="server : ${servers}"
+                  class="server-item"
+                  th:data-host="${server.host}"
+                  th:data-os="${server.os_type}"
+                  th:data-user="${server.user}"
+                >
+                  <input
+                    type="checkbox"
+                    class="server-checkbox"
+                    th:id="${server.host}"
+                    th:value="${server.host}"
+                  />
+                  <label
+                    th:for="${server.host}"
+                    th:text="${server.host}"
+                  ></label>
+                  <span
+                    th:classappend="${server.os_type == 'linux' ? 'linux-tag' : 'windows-tag'}"
+                    class="os-tag"
+                    th:text="${server.os_type}"
+                  ></span>
+                </div>
+                <div th:if="${servers.empty}" class="empty-state">
+                  No servers available
+                </div>
+              </div>
+            </div>
+
+            <div class="server-control-section">
+              <div class="server-controls">
+                <button class="btn btn-outline" onclick="selectAllServers()">
+                  <i class="fas fa-check-square"></i> Select All
+                </button>
+                <button class="btn btn-outline" onclick="deselectAllServers()">
+                  <i class="fas fa-square"></i> Deselect All
+                </button>
+                <button class="btn btn-outline" onclick="selectLinuxServers()">
+                  <i class="fab fa-linux"></i> Linux Only
+                </button>
+                <button
+                  class="btn btn-outline"
+                  onclick="selectWindowsServers()"
+                >
+                  <i class="fab fa-windows"></i> Windows Only
+                </button>
+              </div>
+
+              <div class="global-command-container">
+                <h3>
+                  <i
+                    class="fas fa-code"
+                    style="color: var(--primary-color)"
+                  ></i>
+                  Execute Command
+                </h3>
+                <div class="gc-container">
+                  <input
+                    type="text"
+                    class="global-command-input"
+                    id="globalCommand"
+                    placeholder="Enter command to execute on selected servers..."
+                  />
+                  <button
+                    class="btn btn-primary"
+                    onclick="executeOnAllSelected()"
+                  >
+                    <i class="fas fa-play"></i> Execute
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="terminal-tabs">
+            <div
+              class="terminal-tab active"
+              onclick="switchTerminalView('all')"
+            >
+              All Terminals
+            </div>
+            <div class="terminal-tab" onclick="switchTerminalView('linux')">
+              Linux
+            </div>
+            <div class="terminal-tab" onclick="switchTerminalView('windows')">
+              Windows
+            </div>
+          </div>
+
+          <div class="terminals-container" id="terminalsContainer">
+            <!-- Nơi hiển thị terminal -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      const activeTerminals = new Map();
+      let currentTerminalView = "all";
+      // nũi tên chọn server
+      function toggleServerList() {
+        const serverListContainer = document.querySelector(
+          ".server-list-container"
+        );
+        serverListContainer.classList.toggle("expanded");
+
+        const icon = document.getElementById("serverListToggleIcon");
+        if (serverListContainer.classList.contains("expanded")) {
+          icon.style.transform = "rotate(180deg)";
+        } else {
+          icon.style.transform = "rotate(0deg)";
+        }
+      }
+      // đếm số lượng server đã chọn
+      function updateServerCount() {
+        const count = document.querySelectorAll(
+          ".server-checkbox:checked"
+        ).length;
+        document.getElementById("serverCount").textContent = count;
+      }
+
+      // chọn all server
+      function selectAllServers() {
+        const checkboxes = document.querySelectorAll(".server-checkbox");
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = true;
+          const host = checkbox.value;
+          const osType = checkbox
+            .closest(".server-item")
+            .querySelector(".os-tag").textContent;
+          createTerminal(host, osType);
+          checkbox.closest(".server-item").classList.add("selected");
+        });
+        updateServerCount();
+      }
+
+      function deselectAllServers() {
+        const checkboxes = document.querySelectorAll(".server-checkbox");
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+          const host = checkbox.value;
+          const terminal = document.getElementById(`terminal-${host}`);
+          if (terminal) terminal.remove();
+          activeTerminals.delete(host);
+          checkbox.closest(".server-item").classList.remove("selected");
+        });
+        updateServerCount();
+      }
+
+      function selectLinuxServers() {
+        const checkboxes = document.querySelectorAll(".server-checkbox");
+        checkboxes.forEach((checkbox) => {
+          const osType = checkbox
+            .closest(".server-item")
+            .querySelector(".os-tag").textContent;
+          if (osType === "Linux") {
+            checkbox.checked = true;
+            const host = checkbox.value;
+            createTerminal(host, osType);
+            checkbox.closest(".server-item").classList.add("selected");
+          } else {
+            checkbox.checked = false;
+            const host = checkbox.value;
+            const terminal = document.getElementById(`terminal-${host}`);
+            if (terminal) terminal.remove();
+            activeTerminals.delete(host);
+            checkbox.closest(".server-item").classList.remove("selected");
+          }
+        });
+        updateServerCount();
+        switchTerminalView("linux");
+      }
+
+      function selectWindowsServers() {
+        const checkboxes = document.querySelectorAll(".server-checkbox");
+        checkboxes.forEach((checkbox) => {
+          const osType = checkbox
+            .closest(".server-item")
+            .querySelector(".os-tag").textContent;
+          if (osType === "Windows") {
+            checkbox.checked = true;
+            const host = checkbox.value;
+            createTerminal(host, osType);
+            checkbox.closest(".server-item").classList.add("selected");
+          } else {
+            checkbox.checked = false;
+            const host = checkbox.value;
+            const terminal = document.getElementById(`terminal-${host}`);
+            if (terminal) terminal.remove();
+            activeTerminals.delete(host);
+            checkbox.closest(".server-item").classList.remove("selected");
+          }
+        });
+        updateServerCount();
+        switchTerminalView("windows");
+      }
+      // tìm kiếm server
+      function filterServers() {
+        const searchTerm = document
+          .getElementById("serverSearch")
+          .value.toLowerCase();
+        const serverItems = document.querySelectorAll(".server-item");
+
+        serverItems.forEach((item) => {
+          const host = item.querySelector("label").textContent.toLowerCase();
+          if (host.includes(searchTerm)) {
+            item.style.display = "flex";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      }
+
+      function refreshServers() {
+        window.location.reload();
+      }
+
+      //tạo terminal mới
+      function createTerminal(host, osType) {
+        if (activeTerminals.has(host)) return;
+
+        const terminalContainer = document.createElement("div");
+        terminalContainer.className = "terminal";
+        terminalContainer.id = `terminal-${host}`;
+        terminalContainer.dataset.os = osType.toLowerCase();
+
+        const terminalHeader = document.createElement("div");
+        terminalHeader.className = "terminal-header";
+
+        const title = document.createElement("div");
+        title.className = "terminal-title";
+
+        const osIcon = document.createElement("i");
+        osIcon.className = `os-icon fab ${
+          osType === "Linux" ? "fa-linux" : "fa-windows"
+        }`;
+        title.appendChild(osIcon);
+
+        title.appendChild(document.createTextNode(host));
+
+        const status = document.createElement("div");
+        status.className = "terminal-status status-success";
+        status.textContent = "Connected";
+        status.id = `status-${host}`;
+
+        const actions = document.createElement("div");
+        actions.className = "terminal-actions";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "terminal-action-btn";
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        closeBtn.title = "Close terminal";
+        closeBtn.onclick = () => {
+          const checkbox = document.querySelector(
+            `.server-checkbox[value="${host}"]`
+          );
+          if (checkbox) {
+            checkbox.checked = false;
+            checkbox.dispatchEvent(new Event("change"));
+          }
+        };
+
+        actions.appendChild(closeBtn);
+
+        terminalHeader.appendChild(title);
+        terminalHeader.appendChild(actions);
+        terminalHeader.appendChild(status);
+
+        const terminalContent = document.createElement("div");
+        terminalContent.className = "terminal-content";
+        terminalContent.id = `content-${host}`;
+
+        terminalContainer.appendChild(terminalHeader);
+        terminalContainer.appendChild(terminalContent);
+
+        document
+          .getElementById("terminalsContainer")
+          .appendChild(terminalContainer);
+
+        const terminalData = {
+          host: host,
+          osType: osType,
+          commandHistory: [],
+          historyIndex: -1,
+          element: terminalContainer,
+          isPasswordInput: false,
+        };
+
+        activeTerminals.set(host, terminalData);
+        createPromptLine(terminalData);
+        updateTerminalVisibility();
+      }
+      // chuyẻn đổi chế độ xem terminal
+      function switchTerminalView(view) {
+        currentTerminalView = view;
+        document.querySelectorAll(".terminal-tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+        document
+          .querySelector(
+            `.terminal-tab[onclick="switchTerminalView('${view}')"]`
+          )
+          .classList.add("active");
+        updateTerminalVisibility();
+      }
+      //ẩn terminal dựa trên chế độ xem
+      function updateTerminalVisibility() {
+        document.querySelectorAll(".terminal").forEach((terminal) => {
+          const os = terminal.dataset.os;
+          if (
+            currentTerminalView === "all" ||
+            (currentTerminalView === "linux" && os === "linux") ||
+            (currentTerminalView === "windows" && os === "windows")
+          ) {
+            terminal.style.display = "flex";
+          } else {
+            terminal.style.display = "none";
+          }
+        });
+      }
+      // tạo dòng prompt mới
+      function createPromptLine(terminalData) {
+        const contentDiv = document.getElementById(
+          `content-${terminalData.host}`
+        );
+        const line = document.createElement("div");
+        line.className = "prompt-line";
+
+        // Lấy thông tin user từ server item
+        const serverItem = document.querySelector(
+          `.server-item[data-host="${terminalData.host}"]`
+        );
+        const user = serverItem ? serverItem.dataset.user : "user";
+
+        const prompt = document.createElement("span");
+        prompt.className = "prompt";
+        prompt.textContent = terminalData.isPasswordInput
+          ? "Password: "
+          : `${user}@${terminalData.host} >>> `;
+
+        const input = terminalData.isPasswordInput
+          ? document.createElement("input")
+          : document.createElement("span");
+
+        input.className = "command-line";
+        input.spellcheck = false;
+
+        if (terminalData.isPasswordInput) {
+          input.type = "password";
+          input.style.background = "transparent";
+          input.style.color = "var(--terminal-text)";
+          input.style.border = "none";
+          input.style.outline = "none";
+          input.style.fontFamily = "inherit";
+          input.style.width = "200px";
+          input.style.flexGrow = "1";
+        } else {
+          input.contentEditable = true;
+        }
+
+        line.appendChild(prompt);
+        line.appendChild(input);
+        contentDiv.appendChild(line);
+
+        input.focus();
+        terminalData.element.scrollTop = terminalData.element.scrollHeight;
+        // xử lý sự kiện bàn phím
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            const command = terminalData.isPasswordInput
+              ? input.value.trim()
+              : input.innerText.trim();
+
+            if (terminalData.isPasswordInput) {
+              input.disabled = true;
+            } else {
+              input.contentEditable = false;
+            }
+
+            if (command === "") {
+              createPromptLine(terminalData);
+              return;
+            }
+
+            if (
+              !terminalData.isPasswordInput &&
+              (command === "clear" || command === "cls")
+            ) {
+              contentDiv.innerHTML = "";
+              createPromptLine(terminalData);
+              return;
+            }
+
+            if (
+              !terminalData.isPasswordInput &&
+              (command === "exit" || command === "logout")
+            ) {
+              const exitMsg = document.createElement("div");
+              exitMsg.className = "output";
+              exitMsg.textContent = "(Session ended)";
+              contentDiv.appendChild(exitMsg);
+              return;
+            }
+
+            if (!terminalData.isPasswordInput) {
+              terminalData.commandHistory.push(command);
+              terminalData.historyIndex = terminalData.commandHistory.length;
+            }
+
+            if (!terminalData.isPasswordInput) {
+              input.innerHTML = command;
+              input.style.color = "var(--terminal-green)";
+            }
+
+            const statusElement = document.getElementById(
+              `status-${terminalData.host}`
+            );
+            statusElement.textContent = "Executing...";
+            statusElement.className = "terminal-status status-warning";
+
+            fetch("/multiterminal/execute", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: `host=${encodeURIComponent(
+                terminalData.host
+              )}&command=${encodeURIComponent(command)}`,
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Mạng không ổn định");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                const output =
+                  data[terminalData.host] || data.output || "(No output)";
+                const ansi_up = new AnsiUp();
+                const coloredOutput = ansi_up.ansi_to_html(output);
+
+                // Tạo dòng mới cho output
+                const outputDiv = document.createElement("div");
+                outputDiv.className = "output";
+                outputDiv.innerHTML = coloredOutput;
+                contentDiv.appendChild(outputDiv);
+
+                statusElement.textContent = "Connected";
+                statusElement.className = "terminal-status status-success";
+
+                terminalData.element.scrollTop =
+                  terminalData.element.scrollHeight;
+
+                // Check if password 
+                if (/password[:]?/i.test(output)) {
+                  terminalData.isPasswordInput = true;
+                  createPromptLine(terminalData);
+                } else {
+                  terminalData.isPasswordInput = false;
+                  createPromptLine(terminalData);
+                }
+              })
+              .catch((error) => {
+                const errorDiv = document.createElement("div");
+                errorDiv.className = "output";
+                errorDiv.innerHTML = `<span style="color: var(--error-color)">Error: ${error.message}</span>`;
+                contentDiv.appendChild(errorDiv);
+
+                statusElement.textContent = "Error";
+                statusElement.className = "terminal-status status-error";
+
+                terminalData.element.scrollTop =
+                  terminalData.element.scrollHeight;
+                terminalData.isPasswordInput = false;
+                createPromptLine(terminalData);
+              });
+          }
+
+          if (!terminalData.isPasswordInput && e.key === "ArrowUp") {
+            e.preventDefault();
+            if (terminalData.historyIndex > 0) {
+              terminalData.historyIndex--;
+              input.innerText =
+                terminalData.commandHistory[terminalData.historyIndex];
+              placeCursorAtEnd(input);
+            }
+          }
+
+          if (!terminalData.isPasswordInput && e.key === "ArrowDown") {
+            e.preventDefault();
+            if (
+              terminalData.historyIndex <
+              terminalData.commandHistory.length - 1
+            ) {
+              terminalData.historyIndex++;
+              input.innerText =
+                terminalData.commandHistory[terminalData.historyIndex];
+              placeCursorAtEnd(input);
+            } else {
+              input.innerText = "";
+              terminalData.historyIndex = terminalData.commandHistory.length;
+            }
+          }
+        });
+      }
+// Đặt con trỏ ở cuối input
+      function placeCursorAtEnd(el) {
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+// Thực hiện lệnh trên tất cả các server đã chọn
+      function executeOnAllSelected() {
+        const command = document.getElementById("globalCommand").value.trim();
+        if (!command) return;
+
+        const checkboxes = document.querySelectorAll(
+          ".server-checkbox:checked"
+        );
+        checkboxes.forEach((checkbox) => {
+          const host = checkbox.value;
+          if (activeTerminals.has(host)) {
+            const terminalData = activeTerminals.get(host);
+            const contentDiv = document.getElementById(`content-${host}`);
+
+            terminalData.commandHistory.push(command);
+            terminalData.historyIndex = terminalData.commandHistory.length;
+
+            // Tìm dòng prompt cuối cùng và cập nhật nó với lệnh
+            const lastPromptLine = contentDiv.querySelector(
+              ".prompt-line:last-child"
+            );
+            if (lastPromptLine) {
+              const commandInput =
+                lastPromptLine.querySelector(".command-line");
+              if (commandInput) {
+                commandInput.innerHTML = command;
+                commandInput.style.color = "var(--terminal-green)";
+              }
+            }
+
+            const statusElement = document.getElementById(`status-${host}`);
+            statusElement.textContent = "Executing...";
+            statusElement.className = "terminal-status status-warning";
+
+            fetch("/multiterminal/execute", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: `host=${encodeURIComponent(
+                host
+              )}&command=${encodeURIComponent(command)}`,
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                const output = data[host] || data.output || "(No output)";
+                const ansi_up = new AnsiUp();
+                const coloredOutput = ansi_up.ansi_to_html(output);
+
+                const outputDiv = document.createElement("div");
+                outputDiv.className = "output";
+                outputDiv.innerHTML = coloredOutput;
+                contentDiv.appendChild(outputDiv);
+
+                statusElement.textContent = "Connected";
+                statusElement.className = "terminal-status status-success";
+
+                terminalData.element.scrollTop =
+                  terminalData.element.scrollHeight;
+                createPromptLine(terminalData);
+              })
+              .catch((error) => {
+                const errorDiv = document.createElement("div");
+                errorDiv.className = "output";
+                errorDiv.innerHTML = `<span style="color: var(--error-color)">Error: ${error.message}</span>`;
+                contentDiv.appendChild(errorDiv);
+
+                statusElement.textContent = "Error";
+                statusElement.className = "terminal-status status-error";
+
+                terminalData.element.scrollTop =
+                  terminalData.element.scrollHeight;
+                createPromptLine(terminalData);
+              });
+          }
+        });
+
+        document.getElementById("globalCommand").value = "";
+      }
+      // Gửi lệnh nhanh đến tất cả các server đã chọn
+      function sendQuickCommand(command) {
+        document.getElementById("globalCommand").value = command;
+        executeOnAllSelected();
+      }
+      //Chuyển đổi giữa các tab lệnh
+      function switchTab(event, tabId) {
+        // ẩn tab
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active");
+        });
+
+        //Vô hiệu hóa tất cả các tab
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // chọn tab hiện tại
+        event.currentTarget.classList.add("active");
+
+        // hiển thị nội dung của tab đã chọn
+        document.getElementById(tabId).classList.add("active");
+      }
+        //đóng nhóm lệnh
+      function toggleCommandGroup(event) {
+        const group = event.currentTarget.parentElement;
+        group.classList.toggle("collapsed");
+      }
+//Khởi tạo 
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".server-item").forEach((item) => {
+          const checkbox = item.querySelector(".server-checkbox");
+          const host = checkbox.value;
+          const osType = item.querySelector(".os-tag").textContent;
+
+          checkbox.addEventListener("change", (e) => {
+            if (e.target.checked) {
+              createTerminal(host, osType);
+              item.classList.add("selected");
+            } else {
+              const terminal = document.getElementById(`terminal-${host}`);
+              if (terminal) terminal.remove();
+              activeTerminals.delete(host);
+              item.classList.remove("selected");
+            }
+            updateServerCount();
+          });
+        });
+
+        // Thu gọn tất cả các nhóm lệnh theo mặc định
+        document.querySelectorAll(".command-group").forEach((group) => {
+          group.classList.add("collapsed");
+        });
+
+        // số lượng server
+        updateServerCount();
+
+        // mặc định hiển thị tất cả server
+        selectAllServers();
+      });
+      /*]]>*/
+    </script>
+  </body>
+</html>

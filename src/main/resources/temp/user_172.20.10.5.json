@@ -1,0 +1,8 @@
+{
+  "active_users" : "Name         \r\n----         \r\nadmin        \r\nAdministrator",
+  "sudo_users" : "Administrator",
+  "all_users" : "admin\r\nAdministrator\r\nuser55",
+  "last_logins" : "admin: 06/26/2025 07:30:40\r\nAdministrator: 08/27/2025 13:53:06\r\nDefaultAccount: Never\r\nGuest: Never\r\nuser55: Never\r\nWDAGUtilityAccount: Never",
+  "current_user" : "administrator",
+  "locked_accounts" : "user55"
+}

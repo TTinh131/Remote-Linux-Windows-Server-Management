@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <title>IDS - LogManagement</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav-server.css}" />
+    <link rel="stylesheet" th:href="@{/css/server.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #ff7000;
+        --primary-light: #764ba2;
+        --primary-dark: #5a67d8;
+        --success-color: #48bb78;
+        --warning-color: #ed8936;
+        --danger-color: #f56565;
+        --info-color: #4299e1;
+        --dark-color: #2d3748;
+        --light-color: #f7fafc;
+        --card-bg: #ffffff;
+        --text-primary: #2d3748;
+        --text-secondary: #718096;
+        --border-color: #e2e8f0;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        margin-top: 1rem;
+        align-text: center;
+      }
+
+      .log-management-container {
+        width: 90%;
+      }
+
+      .log-content-wrapper {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+
+      .main-log-container {
+        flex: 1;
+      }
+
+      .log-container {
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+      }
+
+      .log-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-light)
+        );
+        color: white;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .log-header-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .log-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-icon {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .btn-warning {
+        background: var(--warning-color);
+      }
+
+      .btn-success {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .log-filters {
+        padding: 1rem;
+        background: #f8fafc;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+      }
+
+      .search-box {
+        position: relative;
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.875rem;
+      }
+
+      .filter-select {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        min-width: 120px;
+      }
+
+      /* lọc theo time */
+      input[type="datetime-local"] {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        min-width: 180px;
+      }
+
+      /* nhập sl logs */
+      .log-count-input {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .log-count-input input {
+        width: 70px;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+      }
+
+      .log-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+      }
+
+      .log-table th {
+        background: #f8fafc;
+        padding: 1rem;
+        font-weight: 600;
+        color: white;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        text-align: center;
+        top: 0;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        background-color: rgb(255, 165, 96);
+      }
+
+      .log-table td {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+        text-align: center;
+        color: var(--text-primary);
+        font-size: 0.875rem;
+      }
+
+      .log-table tr {
+        transition: background-color 0.2s ease;
+      }
+
+      .log-table tr:hover {
+        background: #f8fafc;
+        cursor: pointer;
+      }
+
+      .log-level {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        display: inline-block;
+      }
+
+      .level-info {
+        background: rgba(66, 153, 225, 0.1);
+        color: var(--info-color);
+      }
+
+      .level-warning {
+        background: rgba(237, 137, 54, 0.1);
+        color: var(--warning-color);
+      }
+
+      .level-error {
+        background: rgba(245, 101, 101, 0.1);
+        color: var(--danger-color);
+      }
+
+      .level-critical {
+        background: rgba(159, 24, 24, 0.1);
+        color: var(--critical-color);
+      }
+
+      .level-success-audit {
+        background: rgba(255, 112, 0, 0.1);
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+
+      .log-source {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: rgba(255, 112, 0, 0.1);
+        color: var(--primary-color);
+        display: inline-block;
+      }
+
+      .log-message {
+        max-width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .log-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-top: 1px solid var(--border-color);
+        background: #f8fafc;
+      }
+
+      .log-count {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+
+      .log-pagination {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .pagination-btn {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        font-size: 0.875rem;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+
+      .pagination-btn:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .pagination-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--text-secondary);
+      }
+
+      .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      .loading-spinner {
+        border: 3px solid rgba(255, 112, 0, 0.1);
+        border-radius: 50%;
+        border-top: 3px solid var(--primary-color);
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(6px);
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          background: rgba(0, 0, 0, 0);
+        }
+        to {
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      .modal-content {
+        background: #ffffff;
+        margin: 5% auto;
+        padding: 0;
+        border-radius: 20px;
+        width: 80%;
+        max-width: 800px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        animation: modalSlideIn 0.3s ease-out;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-top: 4px solid var(--primary-color);
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-header {
+        padding: 1.25rem 2rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f9fafb;
+      }
+
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--primary-color);
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-secondary);
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+
+      .close-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: var(--text-primary);
+      }
+
+      .modal-body {
+        padding: 1.5rem 2rem;
+        flex: 1;
+        overflow-y: auto;
+        background-color: #ffffff;
+      }
+
+      .detail-row {
+        display: flex;
+        margin-bottom: 1.25rem;
+      }
+
+      .detail-label {
+        font-weight: 500;
+        color: var(--text-primary);
+        min-width: 180px;
+        font-size: 0.875rem;
+      }
+
+      .detail-value {
+        flex: 1;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        word-break: break-word;
+      }
+
+      .log-content {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        background: #f8fafc;
+        font-family: monospace;
+        font-size: 0.8125rem;
+        white-space: pre-wrap;
+        line-height: 1.5;
+      }
+
+      .modal-footer {
+        padding: 1.5rem 2rem;
+        border-top: 1px solid var(--border-color);
+        background-color: #f9fafb;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .log-management-header {
+        display: flex;
+        flex-direction: row-reverse;
+        margin-bottom: 1.5rem;
+      }
+      /* realtime */
+      .realtime-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: rgba(255, 112, 0, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 112, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .realtime-toggle:hover {
+        background: rgba(255, 112, 0, 0.15);
+        box-shadow: 0 2px 8px rgba(255, 112, 0, 0.1);
+      }
+
+      .realtime-toggle i {
+        color: var(--primary-color);
+        font-size: 1rem;
+      }
+
+      .realtime-toggle span {
+        font-size: 0.875rem;
+        font-weight: 500;
+        font-weight: bold;
+        color: #f14e0a;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--primary-color);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px var(--primary-color);
+      }
+
+      .btn-success:hover {
+        background-color: #38a169;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(72, 187, 120, 0.3);
+      }
+
+      .btn-danger {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-danger:hover {
+        background-color: #e53e3e;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(245, 101, 101, 0.3);
+      }
+
+      .btn i {
+        font-size: 0.9rem;
+      }
+      .stats-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 1.25rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--primary-light)
+        );
+      }
+
+      .stat-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        gap: 1rem;
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: white;
+        flex-shrink: 0;
+      }
+
+      .stat-icon.primary {
+        background: var(--primary-color);
+      }
+
+      .stat-icon.success {
+        background: var(--success-color);
+      }
+
+      .stat-icon.warning {
+        background: var(--warning-color);
+      }
+
+      .stat-icon.danger {
+        background: var(--danger-color);
+      }
+
+      .stat-icon.info {
+        background: var(--info-color);
+      }
+
+      .stat-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        flex: 1;
+      }
+
+      .stat-value {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+      /*cảnh báo */
+      #anomaliesContainer {
+        position: fixed;
+        top: 4.5rem;
+        right: 20px;
+        width: 350px;
+        max-width: 90%;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        pointer-events: none; /* Cho phép click xuyên qua khi container rỗng */
+      }
+
+      .anomaly-alert {
+        position: relative;
+        background: white;
+        border-left: 4px solid var(--danger-color);
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        animation: slideIn 0.3s ease-out forwards;
+        pointer-events: auto;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .anomaly-alert.fade-out {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+
+      .anomaly-alert::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--danger-color);
+        opacity: 0.3;
+      }
+
+      .anomaly-alert strong {
+        color: var(--danger-color);
+        font-size: 14px;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .anomaly-alert p {
+        font-size: 13px;
+        margin: 8px 0;
+        color: var(--text-secondary);
+        line-height: 1.4;
+      }
+
+      .anomaly-alert small {
+        font-size: 12px;
+        color: var(--text-secondary);
+        opacity: 0.8;
+      }
+
+      .close-alert {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(245, 101, 101, 0.1);
+        border: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--danger-color);
+        transition: all 0.2s;
+      }
+
+      .close-alert:hover {
+        background: rgba(245, 101, 101, 0.3);
+      }
+
+      .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: var(--danger-color);
+        animation: progress 5s linear forwards;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes progress {
+        from {
+          width: 100%;
+        }
+        to {
+          width: 0%;
+        }
+      }
+      /*sửa lại farmword thông báo coa sẵn */
+      #toast-container > .toast .toast-close-button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: none;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /*nút*/
+      .sources-list {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 0.5rem;
+      }
+
+      .source-item {
+        padding: 0.75rem;
+        margin: 0.25rem 0;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .source-item:hover {
+        background: rgba(255, 112, 0, 0.1);
+      }
+
+      .source-name {
+        font-weight: 500;
+        color: var(--text-primary);
+      }
+
+      .source-count {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+
+      /* ===== Bảng Logs ===== */
+      .table-container {
+        overflow-x: auto;
+      }
+
+      /* Hàng lẻ */
+      .log-table tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+      }
+
+      /* Hàng chẵn */
+      .log-table tbody tr:nth-child(even) {
+        background-color: rgb(248, 248, 248);
+      }
+
+      .log-table tr {
+        transition: background-color 0.2s ease;
+      }
+
+      .log-table tbody tr:hover {
+        background-color: rgb(252, 253, 206) !important;
+        cursor: pointer;
+      }
+
+      /* Căn trái cho cột Message */
+      .log-table td:nth-child(5) {
+        text-align: left;
+      }
+
+      /* Style cho các badge level */
+      .level-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        display: inline-block;
+      }
+
+      .level-warning {
+        background: rgba(237, 137, 54, 0.1);
+        color: var(--warning-color);
+      }
+
+      /* Style cho source badge */
+      .source-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: rgba(255, 112, 0, 0.1);
+        color: var(--primary-color);
+        display: inline-block;
+      }
+
+      .sortable-header {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .sortable-header i {
+        transition: transform 0.2s;
+      }
+
+      .sort-asc i {
+        transform: rotate(180deg);
+      }
+
+      .sort-desc i {
+        transform: rotate(0deg);
+      }
+
+      .column-filter-dropdown {
+        position: absolute;
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        box-shadow: var(--shadow);
+        z-index: 999;
+        padding: 0.5rem;
+        display: none;
+        min-width: 120px;
+      }
+
+      .column-filter-dropdown .filter-option {
+        padding: 0.5rem;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+
+      .column-filter-dropdown .filter-option:hover {
+        background-color: #f0f0f0;
+      }
+
+      .filter-option.active {
+        background-color: rgba(255, 112, 0, 0.1);
+        color: var(--primary-color);
+        font-weight: 500;
+      }
+      .filter-header.loading {
+        position: relative;
+        color: var(--primary-color);
+      }
+
+      .filter-header.loading::after {
+        content: "";
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 112, 0, 0.2);
+        border-top-color: var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar-server::sidebar-server"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <div class="container">
+        <h1>Log Management</h1>
+        <div class="log-management-container">
+          <div class="log-management-header">
+            <div class="realtime-toggle">
+              <span>Realtime</span>
+              <label class="switch">
+                <input type="checkbox" id="realtimeToggle" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="log-content-wrapper">
+            <!-- các nút thống kê -->
+            <div
+              class="stats-grid"
+              id="logStatsContainer"
+              style="display: none"
+            >
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon primary">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-label">Total Logs</div>
+                  </div>
+                </div>
+                <div class="stat-value" id="statTotalLogs">0</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-label">Errors</div>
+                  </div>
+                </div>
+                <div class="stat-value" id="statErrors">0</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-label">Warnings</div>
+                  </div>
+                </div>
+                <div class="stat-value" id="statWarnings">0</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon info">
+                    <i class="fas fa-database"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-label">Sources</div>
+                  </div>
+                </div>
+                <div class="stat-value" id="statSources">0</div>
+              </div>
+            </div>
+
+            <!-- Nội dung chính -->
+            <div class="main-log-container">
+              <!-- Cảnh báo anomalies -->
+              <div id="anomaliesContainer"></div>
+              <div class="log-container">
+                <div class="log-header">
+                  <h2 class="log-header-title">System Logs</h2>
+                  <div class="log-actions">
+                    <button class="btn btn-primary" id="refreshLogs">
+                      <i class="fas fa-sync-alt"></i>
+                      Refresh
+                    </button>
+                    <button class="btn btn-success" id="exportLogs">
+                      <i class="fas fa-download"></i>
+                      Export
+                    </button>
+                    <button class="btn btn-danger" id="clearLogs">
+                      <i class="fas fa-trash"></i>
+                      Clear
+                    </button>
+                  </div>
+                </div>
+
+                <div class="log-filters">
+                  <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input
+                      type="text"
+                      class="search-input"
+                      placeholder="Search logs..."
+                      id="logSearch"
+                    />
+                  </div>
+
+                  <select
+                    style="display: none"
+                    class="filter-select"
+                    id="logTypeFilter"
+                  >
+                    <option value="">All Types</option>
+                    <option value="System">System</option>
+                    <option value="Security">Security</option>
+                    <option value="Authentication">Authentication</option>
+                  </select>
+
+                  <select
+                    style="display: none"
+                    class="filter-select"
+                    id="logLevelFilter"
+                  >
+                    <option value="">All Levels</option>
+                    <option value="info">Info</option>
+                    <option value="warning">Warning</option>
+                    <option value="error">Error</option>
+                    <option value="critical">Critical</option>
+                    <option value="success-audit">Success Audit</option>
+                  </select>
+
+                  <input
+                    type="datetime-local"
+                    class="filter-select"
+                    id="dateFromFilter"
+                    placeholder="From date"
+                  />
+                  <input
+                    type="datetime-local"
+                    class="filter-select"
+                    id="dateToFilter"
+                    placeholder="To date"
+                  />
+                  <div class="log-count-input">
+                    <input
+                      type="number"
+                      id="logCountInput"
+                      min="10"
+                      max="1000"
+                      value="50"
+                    />
+                    <span>Total logs</span>
+                  </div>
+                </div>
+
+                <div class="log-table-container">
+                  <table class="log-table">
+                    <thead>
+                      <tr>
+                        <th>
+                          <div class="header-container">
+                            <div class="sortable-header" data-sort="timestamp">
+                              Timestamp
+                              <i class="fas fa-sort"></i>
+                            </div>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="header-container">
+                            <div
+                              class="filter-header"
+                              data-filter-type="level"
+                              id="levelFilter"
+                            >
+                              Level <i class="fas fa-caret-down"></i>
+                            </div>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="header-container">
+                            <div
+                              class="filter-header"
+                              data-filter-type="source"
+                              id="sourceFilter"
+                            >
+                              Source <i class="fas fa-caret-down"></i>
+                            </div>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="header-container">
+                            <div
+                              class="filter-header"
+                              data-filter-type="host"
+                              id="hostFilter"
+                            >
+                              Host <i class="fas fa-caret-down"></i>
+                            </div>
+                          </div>
+                        </th>
+                        <th>
+                          <div class="header-container">
+                            <div class="filter-header">Message</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="logTableBody">
+                      <tr>
+                        <td colspan="5" class="empty-state">
+                          <div class="loading-spinner"></div>
+                          <div>Loading logs...</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="log-footer">
+                  <div class="log-count" id="logCount">No logs found</div>
+                  <div class="log-pagination" id="logPagination"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- log chi tiết -->
+        <div id="logDetailModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title">Log Details</h3>
+              <button class="close-btn" onclick="closeModal('logDetailModal')">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="detail-row">
+                <div class="detail-label">Timestamp:</div>
+                <div class="detail-value" id="detailTimestamp">-</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Level:</div>
+                <div class="detail-value" id="detailLevel">-</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Source:</div>
+                <div class="detail-value" id="detailSource">-</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Host:</div>
+                <div class="detail-value" id="detailHost">-</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Full Message:</div>
+                <div class="detail-value">
+                  <div class="log-content" id="detailMessage">-</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="btn btn-primary"
+                onclick="closeModal('logDetailModal')"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div th:replace="sharedparts/nav-server::nav-server"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/nav-server.js}"></script>
+
+    <script>
+      // cấu hình thông báo
+      toastr.options = {
+        closeButton: true,
+        progressBar: true,
+        positionClass: "toast-top-right",
+        timeOut: "3000",
+      };
+
+      // khai báo biến
+      let currentHost = new URLSearchParams(window.location.search).get("host");
+      let logData = [];
+      let filteredLogs = [];
+      let currentPage = 1;
+      const logsPerPage = 20; //số log 1 thẻ
+      let totalPages = 1;
+      let totalLogsToShow = 50; //mặc định ban đầu (tổng)
+      let realtimeInterval = null;
+      let lastUpdateTime = null;
+
+      // Thêm biến để theo dõi trạng thái loading
+      let isLoadingFilters = {
+        level: false,
+        source: false,
+        host: false,
+      };
+
+      // Hàm cập nhật dropdown filter options
+      function updateFilterOptions() {
+        // Cập nhật level filter
+        const levelOptions = [
+          ...new Set(logData.map((log) => log.level)),
+        ].filter(Boolean);
+        updateSelectOptions("#logLevelFilter", levelOptions);
+
+        // Cập nhật source filter
+        const sourceOptions = [
+          ...new Set(logData.map((log) => log.source)),
+        ].filter(Boolean);
+        updateSelectOptions("#logTypeFilter", sourceOptions);
+
+        // Cập nhật host filter
+        const hostOptions = [...new Set(logData.map((log) => log.host))].filter(
+          Boolean
+        );
+        if (hostOptions.length > 1) {
+          // Chỉ thêm host filter nếu có nhiều host
+          if (!$("#logHostFilter").length) {
+            $("#logTypeFilter").after(
+              '<select class="filter-select" id="logHostFilter"><option value="">All Hosts</option></select>'
+            );
+          }
+          updateSelectOptions("#logHostFilter", hostOptions);
+        } else {
+          $("#logHostFilter").remove();
+        }
+      }
+
+      //cập nhật options cho select
+      function updateSelectOptions(selector, options) {
+        const $select = $(selector);
+        const currentValue = $select.val();
+        $select.empty().append('<option value="">All</option>');
+
+        options.forEach((option) => {
+          $select.append(`<option value="${option}">${option}</option>`);
+        });
+
+        // Khôi phục giá trị đã chọn nếu vẫn tồn tại
+        if (options.includes(currentValue)) {
+          $select.val(currentValue);
+        }
+      }
+
+      // khởi tạo
+      $(document).ready(function () {
+        if (!currentHost) {
+          showError("No host specified in URL");
+          return;
+        }
+        totalLogsToShow = parseInt($("#logCountInput").val()) || 50;
+        loadLogs();
+        setupEventListeners();
+        // Khởi tạo sắp xếp mặc định
+        $('[data-sort="timestamp"] i').addClass("fa-sort-down");
+
+        // click cho các header có thể sắp xếp
+        $(document).on("click", "[data-sort]", function () {
+          const column = $(this).data("sort");
+          sortLogs(column);
+        });
+        currentSort.column = "timestamp";
+        currentSort.direction = "desc";
+        updateSortUI();
+
+        const filterOptions = {
+          level: ["", "info", "warning", "error", "critical", "success-audit"],
+          source: [], // sẽ cập nhật khi có logs
+          host: [], // sẽ cập nhật khi có logs
+        };
+
+        // tạo dropdown
+        const $filterDropdown = $(
+          '<div class="column-filter-dropdown" id="columnFilterDropdown"></div>'
+        );
+        $("body").append($filterDropdown);
+
+        $(document).on("click", ".filter-header", function (e) {
+          e.stopPropagation();
+          const type = $(this).data("filter-type");
+
+          // Nếu đang loading thì không làm gì
+          if (isLoadingFilters[type]) return;
+
+          const offset = $(this).offset();
+          const values = [
+            ...new Set(logData.map((log) => log[type] || "-")),
+          ].filter(Boolean);
+
+          // Tạo dropdown content
+          $filterDropdown.html(`
+    <div class="filter-option ${
+      $(`#log${type.charAt(0).toUpperCase() + type.slice(1)}Filter`).val() ===
+      ""
+        ? "active"
+        : ""
+    }" 
+         data-value="" data-type="${type}">All</div>
+    ${values
+      .map(
+        (value) => `
+      <div class="filter-option ${
+        $(`#log${type.charAt(0).toUpperCase() + type.slice(1)}Filter`).val() ===
+        value
+          ? "active"
+          : ""
+      }" 
+           data-value="${value}" data-type="${type}">${value}</div>
+    `
+      )
+      .join("")}
+  `);
+
+          $filterDropdown.css({
+            top: offset.top + $(this).outerHeight(),
+            left: offset.left,
+            display: "block",
+          });
+        });
+
+        $(document).on("click", ".filter-option", function () {
+          const value = $(this).data("value");
+          const type = $(this).data("type");
+
+          // Cập nhật giá trị cho select box tương ứng
+          if (type === "level") {
+            $("#logLevelFilter").val(value);
+          } else if (type === "source") {
+            $("#logTypeFilter").val(value);
+          } else if (type === "host") {
+            if ($("#logHostFilter").length === 0) {
+              $("#logTypeFilter").after(
+                `<select style="display: none" class="filter-select" id="logHostFilter"></select>`
+              );
+            }
+            $("#logHostFilter").val(value);
+          }
+
+          filterLogs();
+          $filterDropdown.hide();
+        });
+        $(document).on("click", function () {
+          $filterDropdown.hide();
+        });
+      });
+      //nút chức năng
+      function setupEventListeners() {
+        // Refresh
+        $("#refreshLogs").click(function () {
+          totalLogsToShow = parseInt($("#logCountInput").val()) || 50;
+          loadLogs();
+        });
+
+        // Export
+        $("#exportLogs").click(function () {
+          exportLogs();
+        });
+
+        // Clear
+        $("#clearLogs").click(function () {
+          clearLogs();
+        });
+
+        // Search
+        $("#logSearch").on("input", function () {
+          filterLogs();
+        });
+
+        // lọc
+        $("#logTypeFilter, #logLevelFilter, #logHostFilter").change(
+          function () {
+            filterLogs();
+          }
+        );
+
+        // số nhập vào
+        $("#logCountInput").on("change", function () {
+          const newValue = parseInt($(this).val());
+          if (newValue >= 10 && newValue <= 1000) {
+            //giới hạn để cải thiện tốc độ cũng như tránh quá tải máy chủ
+            totalLogsToShow = newValue;
+            loadLogs();
+          } else {
+            $(this).val(totalLogsToShow);
+            showWarning("Please enter a value between 10 and 1000");
+          }
+        });
+
+        //nút realtime
+        $("#realtimeToggle").change(function () {
+          if ($(this).is(":checked")) {
+            startRealtimeUpdates();
+          } else {
+            stopRealtimeUpdates();
+          }
+        });
+
+        // lọc theo time
+        $("#dateFromFilter, #dateToFilter").on("change", function () {
+          filterLogs();
+        });
+
+        //sự kiện click stat-card
+        $(".stat-card").click(function () {
+          const statType = $(this)
+            .find(".stat-label")
+            .text()
+            .trim()
+            .toLowerCase();
+          showStatsDetails(statType);
+        });
+      }
+
+      function showStatsDetails(statType) {
+        // Lọc log theo loại thống kê
+        let filtered = [];
+        switch (statType) {
+          case "errors":
+            filtered = logData.filter((log) => log.level === "error");
+            break;
+          case "warnings":
+            filtered = logData.filter((log) => log.level === "warning");
+            break;
+          case "sources":
+            // Hiển thị danh sách các nguồn
+            showSourcesModal();
+            return;
+          case "total logs":
+            filtered = [...logData];
+            break;
+          default:
+            return;
+        }
+
+        // Cập nhật bảng log với dữ liệu đã lọc
+        filteredLogs = filtered;
+        currentPage = 1;
+        updateLogTable();
+        updatePagination();
+        updateLogCount();
+
+        // Cuộn đến bảng log
+        $("html, body").animate(
+          {
+            scrollTop: $(".log-table").offset().top - 20, //vị trí
+          },
+          500 //thời gian thực hiện 500ms
+        );
+
+        showSuccess(`Showing all ${statType} logs`); //thông báo
+      }
+
+      function showSourcesModal() {
+        // danh sách các nguồn và số lượng log
+        const sources = {};
+        logData.forEach((log) => {
+          sources[log.source] = (sources[log.source] || 0) + 1;
+        });
+
+        // nội dung modal
+        let content = '<div class="sources-list">';
+        for (const [source, count] of Object.entries(sources)) {
+          content += `
+            <div class="source-item" data-source="${source}">
+                <span class="source-name">${source}</span>
+                <span class="source-count">${count} logs</span>
+            </div>
+        `;
+        }
+        content += "</div>";
+
+        // Hiển thị modal
+        $("#logDetailModal .modal-title").text("Sources Details");
+        $("#logDetailModal .modal-body").html(`
+        <div class="detail-row">
+            <div class="detail-label">Total Sources:</div>
+            <div class="detail-value">${Object.keys(sources).length}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Sources List:</div>
+            <div class="detail-value">
+                ${content}
+            </div>
+        </div>
+    `);
+
+        // sự kiện click cho từng nguồn
+        $(".source-item").click(function () {
+          const source = $(this).data("source");
+          showSourceLogs(source);
+          closeModal("logDetailModal");
+        });
+        $("#logDetailModal").show();
+      }
+
+      function showSourceLogs(source) {
+        // Lọc log theo nguồn
+        filteredLogs = logData.filter((log) => log.source === source);
+        currentPage = 1;
+        updateLogTable();
+        updatePagination();
+        updateLogCount();
+
+        // Cuộn đến bảng log
+        $("html, body").animate(
+          {
+            scrollTop: $(".log-table").offset().top - 20,
+          },
+          500
+        );
+
+        showSuccess(`Showing all logs from ${source}`);
+      }
+      function startRealtimeUpdates() {
+        if (realtimeInterval) clearInterval(realtimeInterval);
+        realtimeInterval = setInterval(function () {
+          loadLogs(true);
+        }, 5000);
+        showSuccess("Realtime updates enabled");
+      }
+
+      function stopRealtimeUpdates() {
+        if (realtimeInterval) clearInterval(realtimeInterval);
+        realtimeInterval = null;
+        showSuccess("Realtime updates disabled");
+      }
+
+      function loadLogs(isRealtime = false) {
+        if (!isRealtime) {
+          $("#logTableBody").html(`
+      <tr class="empty-state">
+        <td colspan="5">
+          <div class="loading-spinner"></div>
+          <div>Loading logs...</div>
+        </td>
+      </tr>
+    `);
+          // Thêm loading state cho các filter header
+          $(".filter-header").addClass("loading");
+          isLoadingFilters = { level: true, source: true, host: true };
+        }
+
+        const logType = $("#logTypeFilter").val();
+        const levelFilter = $("#logLevelFilter").val();
+        const fromDate = $("#dateFromFilter").val();
+        const toDate = $("#dateToFilter").val();
+
+        $.ajax({
+          url:
+            `/logging/api/logs?host=${currentHost}&limit=${totalLogsToShow}` +
+            `&logType=${logType}&fromDate=${fromDate}&toDate=${toDate}`,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              showError(response.error);
+              return;
+            }
+
+            logData = response.parsed_logs || [];
+            lastUpdateTime = response.timestamp;
+            updateStats(response.stats);
+            displayAnomalies(response.anomalies);
+            updateFilterOptions();
+
+            // Xóa loading state
+            $(".filter-header").removeClass("loading");
+            isLoadingFilters = { level: false, source: false, host: false };
+            // Lưu log gốc
+            filteredLogs = [...logData];
+
+            // Sắp xếp nếu cần
+            if (!currentSort.locked || currentPage === 1) {
+              applySort();
+              sortState.initialized = true;
+            } else {
+              applySort();
+            }
+
+            if (!isRealtime) {
+              showSuccess(`Loaded ${logData.length} logs`);
+            }
+          },
+          error: function (xhr, status, error) {
+            $(".filter-header").removeClass("loading");
+            isLoadingFilters = { level: false, source: false, host: false };
+            showError("Error loading logs: " + error);
+          },
+        });
+      }
+
+      // Hàm áp dụng sắp xếp (không thay đổi trạng thái UI)
+      function applySort() {
+        filteredLogs.sort((a, b) => {
+          if (currentSort.column === "timestamp") {
+            try {
+              const dateA = parseCustomDate(a.timestamp) || new Date(0);
+              const dateB = parseCustomDate(b.timestamp) || new Date(0);
+              return currentSort.direction === "asc"
+                ? dateA - dateB
+                : dateB - dateA;
+            } catch (e) {
+              console.error("Date parse error:", e);
+              return 0;
+            }
+          } else {
+            const valA = String(a[currentSort.column] || "").toLowerCase();
+            const valB = String(b[currentSort.column] || "").toLowerCase();
+            return currentSort.direction === "asc"
+              ? valA.localeCompare(valB)
+              : valB.localeCompare(valA);
+          }
+        });
+
+        currentPage = 1;
+        updateLogTable();
+        updatePagination();
+        updateLogCount();
+      }
+
+      // Hàm xử lý click sắp xếp
+      function handleSortClick(column) {
+        // Luôn mở khóa khi click
+        sortState.locked = false;
+
+        // Nếu cùng cột, đảo chiều
+        if (sortState.column === column) {
+          sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
+        }
+        // Nếu khác cột
+        else {
+          sortState.column = column;
+          // Mặc định timestamp: mới nhất trước (desc), các cột khác: A-Z (asc)
+          sortState.direction = column === "timestamp" ? "desc" : "asc";
+        }
+
+        // Khóa lại sau khi click
+        sortState.locked = true;
+
+        updateSortUI();
+        applySort();
+      }
+
+      // Hàm cập nhật giao diện sắp xếp
+      function updateSortUI() {
+        // Reset tất cả icon
+        $(".sortable-header i")
+          .removeClass("fa-sort-up fa-sort-down")
+          .addClass("fa-sort");
+
+        // Cập nhật icon cho cột đang sắp xếp
+        const $activeHeader = $(`[data-sort="${currentSort.column}"]`);
+        $activeHeader
+          .find("i")
+          .removeClass("fa-sort")
+          .addClass(
+            currentSort.direction === "asc" ? "fa-sort-up" : "fa-sort-down"
+          );
+      }
+      function updateStats(stats) {
+        $("#logStatsContainer").show();
+        $("#statTotalLogs").text(stats.totalLogs).data("type", "total logs");
+        $("#statErrors")
+          .text(stats.levelDistribution.error || 0)
+          .data("type", "errors");
+        $("#statWarnings")
+          .text(stats.levelDistribution.warning || 0)
+          .data("type", "warnings");
+        $("#statSources")
+          .text(Object.keys(stats.sourceDistribution).length)
+          .data("type", "sources");
+      }
+      //tb trạng thái bất thường
+      function displayAnomalies(anomalies) {
+        const $container = $("#anomaliesContainer");
+
+        if (anomalies.length === 0) return;
+
+        anomalies.forEach((anomaly) => {
+          const alertId = "alert-" + Math.random().toString(36).substr(2, 9);
+          const $alert = $(`
+            <div class="anomaly-alert" id="${alertId}">
+                <div class="progress-bar"></div>
+                <button class="close-alert">
+                    <i class="fas fa-times"></i>
+                </button>
+                <strong>${anomaly.type || "Anomaly"}</strong>
+                <p>${anomaly.message}</p>
+                ${anomaly.count ? `<small>Count: ${anomaly.count}</small>` : ""}
+            </div>
+        `);
+
+          $container.append($alert);
+          // tự động đóng sau 5s
+          const timer = setTimeout(() => {
+            removeAlert(alertId);
+          }, 5000);
+          // Đóng thủ công
+          $alert.find(".close-alert").click(() => {
+            clearTimeout(timer);
+            removeAlert(alertId);
+          });
+        });
+      }
+
+      function removeAlert(id) {
+        const $alert = $("#" + id);
+        if ($alert.length) {
+          $alert.addClass("fade-out");
+          setTimeout(() => $alert.remove(), 300);
+        }
+      }
+
+      function filterLogs() {
+        const searchTerm = $("#logSearch").val().toLowerCase();
+        const levelFilter = $("#logLevelFilter").val();
+        const sourceFilter = $("#logTypeFilter").val();
+        const hostFilter = $("#logHostFilter").length
+          ? $("#logHostFilter").val()
+          : "";
+        const fromDate = $("#dateFromFilter").val();
+        const toDate = $("#dateToFilter").val();
+
+        filteredLogs = logData.filter((log) => {
+          const matchesSearch =
+            (log.message && log.message.toLowerCase().includes(searchTerm)) ||
+            (log.timestamp &&
+              log.timestamp.toLowerCase().includes(searchTerm)) ||
+            (log.host && log.host.toLowerCase().includes(searchTerm));
+          const matchesLevel = !levelFilter || log.level === levelFilter;
+          const matchesSource = !sourceFilter || log.source === sourceFilter;
+          const matchesHost = !hostFilter || log.host === hostFilter;
+          let matchesDate = true;
+
+          if (fromDate || toDate) {
+            try {
+              const logDate = parseCustomDate(log.timestamp);
+              if (fromDate) {
+                const filterDate = new Date(fromDate);
+                matchesDate = matchesDate && logDate >= filterDate;
+              }
+              if (toDate) {
+                const filterDate = new Date(toDate);
+                matchesDate = matchesDate && logDate <= filterDate;
+              }
+            } catch (e) {
+              console.error("Error parsing date:", e);
+              matchesDate = false;
+            }
+          }
+
+          return (
+            matchesSearch &&
+            matchesLevel &&
+            matchesSource &&
+            matchesHost &&
+            matchesDate
+          );
+        });
+
+        // Áp dụng lại sắp xếp hiện tại sau khi lọc
+        applySort();
+
+        // Cập nhật UI
+        currentPage = 1;
+        updateLogTable();
+        updatePagination();
+        updateLogCount();
+      }
+
+      // Hàm parse date từ định dạng log - phiên bản cải tiến
+      function parseCustomDate(dateString) {
+        if (!dateString) return new Date(0);
+
+        // Thử parse theo định dạng ISO trước
+        if (dateString.includes("T")) {
+          const date = new Date(dateString);
+          if (!isNaN(date.getTime())) return date;
+        }
+
+        // Định dạng: "6/30/2025 10:07:07 AM"
+        const parts = dateString.split(" ");
+        if (parts.length < 3) {
+          const date = new Date(dateString);
+          return isNaN(date.getTime()) ? new Date(0) : date;
+        }
+
+        const dateParts = parts[0].split("/");
+        const timeParts = parts[1].split(":");
+        const period = parts[2]?.toUpperCase();
+
+        if (dateParts.length !== 3 || timeParts.length < 2) {
+          return new Date(0);
+        }
+
+        let month = parseInt(dateParts[0]) - 1;
+        let day = parseInt(dateParts[1]);
+        let year = parseInt(dateParts[2]);
+        let hour = parseInt(timeParts[0]);
+        const minute = parseInt(timeParts[1]);
+        const second = timeParts.length > 2 ? parseInt(timeParts[2]) : 0;
+
+        // Xử lý AM/PM
+        if (period === "PM" && hour < 12) hour += 12;
+        if (period === "AM" && hour === 12) hour = 0;
+
+        // Đảm bảo năm có 4 chữ số
+        if (year < 100) year += 2000;
+
+        const date = new Date(year, month, day, hour, minute, second);
+        return isNaN(date.getTime()) ? new Date(0) : date;
+      }
+
+      function updateLogTable() {
+        const $tbody = $("#logTableBody");
+        if (filteredLogs.length === 0) {
+          $tbody.html(`
+                    <tr class="empty-state">
+                        <td colspan="5">
+                            <i class="fas fa-search"></i>
+                            <div>No logs found matching your criteria</div>
+                        </td>
+                    </tr>
+                `);
+          return;
+        }
+
+        const startIndex = (currentPage - 1) * logsPerPage;
+        const paginatedLogs = filteredLogs.slice(
+          startIndex,
+          startIndex + logsPerPage
+        );
+        $tbody.empty();
+        paginatedLogs.forEach((log) => {
+          const $row = $(`
+                    <tr>
+                        <td>${log.timestamp || "-"}</td>
+                        <td><span class="log-level level-${
+                          log.level || "info"
+                        }">${log.level || "info"}</span></td>
+                        <td><span class="log-source">${
+                          log.source || "-"
+                        }</span></td>
+                        <td>${log.host || "-"}</td>
+                        <td class="log-message" title="${
+                          log.message || ""
+                        }">${truncate(log.message || "-", 100)}</td>
+                    </tr>
+                `);
+          $row.click(function () {
+            showLogDetails(log);
+          });
+          $tbody.append($row);
+        });
+      }
+      //phân trang log
+      function updatePagination() {
+        totalPages = Math.ceil(filteredLogs.length / logsPerPage);
+        const $pagination = $("#logPagination");
+        $pagination.empty();
+        if (totalPages <= 1) return;
+        const prevBtn = $(`
+                <button class="pagination-btn" ${
+                  currentPage === 1 ? "disabled" : ""
+                }>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `);
+        prevBtn.click(function () {
+          if (currentPage > 1) {
+            currentPage--;
+            updateLogTable();
+            updatePagination();
+            scrollToTop();
+          }
+        });
+
+        $pagination.append(prevBtn);
+        // số trang
+        const maxVisiblePages = 5;
+        let startPage = Math.max(
+          1,
+          currentPage - Math.floor(maxVisiblePages / 2)
+        );
+        let endPage = startPage + maxVisiblePages - 1;
+        if (endPage > totalPages) {
+          endPage = totalPages;
+          startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        if (startPage > 1) {
+          const firstBtn = $(`<button class="pagination-btn">1</button>`);
+          firstBtn.click(function () {
+            currentPage = 1;
+            updateLogTable();
+            updatePagination();
+            scrollToTop();
+          });
+          $pagination.append(firstBtn);
+          if (startPage > 2) {
+            $pagination.append("<span>...</span>");
+          }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+          const pageBtn = $(`
+                    <button class="pagination-btn ${
+                      i === currentPage ? "active" : ""
+                    }">
+                        ${i}
+                    </button>
+                `);
+
+          pageBtn.click(function () {
+            currentPage = i;
+            updateLogTable();
+            updatePagination();
+            scrollToTop();
+          });
+          $pagination.append(pageBtn);
+        }
+
+        if (endPage < totalPages) {
+          if (endPage < totalPages - 1) {
+            $pagination.append("<span>...</span>");
+          }
+
+          const lastBtn = $(
+            `<button class="pagination-btn">${totalPages}</button>`
+          );
+          lastBtn.click(function () {
+            currentPage = totalPages;
+            updateLogTable();
+            updatePagination();
+            scrollToTop();
+          });
+          $pagination.append(lastBtn);
+        }
+
+        const nextBtn = $(`
+                <button class="pagination-btn" ${
+                  currentPage === totalPages ? "disabled" : ""
+                }>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `);
+
+        nextBtn.click(function () {
+          if (currentPage < totalPages) {
+            currentPage++;
+            updateLogTable();
+            updatePagination();
+            scrollToTop();
+          }
+        });
+        $pagination.append(nextBtn);
+      }
+
+      function updateLogCount() {
+        const totalLogs = filteredLogs.length;
+        const start = (currentPage - 1) * logsPerPage + 1;
+        const end = Math.min(currentPage * logsPerPage, totalLogs);
+        $("#logCount").text(
+          `Showing ${start}-${end} of ${totalLogs} logs (Total loaded: ${logData.length})`
+        );
+      }
+
+      function scrollToTop() {
+        $(".log-table-container").animate({ scrollTop: 0 }, 200);
+      }
+
+      function showLogDetails(log) {
+        $("#detailTimestamp").text(log.timestamp || "-");
+        $("#detailLevel").html(`<span">${log.level || "info"}</span>`);
+        $("#detailSource").text(log.source || "-");
+        $("#detailHost").text(log.host || "-");
+
+        // hiển thị full_message nếu có, nếu không thì dùng message
+        $("#detailMessage").text(log.full_message || log.message || "-");
+        $("#logDetailModal").show();
+      }
+      function closeModal(modalId) {
+        $("#" + modalId).hide();
+      }
+      function exportLogs() {
+        if (filteredLogs.length === 0) {
+          showWarning("No logs to export");
+          return;
+        }
+
+        const dataStr = JSON.stringify(filteredLogs, null, 2);
+        const dataBlob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `logs_${currentHost}_${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showSuccess("Logs exported successfully");
+      }
+
+      function clearLogs() {
+        if (
+          !confirm(
+            "Are you sure you want to clear all logs on this host? This action cannot be undone."
+          )
+        ) {
+          return;
+        }
+        $("#clearLogs").html('<i class="fas fa-spinner fa-spin"></i>');
+        $("#clearLogs").prop("disabled", true);
+
+        $.ajax({
+          url: `/logging/api/clear-logs?host=${currentHost}`,
+          type: "POST",
+          success: function (response) {
+            if (response.error) {
+              showError(response.error);
+            } else {
+              showSuccess(response.message);
+              loadLogs();
+            }
+          },
+          error: function (xhr, status, error) {
+            showError("Error clearing logs: " + error);
+          },
+          complete: function () {
+            $("#clearLogs").html('<i class="fas fa-trash"></i>');
+            $("#clearLogs").prop("disabled", false);
+          },
+        });
+      }
+
+      function truncate(str, maxLength) {
+        if (!str) return "-";
+        return str.length > maxLength
+          ? str.substring(0, maxLength) + "..."
+          : str;
+      }
+      function showSuccess(message) {
+        toastr.success(message);
+      }
+      function showError(message) {
+        toastr.error(message);
+      }
+      function showWarning(message) {
+        toastr.warning(message);
+      }
+      // thoát phần chi tiết
+      $(window).click(function (event) {
+        if ($(event.target).hasClass("modal")) {
+          closeModal(event.target.id);
+        }
+      });
+
+      // Biến toàn cục để lưu trạng thái sắp xếp
+      let currentSort = {
+        column: "timestamp",
+        direction: "desc", // Mặc định là mới nhất trước
+        lock: false,
+      };
+      // Hàm sắp xếp logs
+      function sortLogs(column) {
+        // Nếu đang sắp xếp cùng cột thì đảo chiều
+        if (currentSort.column === column) {
+          currentSort.direction =
+            currentSort.direction === "asc" ? "desc" : "asc";
+        }
+        // Nếu khác cột thì mặc định là desc
+        else {
+          currentSort.column = column;
+          currentSort.direction = "desc"; // Mặc định là giảm dần
+        }
+
+        // Cập nhật icon sắp xếp
+        $(".sortable-header i")
+          .removeClass("fa-sort-up fa-sort-down")
+          .addClass("fa-sort");
+        const $headerIcon = $(`[data-sort="${column}"] i`);
+        $headerIcon.removeClass("fa-sort");
+
+        if (currentSort.direction === "asc") {
+          $headerIcon.addClass("fa-sort-up");
+        } else {
+          $headerIcon.addClass("fa-sort-down");
+        }
+
+        // Thực hiện sắp xếp dữ liệu
+        filteredLogs.sort((a, b) => {
+          if (column === "timestamp") {
+            try {
+              const dateA = parseCustomDate(a.timestamp) || new Date(0);
+              const dateB = parseCustomDate(b.timestamp) || new Date(0);
+              return currentSort.direction === "asc"
+                ? dateA - dateB
+                : dateB - dateA;
+            } catch (e) {
+              console.error("Lỗi phân tích ngày:", e);
+              return 0;
+            }
+          } else {
+            const valA = String(a[column] || "").toLowerCase();
+            const valB = String(b[column] || "").toLowerCase();
+            return currentSort.direction === "asc"
+              ? valA.localeCompare(valB)
+              : valB.localeCompare(valA);
+          }
+        });
+
+        // Cập nhật bảng
+        currentPage = 1;
+        updateLogTable();
+        updatePagination();
+      }
+    </script>
+  </body>
+</html>

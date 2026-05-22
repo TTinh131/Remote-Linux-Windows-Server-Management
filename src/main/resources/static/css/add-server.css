@@ -1,0 +1,90 @@
+.form-container {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 119, 0, 0.64);
+  width: 90%;
+  max-width: 400px;
+  margin: 1rem auto;
+  border: 1px solid #ff7700;
+}
+
+.form-container h1 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #ff7000;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #ff7000;
+  outline: none;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #ff7000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.form-group button:hover {
+  background-color: #e66000;
+  transform: scale(1.02);
+}
+
+.back-button {
+  display: block;
+  margin-top: 0.8rem;
+  text-align: center;
+  color: #ff7000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #e66000;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  font-weight: bold;
+}
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.button-group button {
+  flex: 1;
+}

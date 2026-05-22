@@ -1,0 +1,93 @@
+{
+  "rules" : [ {
+    "protocol" : "samba",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "1",
+    "source_ip" : "",
+    "status" : "active"
+  }, {
+    "protocol" : "apache",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "2",
+    "source_ip" : "Full",
+    "status" : "active"
+  }, {
+    "protocol" : "openssh",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "3",
+    "source_ip" : "",
+    "status" : "active"
+  }, {
+    "protocol" : "22/tcp",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "4",
+    "source_ip" : "",
+    "status" : "active"
+  }, {
+    "protocol" : "155/tcp",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "deny",
+    "id" : "5",
+    "source_ip" : "",
+    "status" : "active"
+  }, {
+    "protocol" : "samba",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "6",
+    "source_ip" : "(v6)",
+    "status" : "active"
+  }, {
+    "protocol" : "apache",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "7",
+    "source_ip" : "Full",
+    "status" : "active"
+  }, {
+    "protocol" : "openssh",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "8",
+    "source_ip" : "(v6)",
+    "status" : "active"
+  }, {
+    "protocol" : "22/tcp",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "allow",
+    "id" : "9",
+    "source_ip" : "(v6)",
+    "status" : "active"
+  }, {
+    "protocol" : "155/tcp",
+    "destination_ip" : "",
+    "destination_port" : "any",
+    "source_port" : "any",
+    "action" : "deny",
+    "id" : "10",
+    "source_ip" : "(v6)",
+    "status" : "active"
+  } ]
+}

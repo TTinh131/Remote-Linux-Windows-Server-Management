@@ -1,0 +1,18 @@
+<div class="control-navbar" th:fragment="nav-server">
+  <button class="control-toggle" onclick="toggleControlNav(event)">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <div class="control-dropdown-content" id="controlNav" th:data-host="${server['host']}">
+    <div class="control-header">
+      <h5>Server Controls</h5>
+    </div>
+    <div class="control-buttons">
+      <button class="control-btn" id="restart">
+        <i class="fa fa-spinner"></i><span>Restart</span>
+      </button>
+      <button class="control-btn danger" id="shutdown">
+        <i class="fas fa-power-off"></i><span>Shut Down</span>
+      </button>
+    </div>
+  </div>
+</div>

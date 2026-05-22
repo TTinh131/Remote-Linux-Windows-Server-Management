@@ -1,0 +1,47 @@
+<aside
+  class="sidebar"
+  th:fragment="sidebar-server"
+  th:data-host="${server['host']}"
+  onmouseenter="expandSidebar()" onmouseleave="collapseSidebar()"
+>
+  <div class="brand server">
+    <h5>
+      <span
+        th:text="${server['nickname'] != null && !server['nickname'].isEmpty() ? server['nickname'] + ' (' + server['host'] + ')' : server['host']}"
+      ></span>
+    </h5>
+  </div>
+  <nav>
+    <ul>
+      <li>
+        <a th:href="@{/server(host=${server.host})}"
+          ><i class="fas fa-server"></i> <span>Servers Information</span></a
+        >
+      </li>
+      <li>
+        <a th:href="@{/logging(host=${server.host})}"><i class="fas fa-bell"></i> <span>Logging</span></a>
+      </li>
+      <li>
+        <a th:href="@{/firewall(host=${server.host})}"><i class="fa-solid fa-shield-halved"></i> <span>Firewall</span></a>
+      </li>
+      <li>
+        <a th:href="@{/user-management(host=${server.host})}"><i class="fa-solid fa-users"></i><span>User</span></a>
+      </li>
+      <li>
+        <a th:href="@{/terminal(host=${server.host})}"><i class="fa fa-code"></i> <span>Terminal</span></a>
+      </li>
+      <li>
+        <a th:href="@{/system-infor(host=${server.host})}"><i class="fas fa-cog"></i> <span>System Information</span></a>
+      </li>
+    </ul>
+  </nav>
+  <div class="sidebar-toggle">
+    <i class="fas fa-chevron-left"></i>
+  </div>
+  <div class="home-button">
+    <a th:href="@{/home}">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+  </div>
+</aside>

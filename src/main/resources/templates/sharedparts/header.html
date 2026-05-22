@@ -1,0 +1,16 @@
+<header class="navbar" th:fragment="header">
+  <div class="nav-links">
+    <a th:href="@{/in4user}" style="margin-right: 1.5rem">
+      <i class="fas fa-user-circle"></i>
+      <span th:text="${user['Ten']}"></span>
+    </a>
+    <form th:action="@{/logout}" method="post" style="display: inline">
+      <button
+        type="submit"
+        style="background: none; border: none; color: #5f6368; cursor: pointer"
+      >
+        <a><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </button>
+    </form>
+  </div>
+</header>

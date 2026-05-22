@@ -1,0 +1,309 @@
+{
+  "logs" : [ {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:24:06.900473+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:f6:15:74:d6:a2:d7:08:00 SRC=172.16.142.236 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=19894 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:24:06.900473+07:00",
+    "source_ip" : "172.16.142.236"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:24:25.750835+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:5a:73:17:4d:47:d1:08:00 SRC=172.16.143.39 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=15162 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:24:25.750835+07:00",
+    "source_ip" : "172.16.143.39"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:24:57.697338+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:e2:97:9b:ca:c5:2b:08:00 SRC=172.16.142.249 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=19617 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:24:57.697338+07:00",
+    "source_ip" : "172.16.142.249"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:25:12.720995+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:2e:dc:05:24:7e:f4:08:00 SRC=172.16.143.88 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=19826 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:25:12.720995+07:00",
+    "source_ip" : "172.16.143.88"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:25:56.851866+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:54:eb:e9:cd:5f:fc:08:00 SRC=172.16.142.25 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=32732 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:25:56.851866+07:00",
+    "source_ip" : "172.16.142.25"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:26:03.250828+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:c6:14:60:78:fa:f0:08:00 SRC=172.16.142.232 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=38327 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:26:03.250828+07:00",
+    "source_ip" : "172.16.142.232"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:26:16.902381+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:82:75:25:ef:02:b9:08:00 SRC=172.16.143.150 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=55974 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:26:16.902381+07:00",
+    "source_ip" : "172.16.143.150"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:26:45.915018+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:a2:e5:d3:f7:ec:93:08:00 SRC=172.16.142.217 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=23459 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:26:45.915018+07:00",
+    "source_ip" : "172.16.142.217"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:27:00.977878+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:02:f4:9c:19:f9:10:08:00 SRC=172.16.143.5 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=30230 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:27:00.977878+07:00",
+    "source_ip" : "172.16.143.5"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:27:03.135890+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:36:ba:92:2c:95:7e:08:00 SRC=172.16.142.231 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=54694 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:27:03.135890+07:00",
+    "source_ip" : "172.16.142.231"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:27:23.220615+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:ea:ee:13:5d:c4:03:08:00 SRC=172.16.143.20 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=53580 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:27:23.220615+07:00",
+    "source_ip" : "172.16.143.20"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:27:45.824216+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:ea:ee:13:5d:c4:03:08:00 SRC=172.16.143.20 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=35262 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:27:45.824216+07:00",
+    "source_ip" : "172.16.143.20"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:28:03.138012+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:ea:ee:13:5d:c4:03:08:00 SRC=172.16.143.20 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=40432 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:28:03.138012+07:00",
+    "source_ip" : "172.16.143.20"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:28:25.287108+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:36:ba:92:2c:95:7e:08:00 SRC=172.16.142.231 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=51569 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:28:25.287108+07:00",
+    "source_ip" : "172.16.142.231"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:28:46.329979+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:a6:f2:25:50:da:14:08:00 SRC=172.16.143.85 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=18983 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:28:46.329979+07:00",
+    "source_ip" : "172.16.143.85"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:29:26.787500+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:54:eb:e9:cd:5f:fc:08:00 SRC=172.16.142.25 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=10668 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:29:26.787500+07:00",
+    "source_ip" : "172.16.142.25"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:29:31.875675+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:a6:f2:25:50:da:14:08:00 SRC=172.16.143.85 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=43020 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:29:31.875675+07:00",
+    "source_ip" : "172.16.143.85"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:29:53.214536+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:4a:97:b6:f4:38:0b:08:00 SRC=172.16.143.100 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=48068 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:29:53.214536+07:00",
+    "source_ip" : "172.16.143.100"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:30:04.718168+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:a6:f2:25:50:da:14:08:00 SRC=172.16.143.85 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=49997 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:30:04.718168+07:00",
+    "source_ip" : "172.16.143.85"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:30:25.404154+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:3a:0c:be:82:88:5c:08:00 SRC=172.16.143.45 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=25798 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:30:25.404154+07:00",
+    "source_ip" : "172.16.143.45"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:30:45.393067+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d0:3f:aa:4a:49:7d:08:00 SRC=172.16.143.101 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=58135 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:30:45.393067+07:00",
+    "source_ip" : "172.16.143.101"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:31:04.071470+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:c6:14:60:78:fa:f0:08:00 SRC=172.16.142.232 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=25388 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:31:04.071470+07:00",
+    "source_ip" : "172.16.142.232"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:31:27.697522+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:ba:13:d3:88:28:86:08:00 SRC=172.16.143.21 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=2691 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:31:27.697522+07:00",
+    "source_ip" : "172.16.143.21"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:31:47.997371+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:8a:75:e1:26:71:10:08:00 SRC=172.16.143.154 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=41489 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:31:47.997371+07:00",
+    "source_ip" : "172.16.143.154"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:32:23.097142+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:62:fb:e5:89:20:4a:08:00 SRC=172.16.143.157 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=34515 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:32:23.097142+07:00",
+    "source_ip" : "172.16.143.157"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:32:36.008190+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:a6:f2:25:50:da:14:08:00 SRC=172.16.143.85 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=23885 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:32:36.008190+07:00",
+    "source_ip" : "172.16.143.85"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:32:49.105378+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:a6:f2:25:50:da:14:08:00 SRC=172.16.143.85 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=9796 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:32:49.105378+07:00",
+    "source_ip" : "172.16.143.85"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:33:12.365215+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=10920 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:33:12.365215+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:33:26.847197+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:36:ba:92:2c:95:7e:08:00 SRC=172.16.142.231 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=53485 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:33:26.847197+07:00",
+    "source_ip" : "172.16.142.231"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:34:04.516258+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d0:3f:aa:4a:49:7d:08:00 SRC=172.16.143.101 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=30737 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:34:04.516258+07:00",
+    "source_ip" : "172.16.143.101"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:34:10.318223+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:c6:14:60:78:fa:f0:08:00 SRC=172.16.142.232 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=22215 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:34:10.318223+07:00",
+    "source_ip" : "172.16.142.232"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:34:25.653442+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:62:fb:e5:89:20:4a:08:00 SRC=172.16.143.157 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=4974 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:34:25.653442+07:00",
+    "source_ip" : "172.16.143.157"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:35:02.889226+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:f6:15:74:d6:a2:d7:08:00 SRC=172.16.142.236 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=20061 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:35:02.889226+07:00",
+    "source_ip" : "172.16.142.236"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:35:08.828223+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=58544 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:35:08.828223+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:35:32.180265+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:62:fb:e5:89:20:4a:08:00 SRC=172.16.143.157 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=27148 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:35:32.180265+07:00",
+    "source_ip" : "172.16.143.157"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:35:49.921151+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:ee:5c:38:7a:56:de:08:00 SRC=172.16.143.160 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=47168 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:35:49.921151+07:00",
+    "source_ip" : "172.16.143.160"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:36:06.264485+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=60013 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:36:06.264485+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:36:34.431095+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:26:c9:ee:80:7c:e9:08:00 SRC=172.16.143.149 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=29866 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:36:34.431095+07:00",
+    "source_ip" : "172.16.143.149"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:36:50.286971+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=45622 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:36:50.286971+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:37:12.355368+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:ba:6d:92:97:c2:ae:08:00 SRC=172.16.142.237 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=39046 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:37:12.355368+07:00",
+    "source_ip" : "172.16.142.237"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:37:27.127054+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:22:75:1a:16:31:95:08:00 SRC=172.16.143.156 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=59702 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:37:27.127054+07:00",
+    "source_ip" : "172.16.143.156"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:37:44.462655+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:c6:14:60:78:fa:f0:08:00 SRC=172.16.142.232 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=55373 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:37:44.462655+07:00",
+    "source_ip" : "172.16.142.232"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:38:09.537657+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:02:f4:9c:19:f9:10:08:00 SRC=172.16.143.5 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=52533 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:38:09.537657+07:00",
+    "source_ip" : "172.16.143.5"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:38:30.319755+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=9565 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:38:30.319755+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:38:43.391427+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:2e:dc:05:24:7e:f4:08:00 SRC=172.16.143.88 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=18928 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:38:43.391427+07:00",
+    "source_ip" : "172.16.143.88"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:39:03.405706+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=13876 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:39:03.405706+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:39:34.078649+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:d2:96:29:8b:8e:b3:08:00 SRC=172.16.143.134 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=35800 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:39:34.078649+07:00",
+    "source_ip" : "172.16.143.134"
+  }, {
+    "destination_ip" : "224.0.0.251",
+    "action" : "deny",
+    "message" : "2025-08-25T13:39:45.547494+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC=01:00:5e:00:00:fb:2e:dc:05:24:7e:f4:08:00 SRC=172.16.143.88 DST=224.0.0.251 LEN=32 TOS=0x00 PREC=0x00 TTL=1 ID=58571 PROTO=2 ",
+    "timestamp" : "2025-08-25T13:39:45.547494+07:00",
+    "source_ip" : "172.16.143.88"
+  }, {
+    "protocol" : "udp",
+    "destination_ip" : "239.255.255.250",
+    "destination_port" : "3702",
+    "source_port" : "45232",
+    "action" : "deny",
+    "message" : "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00002025-08-27T13:41:11.360165+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC= SRC=172.20.10.4 DST=239.255.255.250 LEN=635 TOS=0x00 PREC=0x00 TTL=1 ID=17179 DF PROTO=UDP SPT=45232 DPT=3702 LEN=615 ",
+    "timestamp" : "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00002025-08-27T13:41:11.360165+07:00",
+    "source_ip" : "172.20.10.4"
+  }, {
+    "protocol" : "udp",
+    "destination_ip" : "239.255.255.250",
+    "destination_port" : "3702",
+    "source_port" : "45232",
+    "action" : "deny",
+    "message" : "2025-08-27T13:41:11.605070+07:00 tran-thanh-tinh kernel: [UFW BLOCK] IN=enp0s3 OUT= MAC= SRC=172.20.10.4 DST=239.255.255.250 LEN=635 TOS=0x00 PREC=0x00 TTL=1 ID=17382 DF PROTO=UDP SPT=45232 DPT=3702 LEN=615",
+    "timestamp" : "2025-08-27T13:41:11.605070+07:00",
+    "source_ip" : "172.20.10.4"
+  } ]
+}

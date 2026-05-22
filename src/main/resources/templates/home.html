@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <title>IDS - Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/notive.js}" defer></script>
+    <script th:src="@{/js/home.js}" defer></script>
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar::sidebar"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <div class="content">
+        <div class="page-header">
+          <h1>Danh Sách Máy Chủ</h1>
+          <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input
+              id="search"
+              type="text"
+              autocomplete="off"
+              placeholder="Tìm kiếm máy chủ..."
+            />
+          </div>
+          <div class="notifications"></div>
+        </div>
+        <div class="server-list">
+          <div
+            class="server"
+            th:each="server : ${servers}"
+            th:data-host="${server.host}"
+            th:data-user="${server.user}"
+            th:data-port="${server.post}"
+            th:data-password="${server.password}"
+            th:data-nickname="${server.nickname}"
+          >
+            <img class="server-img" th:src="@{/img/computer.png}" alt="" />
+            <div class="server-info">
+              <p>
+                <span
+                  th:text="${server['nickname'] != null && !server['nickname'].isEmpty() ? server['nickname'] + ' (' + server['host'] + ')' : server['host']}"
+                ></span>
+              </p>
+              <p>
+                OS:
+                <span
+                  class="server-os"
+                  th:attr="data-host=${server.host}"
+                  th:text="${server.os_type}"
+                ></span>
+              </p>
+              <p>
+                Status:
+                <span class="server-status" th:attr="data-host=${server.host}">
+                  ...
+                </span>
+              </p>
+            </div>
+            <button class="delete-button" th:data-host="${server.host}">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="add-server">
+            <a th:href="@{/home/addserver}" class="add-server-link">
+              <div class="add-server-icon">
+                <i class="fas fa-plus"></i>
+              </div>
+              <p>Thêm Máy Chủ</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- Inline JS với mỗi 3 phút -->
+<script th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    const API = [[ @{/connect-ssh} ]]; // dùng được cho cả GET & POST
+    const time = 60 * 1000;
+
+    const servers = Array.from(document.querySelectorAll(".server")).map(el => ({
+      host: el.dataset.host
+    }));
+    //lấy trạng thái cũ
+    function loadFromDb() {
+      fetch(API)
+        .then(r => r.json())
+        .then(updateUI)
+        .catch(console.error);
+    }
+    //kiểm tra SSH
+    function refreshFromSsh() {
+      fetch(API, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(servers)
+      })
+        .then(r => r.json())
+        .then(updateUI)
+        .catch(console.error);
+    }
+    //cập nhật UI chung
+    function updateUI(list) {
+      if (!Array.isArray(list)) return;
+      list.forEach(item => {
+        const statusEl = document.querySelector(`.server-status[data-host="${item.host}"]`);
+        if (statusEl) {
+          if (item.status === "online") {
+            statusEl.textContent = "Online";
+            statusEl.classList.add("online");
+            statusEl.classList.remove("offline");
+          } else {
+            statusEl.textContent = "Offline";
+            statusEl.classList.add("offline");
+            statusEl.classList.remove("online");
+          }
+        }
+        const osEl = document.querySelector(`.server-os[data-host="${item.host}"]`);
+        if (osEl) osEl.textContent = item.os_type;
+      });
+    }
+    loadFromDb();          // hiển thị nhanh trạng thái đã lưu
+    refreshFromSsh();      // gọi kiểm tra lại và cập nhật sau
+    setInterval(refreshFromSsh, time); // Định kỳ gọi lại kiểm tra
+  });
+</script>

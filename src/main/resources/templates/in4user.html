@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDS - UserInfo</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <style>
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #ff7000;
+      }
+      .container1 {
+        padding: 1.5rem;
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(255, 119, 0, 0.64);
+        border-radius: 10px;
+        border: 1px solid #ff7700;
+      }
+      .container1 p {
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar::sidebar"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <div class="container">
+        <h1>Thông Tin Tài Khoản</h1>
+        <div class="container1">
+          <p>
+            <strong>Họ và tên:</strong> <span th:text="${user['Ten']}"></span>
+          </p>
+          <p>
+            <strong>Email:</strong> <span th:text="${user['Email']}"></span>
+          </p>
+          <p>
+            <strong>Mã số nhân viên:</strong>
+            <span th:text="${user['MaNV']}"></span>
+          </p>
+          <p>
+            <strong>Bộ phận:</strong> <span th:text="${user['BoPhan']}"></span>
+          </p>
+          <p>
+            <strong>Chức vụ:</strong> <span th:text="${user['ChucVu']}"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

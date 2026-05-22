@@ -1,0 +1,2923 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <title>IDS - Firewall Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav-server.css}" />
+    <link rel="stylesheet" th:href="@{/css/server.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/nav-server.js}"></script>
+    <style>
+            :root {
+             --primary-color: #ff7000;
+             --primary-light: #764ba2;
+             --primary-dark: #5a67d8;
+             --success-color: #48bb78;
+             --warning-color: #ed8936;
+             --danger-color: #f56565;
+             --info-color: #4299e1;
+             --dark-color: #2d3748;
+             --light-color: #f7fafc;
+             --card-bg: #ffffff;
+             --text-primary: #2d3748;
+             --text-secondary: #718096;
+             --border-color: #e2e8f0;
+             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+             margin-top: 1rem;
+            }
+
+            /* ===== Layout ===== */
+            .container2 {
+             display: flex;
+             gap: 1.5rem;
+             width: 80%;
+             align-items: flex-start;
+            }
+
+            .stats-grid {
+             display: flex;
+             flex-direction: column;
+             gap: 1.5rem;
+             margin-bottom: 2rem;
+             flex: 0 0 200px;
+            }
+
+            .main-content {
+             background: var(--card-bg);
+             border-radius: 16px;
+             box-shadow: var(--shadow-lg);
+             border: 1px solid var(--border-color);
+             overflow: hidden;
+             flex: 1;
+            }
+
+            .table-container {
+             overflow-x: auto;
+            }
+
+            /* ===== Card ===== */
+            .stat-card {
+             background: var(--card-bg);
+             border-radius: 16px;
+             padding: 1rem;
+             box-shadow: var(--shadow);
+             border: 1px solid var(--border-color);
+             position: relative;
+             overflow: hidden;
+             transition: all 0.3s ease;
+             width: 100%;
+             margin-bottom: 0;
+            }
+
+            .stat-card:hover {
+             transform: translateY(-4px);
+             box-shadow: var(--shadow-lg);
+            }
+
+            .stat-card::before {
+             content: "";
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             height: 4px;
+             background: linear-gradient(
+               90deg,
+               var(--primary-color),
+               var(--primary-light)
+             );
+            }
+
+            .stat-header {
+             display: flex;
+             align-items: center;
+             margin-bottom: 1rem;
+             gap: 1rem;
+            }
+
+            .stat-icon {
+             width: 48px;
+             height: 48px;
+             border-radius: 12px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 1.5rem;
+             color: white;
+             flex-shrink: 0;
+            }
+
+            .stat-icon.primary {
+             background: var(--primary-color);
+            }
+            .stat-icon.success {
+             background: var(--success-color);
+            }
+            .stat-icon.warning {
+             background: var(--warning-color);
+            }
+            .stat-icon.danger {
+             background: var(--danger-color);
+            }
+            .stat-icon.info {
+             background: var(--info-color);
+            }
+
+            .stat-info {
+             display: flex;
+             flex-direction: column;
+             gap: 0.25rem;
+            }
+
+            .stat-value {
+             font-size: 2.5rem;
+             font-weight: 700;
+             color: var(--text-primary);
+             line-height: 1;
+            }
+
+            .stat-label {
+             font-size: 0.875rem;
+             color: var(--text-secondary);
+             font-weight: 500;
+             margin-top: 0.5rem;
+            }
+
+            .stat-change {
+             display: flex;
+             align-items: center;
+             gap: 0.25rem;
+             font-size: 0.75rem;
+             font-weight: 600;
+             margin-top: 0.5rem;
+            }
+
+            .stat-change.positive {
+             color: var(--success-color);
+            }
+            .stat-change.negative {
+             color: var(--danger-color);
+            }
+
+            /* ===== Header ===== */
+            .content-header {
+             background: linear-gradient(
+               135deg,
+               var(--primary-color),
+               var(--primary-light)
+             );
+             color: white;
+             padding: 1.5rem 2rem;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+            }
+
+            .content-title {
+             font-size: 1.25rem;
+             font-weight: 600;
+             margin: 0;
+            }
+
+            .header-actions {
+             display: flex;
+             gap: 0.75rem;
+             align-items: center;
+            }
+
+            /* Firewall Status Styles */
+            .firewall-status-container {
+             display: flex;
+             align-items: center;
+             gap: 8px;
+             background: rgba(255, 255, 255, 0.1);
+             padding: 8px 12px;
+             border-radius: 20px;
+             background-color: rgb(255, 207, 170);
+             margin-bottom: 1rem;
+             margin-left: auto; /* Thêm dòng này để đẩy sang phải */
+             margin-right: 10%;
+            }
+
+            .status-label {
+             color: black;
+             font-size: 0.9rem;
+             font-weight: 500;
+            }
+
+            .status-value {
+             color: white;
+             font-size: 0.9rem;
+             font-weight: 600;
+             min-width: 70px;
+             text-align: center;
+            }
+
+            .status-value.active {
+             color: #4caf50;
+            }
+
+            .status-value.inactive {
+             color: #f44336;
+            }
+
+            .action-buttons {
+             display: flex;
+             gap: 10px;
+            }
+
+            /* Toggle Switch Styles */
+            .toggle-switch {
+             position: relative;
+             display: inline-block;
+             width: 50px;
+             height: 24px;
+            }
+
+            .toggle-checkbox {
+             opacity: 0;
+             width: 0;
+             height: 0;
+            }
+
+            .toggle-slider {
+             position: absolute;
+             cursor: pointer;
+             top: 0;
+             left: 0;
+             right: 0;
+             bottom: 0;
+             background-color: #ccc;
+             transition: 0.4s;
+             border-radius: 24px;
+            }
+
+            .toggle-slider:before {
+             position: absolute;
+             content: "";
+             height: 18px;
+             width: 18px;
+             left: 3px;
+             bottom: 3px;
+             background-color: white;
+             transition: 0.4s;
+             border-radius: 50%;
+            }
+
+            .toggle-checkbox:checked + .toggle-slider {
+             background-color: #4caf50;
+            }
+
+            .toggle-checkbox:checked + .toggle-slider:before {
+             transform: translateX(26px);
+            }
+
+            .toggle-checkbox:disabled + .toggle-slider {
+             opacity: 0.6;
+             cursor: not-allowed;
+            }
+
+            /* ===== Buttons ===== */
+            .btn {
+             padding: 0.5rem 1rem;
+             border: none;
+             border-radius: 8px;
+             font-size: 0.875rem;
+             font-weight: 500;
+             cursor: pointer;
+             transition: all 0.2s ease;
+             display: inline-flex;
+             align-items: center;
+             gap: 0.5rem;
+             text-decoration: none;
+            }
+
+            .btn-primary {
+             background: var(--primary-color);
+             color: white;
+            }
+
+            .btn-primary:hover {
+             background: var(--primary-dark);
+             transform: translateY(-1px);
+            }
+
+            .btn-secondary {
+             background: rgba(255, 255, 255, 0.2);
+             color: white;
+             border: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .btn-secondary:hover {
+             background: rgba(255, 255, 255, 0.3);
+            }
+
+            .btn-success {
+             background: var(--success-color);
+             color: white;
+            }
+
+            .btn-success:hover {
+             background: #38a169;
+            }
+
+            .btn-danger {
+             background: var(--danger-color);
+             color: white;
+            }
+
+            .btn-danger:hover {
+             background: #e53e3e;
+            }
+
+            /* ===== search ===== */
+            .search-section {
+             padding: 1.5rem 2rem;
+             border-bottom: 1px solid var(--border-color);
+             background: #f8fafc;
+            }
+
+            .search-controls {
+             display: flex;
+             gap: 1rem;
+             align-items: center;
+             flex-wrap: wrap;
+            }
+
+            .search-box {
+             position: relative;
+             flex: 1;
+             min-width: 300px;
+            }
+
+            .search-input {
+             width: 100%;
+             padding: 0.75rem 1rem 0.75rem 2.5rem;
+             border: 1px solid var(--border-color);
+             border-radius: 8px;
+             font-size: 0.875rem;
+             background: white;
+             transition: all 0.2s ease;
+            }
+
+            .search-input:focus {
+             outline: none;
+             border-color: var(--primary-color);
+             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+
+            .search-icon {
+             position: absolute;
+             left: 0.75rem;
+             top: 50%;
+             transform: translateY(-50%);
+             color: var(--text-secondary);
+            }
+
+            /* ===== Bảng ===== */
+            .firewall-table {
+             width: 100%;
+             border-collapse: collapse;
+            }
+
+            .firewall-table th {
+             background: #f8fafc;
+             padding: 1rem;
+             text-align: left;
+             font-weight: 600;
+             color: white;
+             border-bottom: 1px solid var(--border-color);
+             font-size: 0.875rem;
+             text-align: center;
+             text-transform: uppercase;
+             background-color: rgb(255, 165, 96);
+            }
+            .firewall-table td {
+             max-width: 150px;
+             padding: 1rem;
+             border-bottom: 1px solid var(--border-color);
+             vertical-align: middle;
+             text-align: center;
+             color: var(--text-primary);
+             font-size: 0.875rem;
+            }
+
+            /* hàng lẻ */
+            .firewall-table tbody tr:nth-child(odd) {
+             background-color: #ffffff;
+            }
+
+            /* hàng chẵn */
+            .firewall-table tbody tr:nth-child(even) {
+             background-color: rgb(248, 248, 248);
+            }
+
+            .firewall-table tr {
+             transition: background-color 0.2s ease;
+            }
+
+            .firewall-table tbody tr:hover {
+             background-color: rgb(252, 253, 206) !important;
+             cursor: pointer;
+            }
+
+            /* ===== status; types  ===== */
+            .status-badge {
+             padding: 0.25rem 0.75rem;
+             border-radius: 20px;
+             font-size: 0.75rem;
+             font-weight: 600;
+             text-transform: uppercase;
+             letter-spacing: 0.025em;
+            }
+
+            .status-active {
+             background: rgba(72, 187, 120, 0.1);
+             color: var(--success-color);
+            }
+
+            .status-inactive {
+             background: rgba(113, 128, 150, 0.1);
+             color: var(--text-secondary);
+            }
+
+            .type-badge {
+             padding: 0.25rem 0.75rem;
+             border-radius: 20px;
+             font-size: 0.75rem;
+             font-weight: 600;
+             background: rgba(102, 126, 234, 0.1);
+             color: var(--primary-color);
+            }
+
+            .action-badge {
+             padding: 0.25rem 0.75rem;
+             border-radius: 20px;
+             font-size: 0.75rem;
+             font-weight: 600;
+            }
+
+            .action-allow {
+             background: rgba(72, 187, 120, 0.1);
+             color: var(--success-color);
+             text-transform: uppercase;
+            }
+
+            .action-deny {
+             background: rgba(245, 101, 101, 0.1);
+             color: var(--danger-color);
+                 text-transform: uppercase;F
+            }
+
+            /* ===== Action ===== */
+            .action-buttons {
+             display: flex;
+             gap: 0.5rem;
+             margin-top: 0;
+            }
+
+            .action-btn {
+             width: 32px;
+             height: 32px;
+             border: none;
+             border-radius: 6px;
+             cursor: pointer;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             transition: all 0.2s ease;
+             font-size: 0.875rem;
+            }
+
+            .action-btn:hover {
+             transform: scale(1.1);
+            }
+
+            .btn-edit {
+             background: rgba(66, 153, 225, 0.1);
+             color: var(--info-color);
+            }
+
+            .btn-delete {
+             background: rgba(245, 101, 101, 0.1);
+             color: var(--danger-color);
+            }
+
+            .btn-toggle {
+             background: rgba(237, 137, 54, 0.1);
+             color: var(--warning-color);
+            }
+
+            .btn-view {
+             background: rgba(102, 126, 234, 0.1);
+             color: var(--primary-color);
+            }
+
+            /* ===== Modal ===== */
+            .modal {
+             display: none;
+             position: fixed;
+             z-index: 1000;
+             inset: 0;
+             width: 100%;
+             height: 100%;
+             background: rgba(0, 0, 0, 0.5);
+             backdrop-filter: blur(6px);
+             animation: fadeIn 0.2s ease-out;
+            }
+
+            .modal-content {
+             background: #ffffff;
+             margin: 3% auto;
+             padding: 0;
+             border-radius: 20px;
+             width: 90%;
+             max-width: 800px;
+             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+             animation: modalSlideIn 0.3s ease-out;
+             max-height: 85vh;
+             display: flex;
+             flex-direction: column;
+             overflow: hidden;
+
+            }
+
+            @keyframes modalSlideIn {
+             from {
+               opacity: 0;
+               transform: translateY(-40px);
+             }
+             to {
+               opacity: 1;
+               transform: translateY(0);
+             }
+            }
+
+            .modal-header {
+             padding: 1.25rem 2rem;
+             border-bottom: 1px solid var(--border-color, #e5e7eb);
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             background-color: #f9fafb;
+            }
+
+            .modal-title {
+             font-size: 1.25rem;
+             font-weight: 600;
+             margin: 0;
+             display: flex;
+             align-items: center;
+             gap: 0.75rem;
+             color: #ff7000;
+            }
+
+            .close-btn {
+             background: none;
+             border: none;
+             font-size: 1.5rem;
+             cursor: pointer;
+             color: var(--text-secondary, #6b7280);
+             width: 32px;
+             height: 32px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             border-radius: 6px;
+             transition: background 0.2s ease, color 0.2s ease;
+            }
+
+            .close-btn:hover {
+             background: rgba(0, 0, 0, 0.05);
+             color: #374151;
+            }
+
+            .modal-body {
+             padding: 1.5rem 2rem;
+             flex: 1;
+             overflow: hidden;
+             display: flex;
+             flex-direction: column;
+             background-color: #ffffff;
+             word-wrap: break-word;
+            }
+
+            .modal-footer {
+             padding: 1.5rem 2rem;
+             border-top: 1px solid var(--border-color, #e5e7eb);
+             background-color: #f9fafb;
+             display: flex;
+             justify-content: flex-end;
+             gap: 1rem;
+            }
+
+            .btn-cancel {
+             background: #e2e8f0;
+             color: var(--text-secondary, #4b5563);
+             border: none;
+             padding: 0.5rem 1rem;
+             font-size: 1rem;
+             border-radius: 8px;
+             transition: background 0.2s ease;
+             cursor: pointer;
+            }
+
+            .btn-cancel:hover {
+             background: #cbd5e0;
+            }
+
+            /* ===== Form ===== */
+            .form-group {
+             grid-template-columns: 120px 1fr;
+            }
+
+            .form-label {
+             font-weight: 600;
+             font-size: 0.95rem;
+             color: var(--text-primary, #1f2937);
+             display: block;
+             margin-bottom: 0.5rem;
+            }
+
+            .form-input {
+             width: 100%;
+             padding: 0.75rem 1rem;
+             font-size: 0.875rem;
+             line-height: 1.25rem;
+             color: var(--text-primary, #1f2937);
+             background-color: #ffffff;
+             border: 1px solid var(--border-color, #d1d5db);
+             border-radius: 10px;
+             transition: border 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .form-input:focus {
+             outline: none;
+             border-color: var(--primary-color, #667eea);
+             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+            }
+
+            .form-hint {
+             font-size: 0.75rem;
+             color: var(--text-secondary, #6b7280);
+             margin-top: 0.25rem;
+            }
+
+            /* ===== tab ===== */
+            .tab-nav {
+             display: flex;
+             border-bottom: 1px solid var(--border-color);
+             padding: 0 2rem;
+             background: #f8fafc;
+            }
+
+            .tab-btn {
+             padding: 1rem 1.5rem;
+             background: none;
+             border: none;
+             border-bottom: 3px solid transparent;
+             font-weight: 500;
+             color: var(--text-secondary);
+             cursor: pointer;
+             transition: all 0.2s ease;
+            }
+
+            .tab-btn.active {
+             color: var(--primary-color);
+             border-bottom-color: var(--primary-color);
+            }
+
+            .tab-btn:hover:not(.active) {
+             color: var(--text-primary);
+            }
+
+            .tab-content {
+             flex: 1;
+             overflow-y: auto;
+             padding: 2rem;
+            }
+
+            .tab-pane {
+             display: none;
+            }
+
+            .tab-pane.active {
+             display: block;
+            }
+
+            /* ===== chi tiết ===== */
+            .detail-row {
+             display: flex;
+             margin-bottom: 1rem;
+             padding-bottom: 1rem;
+             border-bottom: 1px solid var(--border-color);
+            }
+
+            .detail-label {
+             font-weight: 500;
+             color: var(--text-primary);
+             min-width: 180px;
+            }
+
+            .detail-value {
+             flex: 1;
+             color: var(--text-secondary);
+             white-space: pre-wrap;
+             font-family: monospace;
+             line-height: 1.5;
+             overflow: hidden;
+            }
+
+            /* ===== logs ===== */
+            .firewall-logs {
+             max-height: 300px;
+             overflow-y: auto;
+             border: 1px solid var(--border-color);
+             border-radius: 8px;
+             padding: 1rem;
+             background: #f8fafc;
+            }
+
+            .log-item {
+             padding: 0.5rem;
+             border-bottom: 1px solid var(--border-color);
+             font-family: monospace;
+            }
+
+            .log-item:last-child {
+             border-bottom: none;
+            }
+
+            .loading-spinner {
+             display: inline-block;
+             width: 20px;
+             height: 20px;
+             border: 2px solid rgba(255, 255, 255, 0.3);
+             border-radius: 50%;
+             border-top-color: white;
+             animation: spin 1s ease-in-out infinite;
+            }
+
+            @keyframes spin {
+             to {
+               transform: rotate(360deg);
+             }
+            }
+
+            .empty-state {
+             text-align: center;
+             padding: 3rem 2rem;
+             color: var(--text-secondary);
+            }
+
+            .empty-state i {
+             font-size: 3rem;
+             margin-bottom: 1rem;
+             opacity: 0.5;
+            }
+
+            /* ===== sắp xếp ===== */
+            .header-container {
+             position: relative;
+             display: inline-block;
+             width: 100%;
+             height: 100%;
+            }
+
+            .dropdown-menu {
+             display: none;
+             position: fixed;
+             background: white;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+             z-index: 1000;
+             max-height: 300px;
+             overflow-y: auto;
+            }
+
+            .dropdown-menu.show {
+             display: block;
+            }
+
+            .dropdown-option {
+             padding: 8px 12px;
+             cursor: pointer;
+             transition: background-color 0.2s;
+             white-space: nowrap;
+            }
+
+            .dropdown-option:hover {
+             background-color: #f0f0f0;
+            }
+
+            .dropdown-option.selected {
+             background-color: rgba(255, 112, 0, 0.1);
+             color: var(--primary-color);
+             font-weight: 500;
+            }
+
+            /* Enhanced Logs Table Styles */
+      #enhancedLogsTableBody tr:hover {
+        background-color: #f5f5f5 !important;
+        cursor: default;
+      }
+
+      #enhancedLogsTableBody td {
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .firewall-table th {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+      }
+
+      .firewall-table th:hover {
+        background-color: rgba(255, 165, 96, 0.8);
+      }
+
+      .firewall-table th i {
+        margin-left: 5px;
+        transition: transform 0.2s;
+      }
+
+      .firewall-table th.sorted-asc i {
+        transform: rotate(0deg);
+      }
+
+      .firewall-table th.sorted-desc i {
+        transform: rotate(180deg);
+      }
+      .column-filter-dropdown {
+        position: absolute;
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        box-shadow: var(--shadow);
+        z-index: 999;
+        padding: 0.5rem;
+        display: none;
+        min-width: 120px;
+        max-height: 300px;
+        overflow-y: auto;
+        font-weight: normal; /* Thêm dòng này để đảm bảo không in đậm */
+      }
+
+      .column-filter-dropdown .filter-option {
+        padding: 0.5rem;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s;
+        font-weight: normal; /* Đảm bảo chữ không in đậm */
+        color: var(--text-primary); /* Sử dụng màu chữ giống phần còn lại */
+      }
+
+      .column-filter-dropdown .filter-option:hover {
+        background-color: #f8f8f8; /* Màu hover nhẹ nhàng hơn */
+      }
+
+      .column-filter-dropdown .filter-option.active {
+        background-color: rgba(255, 112, 0, 0.1);
+        color: var(--primary-color);}
+      .filter-option{
+        color: black;
+      }
+        .filter-option.active {
+          background-color: rgba(255, 112, 0, 0.1);
+          color: var(--primary-color);
+          font-weight: 500;
+        }
+
+        .filter-header {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+             justify-content: center;
+        }
+
+        .filter-header i {
+          transition: transform 0.2s;
+        }
+
+        .filter-header:hover {
+          color: var(--primary-color);
+        }
+
+        .filter-header.loading {
+          position: relative;
+          color: var(--primary-color);
+        }
+
+        .filter-header.loading::after {
+          content: "";
+          position: absolute;
+          right: -20px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255, 112, 0, 0.2);
+          border-top-color: var(--primary-color);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+      .detail-row {
+        display: flex;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .detail-label {
+        font-weight: 500;
+        color: var(--text-primary);
+        min-width: 180px;
+      }
+
+           .detail-value {
+           flex: 1;
+        color: var(--text-secondary);
+            }
+
+            .btn-toggle.btn-success {
+              background: rgba(72, 187, 120, 0.1);
+              color: var(--success-color);
+            }
+
+            .btn-toggle.btn-warning {
+              background: rgba(237, 137, 54, 0.1);
+              color: var(--warning-color);
+            }
+
+       /* Compact Security Container */
+       .compact-security-container {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 1.5rem;
+           margin: 1.5rem ;
+       }
+
+       .compact-security-section {
+           background: white;
+           border-radius: 8px;
+           padding: 1.25rem;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+       }
+
+       .compact-security-section h3 {
+           margin-top: 0;
+           margin-bottom: 1rem;
+           color: var(--primary-color);
+           font-size: 1.1rem;
+           border-bottom: 1px solid #eee;
+           padding-bottom: 0.5rem;
+           align-items: center;
+       }
+
+       /* Compact Summary */
+       .compact-summary-item {
+           display: flex;
+           justify-content: space-between;
+           margin-bottom: 0.5rem;
+           padding: 0.5rem 0;
+           border-bottom: 1px dashed #eee;
+       }
+
+       .compact-summary-item.highlight {
+           font-weight: 600;
+           border-bottom: 1px solid var(--primary-color);
+       }
+
+       .compact-label {
+           color: var(--text-secondary);
+       }
+
+       .compact-value {
+           font-weight: 500;
+       }
+
+       /* Compact Warnings */
+       .compact-warning {
+           display: flex;
+           align-items: flex-start;
+           padding: 0.75rem;
+           margin-bottom: 0.75rem;
+           background: #fff8f8;
+           border-left: 3px solid var(--danger-color);
+           border-radius: 4px;
+       }
+
+       .warning-checkbox {
+           margin-right: 0.75rem;
+           margin-top: 0.2rem;
+       }
+
+       .warning-text {
+           flex-grow: 1;
+           font-size: 0.9rem;
+           line-height: 1.4;
+       }
+
+       .no-warnings {
+           text-align: center;
+           padding: 1rem;
+           color: var(--success-color);
+           background: #f8fff8;
+           border-radius: 4px;
+           border-left: 3px solid var(--success-color);
+       }
+
+       .no-warnings i {
+           margin-right: 0.5rem;
+       }
+
+       .loading-spinner {
+           display: inline-block;
+           width: 20px;
+           height: 20px;
+           border: 2px solid rgba(0,0,0,0.1);
+           border-radius: 50%;
+           border-top-color: var(--primary-color);
+           animation: spin 1s ease-in-out infinite;
+           margin-right: 0.5rem;
+       }
+
+       @keyframes spin {
+           to { transform: rotate(360deg); }
+       }
+
+       .refreshlog{
+                 background: rgba(255, 208, 161, 0.95);
+                 color: black;
+                 border: 1px solid #ff7000;
+             }
+             .refreshlog:hover{
+               background: rgba(248, 248, 248, 0.95);
+             }
+             .btn-success.real-time-active {
+               background-color: var(--success-color);
+               color: white;
+               animation: pulse 2s infinite;
+             }
+
+             @keyframes pulse {
+                 0% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7); }
+                 70% { box-shadow: 0 0 0 10px rgba(72, 187, 120, 0); }
+                 100% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0); }
+             }
+             .compact-warning {
+          display: flex;
+          align-items: center;
+          padding: 0.75rem;
+          margin-bottom: 0.75rem;
+          background: #fff8f8;
+          border-left: 3px solid var(--danger-color);
+          border-radius: 4px;
+          transition: all 0.2s;
+      }
+
+      .compact-warning:hover {
+          background: #fff0f0;
+      }
+
+
+
+      .warning-text {
+          flex-grow: 1;
+          font-size: 0.9rem;
+          line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar-server::sidebar-server"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <div class="container">
+        <h1>Firewall Management</h1>
+        <div class="firewall-status-container">
+          <span class="status-label">Status:</span>
+          <span class="status-value" id="firewallStatusText">Loading...</span>
+          <label class="toggle-switch">
+            <input
+              type="checkbox"
+              id="firewallToggle"
+              class="toggle-checkbox"
+            />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="container2">
+          <div class="stats-grid">
+            <div class="stat-card" onclick="showEnhancedLogs()">
+              <div class="stat-header">
+                <div class="stat-icon info">
+                  <i class="fas fa-list-ol"></i>
+                </div>
+                <div class="stat-info">
+                  <div class="stat-label">Total Rules</div>
+                </div>
+              </div>
+              <div class="stat-value" id="totalRules">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon success">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                  <div class="stat-label">Allow Rules</div>
+                </div>
+              </div>
+              <div class="stat-value" id="allowRules">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-icon danger">
+                  <i class="fas fa-ban"></i>
+                </div>
+                <div class="stat-info">
+                  <div class="stat-label">Deny Rules</div>
+                </div>
+              </div>
+              <div class="stat-value" id="denyRules">0</div>
+            </div>
+          </div>
+
+          <div class="main-content">
+            <div class="content-header">
+              <h2 class="content-title">Firewall Rules</h2>
+              <div class="header-actions">
+                <div class="action-buttons">
+                  <button
+                    class="btn btn-secondary"
+                    onclick="refreshFirewall()"
+                    id="refreshBtn"
+                  >
+                    <i class="fas fa-sync-alt"></i> Refresh
+                  </button>
+                  <button class="btn btn-secondary" onclick="exportRules()">
+                    <i class="fas fa-download"></i> Export
+                  </button>
+                  <button class="btn btn-primary" onclick="showAddRuleModal()">
+                    <i class="fas fa-plus"></i> Add Rule
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="search-section">
+              <div class="search-controls">
+                <div class="search-box">
+                  <i class="fas fa-search search-icon"></i>
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search rules..."
+                    id="searchInput"
+                    onkeyup="filterRules()"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="firewall-table">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="header-container">
+                        <div
+                          class="filter-header"
+                          data-sort-type="id"
+                          onclick="sortTable('id')"
+                        >
+                          ID
+                          <i class="fas fa-sort"></i>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="header-container">
+                        <div
+                          class="filter-header"
+                          data-filter-type="action"
+                          onclick="toggleFilterDropdown('action', event)"
+                        >
+                          Action
+                          <i class="fas fa-caret-down"></i>
+                        </div>
+                        <div
+                          class="column-filter-dropdown"
+                          id="actionFilterDropdown"
+                        >
+                          <div class="filter-option" data-value="">
+                            All Actions
+                          </div>
+                          <div class="filter-option" data-value="allow">
+                            Allow
+                          </div>
+                          <div class="filter-option" data-value="deny">
+                            Deny/Block
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="header-container">
+                        <div
+                          class="filter-header"
+                          data-sort-type="protocol"
+                          onclick="sortTable('protocol')"
+                        >
+                          Protocol
+                          <i class="fas fa-sort"></i>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="header-container">
+                        <div
+                          class="filter-header"
+                          data-sort-type="source"
+                          onclick="sortTable('source')"
+                        >
+                          Source
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="header-container">
+                        <div
+                          class="filter-header"
+                          data-sort-type="destination"
+                          onclick="sortTable('destination')"
+                        >
+                          Destination
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="header-container">
+                        <div
+                          class="filter-header"
+                          data-filter-type="status"
+                          onclick="toggleFilterDropdown('status', event)"
+                        >
+                          Status
+                          <i class="fas fa-caret-down"></i>
+                        </div>
+                        <div
+                          class="column-filter-dropdown"
+                          id="statusFilterDropdown"
+                        >
+                          <div class="filter-option" data-value="">
+                            All Statuses
+                          </div>
+                          <div class="filter-option" data-value="active">
+                            Active
+                          </div>
+                          <div class="filter-option" data-value="inactive">
+                            Inactive
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="header-container">
+                        <div class="filter-header">Actions</div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="rulesTableBody">
+                  <tr>
+                    <td colspan="7" class="empty-state">
+                      <div class="loading-spinner"></div>
+                      <div style="margin-top: 1rem">Loading rules...</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Rule -->
+      <div id="addRuleModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Add New Firewall Rule</h3>
+            <button class="close-btn" onclick="closeModal('addRuleModal')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <form id="addRuleForm">
+            <div class="modal-body">
+              <input type="hidden" id="host" th:value="${server.host}" />
+
+              <div class="form-group">
+                <label class="form-label" for="ruleAction">Action</label>
+                <select class="form-input" id="ruleAction" required>
+                  <option value="allow">Allow</option>
+                  <option value="deny">Deny</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ruleType">Direction</label>
+                <select class="form-input" id="ruleType" required>
+                  <option value="in">Inbound</option>
+                  <option value="out">Outbound</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ruleProtocol">Protocol</label>
+                <select class="form-input" id="ruleProtocol" required>
+                  <option value="tcp">TCP</option>
+                  <option value="udp">UDP</option>
+                  <option value="icmp">ICMP</option>
+                  <option value="any">Any</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ruleSource">Source IP</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="ruleSource"
+                  placeholder="e.g. 192.168.1.0/24 or any"
+                  value="any"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ruleDestination"
+                  >Destination IP</label
+                >
+                <input
+                  type="text"
+                  class="form-input"
+                  id="ruleDestination"
+                  placeholder="e.g. 192.168.1.5 or any"
+                  value="any"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="rulePorts">Port(s)</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="rulePorts"
+                  placeholder="e.g. 80,443 or 1000-2000"
+                />
+              </div>
+              <div class="form-hint">Leave empty for all ports</div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-cancel"
+                onclick="closeModal('addRuleModal')"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">Add Rule</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Edit Rule -->
+      <div id="editRuleModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Edit Firewall Rule</h3>
+            <button class="close-btn" onclick="closeModal('editRuleModal')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <form id="editRuleForm">
+            <div class="modal-body">
+              <input type="hidden" id="editRuleId" />
+              <input type="hidden" id="editHost" th:value="${server.host}" />
+
+              <div class="form-group">
+                <label class="form-label" for="editRuleAction">Action</label>
+                <select class="form-input" id="editRuleAction" required>
+                  <option value="allow">Allow</option>
+                  <option value="deny">Deny</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="editRuleType">Direction</label>
+                <select class="form-input" id="editRuleType" required>
+                  <option value="in">Inbound</option>
+                  <option value="out">Outbound</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="editRuleProtocol"
+                  >Protocol</label
+                >
+                <select class="form-input" id="editRuleProtocol" required>
+                  <option value="tcp">TCP</option>
+                  <option value="udp">UDP</option>
+                  <option value="icmp">ICMP</option>
+                  <option value="any">Any</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="editRuleSource">Source IP</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="editRuleSource"
+                  placeholder="e.g. 192.168.1.0/24 or any"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="editRuleDestination"
+                  >Destination IP</label
+                >
+                <input
+                  type="text"
+                  class="form-input"
+                  id="editRuleDestination"
+                  placeholder="e.g. 192.168.1.5 or any"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="editRulePorts">Port(s)</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="editRulePorts"
+                  placeholder="e.g. 80,443 or 1000-2000"
+                />
+              </div>
+              <div class="form-hint">Leave empty for all ports</div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-cancel"
+                onclick="closeModal('editRuleModal')"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- logs rules -->
+      <div id="logsEnhancedModal" class="modal">
+        <div class="modal-content" style="max-width: 1200px; width: 90%">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <i class="fas fa-clipboard-list"></i> Firewall Logs
+            </h3>
+            <button class="close-btn" onclick="closeModal('logsEnhancedModal')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="search-section">
+              <div class="search-controls">
+                <div class="search-box">
+                  <i class="fas fa-search search-icon"></i>
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search logs..."
+                    id="logsSearchInput"
+                    onkeyup="filterLogs()"
+                  />
+                </div>
+                <div class="action-buttons">
+                  <button
+                    class="btn refreshlog"
+                    id="realTimeBtn"
+                    onclick="toggleRealTimeUpdates()"
+                  >
+                    <i class="fas fa-bolt"></i> Real-time
+                  </button>
+                  <button
+                    class="btn refreshlog"
+                    onclick="refreshLogsEnhanced()"
+                  >
+                    <i class="fas fa-sync-alt"></i> Refresh
+                  </button>
+                  <button class="btn btn-danger" onclick="clearLogsEnhanced()">
+                    <i class="fas fa-trash"></i> Clear Logs
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <div class="compact-security-container">
+                <div class="compact-security-section">
+                  <h3>Security Summary</h3>
+                  <div id="compactSecuritySummary">
+                    <div class="loading-spinner"></div>
+                  </div>
+                </div>
+
+                <div class="compact-security-section">
+                  <h3>Security Warnings</h3>
+                  <div id="compactSecurityWarnings">
+                    <div class="loading-spinner"></div>
+                  </div>
+                </div>
+              </div>
+              <table class="firewall-table">
+                <thead>
+                  <tr>
+                    <th onclick="sortLogsTable('timestamp')">
+                      Timestamp <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortLogsTable('action')">
+                      Action <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortLogsTable('protocol')">
+                      Protocol <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortLogsTable('source_ip')">
+                      Source <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortLogsTable('destination_ip')">
+                      Destination <i class="fas fa-sort"></i>
+                    </th>
+                    <th onclick="sortLogsTable('message')">
+                      Message <i class="fas fa-sort"></i>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="enhancedLogsTableBody">
+                  <tr>
+                    <td colspan="6" class="empty-state">
+                      <div class="loading-spinner"></div>
+                      <div>Loading logs...</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-cancel"
+              onclick="closeModal('logsEnhancedModal')"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+        <div id="logDetailModal" class="modal">
+          <div class="modal-content" style="max-width: 800px">
+            <div class="modal-header">
+              <h3 class="modal-title">
+                <i class="fas fa-info-circle"></i> Log Details
+              </h3>
+              <button class="close-btn" onclick="closeModal('logDetailModal')">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="detail-row">
+                <div class="detail-label">Timestamp:</div>
+                <div class="detail-value" id="logDetailTimestamp"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Action:</div>
+                <div class="detail-value" id="logDetailAction"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Protocol:</div>
+                <div class="detail-value" id="logDetailProtocol"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Source:</div>
+                <div class="detail-value" id="logDetailSource"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Destination:</div>
+                <div class="detail-value" id="logDetailDestination"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Full Message:</div>
+                <div
+                  class="detail-value"
+                  id="logDetailMessage"
+                  style="white-space: pre-wrap"
+                ></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-cancel"
+                onclick="closeModal('logDetailModal')"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- chi tiết rules -->
+      <div id="ruleDetailModal" class="modal">
+        <div class="modal-content" style="max-width: 800px">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <i class="fas fa-info-circle"></i> Rule Details
+            </h3>
+            <button class="close-btn" onclick="closeModal('ruleDetailModal')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="detail-row">
+              <div class="detail-label">ID:</div>
+              <div class="detail-value" id="ruleDetailId"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Action:</div>
+              <div class="detail-value" id="ruleDetailAction"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Direction:</div>
+              <div class="detail-value" id="ruleDetailDirection"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Protocol:</div>
+              <div class="detail-value" id="ruleDetailProtocol"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Source:</div>
+              <div class="detail-value" id="ruleDetailSource"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Destination:</div>
+              <div class="detail-value" id="ruleDetailDestination"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Port(s):</div>
+              <div class="detail-value" id="ruleDetailPorts"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Status:</div>
+              <div class="detail-value" id="ruleDetailStatus"></div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-cancel"
+              onclick="closeModal('ruleDetailModal')"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="sharedparts/nav-server::nav-server"></div>
+
+    <script>
+      let currentHost = document.getElementById("host").value;
+      let firewallData = {};
+      let allRules = [];
+      let filteredRules = [];
+      let currentSort = {
+        column: "id",
+        direction: "asc",
+      };
+      let realTimeUpdateEnabled = false;
+      let realTimeUpdateInterval;
+
+      // Khởi tạo
+      $(document).ready(function () {
+        // Cấu hình thông báo
+        toastr.options = {
+          closeButton: true,
+          progressBar: true,
+          positionClass: "toast-top-right",
+          timeOut: "3000",
+        };
+
+        loadFirewallData();
+
+        $(".tab-btn").click(function (e) {
+          e.stopPropagation();
+          const tabId = $(this).data("tab");
+          $(".tab-btn").removeClass("active");
+          $(this).addClass("active");
+          $(".tab-pane").removeClass("active");
+          $(`#${tabId}-tab`).addClass("active");
+        });
+
+        // trạng thái tường lửa
+        $("#firewallToggle").change(function () {
+          const action = this.checked ? "enable" : "disable";
+          toggleFirewall(action);
+        });
+
+        $("#logsModal").on("show.bs.modal", function () {
+          loadFirewallLogs();
+        });
+        loadCompactSecuritySummary();
+        loadCompactSecurityWarnings();
+        setInterval(function () {
+          loadCompactSecuritySummary();
+          loadCompactSecurityWarnings();
+        }, 30000); // 30 giây
+      });
+
+      // Load firewall
+      function loadFirewallData() {
+        $("#refreshBtn").html(
+          '<i class="fas fa-spinner fa-spin"></i> Loading...'
+        );
+        $("#firewallToggle").prop("disabled", true);
+
+        $.ajax({
+          url: "/firewall/api/firewall-status?host=" + currentHost,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              toastr.error("Error: " + response.error);
+              return;
+            }
+
+            firewallData = response;
+            updateStats(response);
+
+            loadFirewallRules();
+          },
+          error: function (xhr, status, error) {
+            toastr.error("Error loading firewall status: " + error);
+            $("#refreshBtn").html('<i class="fas fa-sync-alt"></i> Refresh');
+            $("#firewallToggle").prop("disabled", false);
+          },
+        });
+      }
+
+      // Load firewall rules
+      function loadFirewallRules() {
+        $.ajax({
+          url: "/firewall/api/firewall-rules?host=" + currentHost,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              toastr.error("Error: " + response.error);
+              return;
+            }
+            // Khởi tạo allRules và filteredRules là các mảng rỗng nếu response.rules không được xác định
+            allRules = response.rules || [];
+            filteredRules = [...allRules];
+            renderRulesTable();
+
+            // Sắp xếp
+            currentSort = { column: "id", direction: "desc" };
+            sortTable("id");
+
+            $(`[data-sort-type="id"] i`)
+              .removeClass("fa-sort")
+              .addClass("fa-sort-down");
+          },
+          error: function (xhr, status, error) {
+            toastr.error("Error loading firewall rules: " + error);
+            // Khởi tạo mảng rỗng nếu có lỗi
+            allRules = [];
+            filteredRules = [];
+            renderRulesTable();
+          },
+          complete: function () {
+            $("#refreshBtn").html('<i class="fas fa-sync-alt"></i> Refresh');
+            $("#firewallToggle").prop("disabled", false);
+          },
+        });
+      }
+      // Update các thẻ
+      function updateStats(data) {
+        const statusText = document.getElementById("firewallStatusText");
+        const toggle = document.getElementById("firewallToggle");
+
+        if (data.status === "active") {
+          statusText.textContent = "ACTIVE";
+          statusText.className = "status-value active";
+          toggle.checked = true;
+        } else {
+          statusText.textContent = "INACTIVE";
+          statusText.className = "status-value inactive";
+          toggle.checked = false;
+        }
+
+        $("#totalRules").text(data.total_rules || "0");
+        $("#allowRules").text(data.allow_rules || "0");
+        $("#denyRules").text(data.deny_rules || "0");
+      }
+
+      function renderRulesTable() {
+        const tbody = $("#rulesTableBody");
+        tbody.empty();
+
+        if (!filteredRules || filteredRules.length === 0) {
+          tbody.html(`
+<tr>
+   <td colspan="7" class="empty-state">
+       <i class="fas fa-search"></i>
+       <div>No rules found</div>
+   </td>
+</tr>
+        `);
+          return;
+        }
+
+        filteredRules.forEach((rule) => {
+          const statusClass =
+            rule && rule.status === "active"
+              ? "status-active"
+              : "status-inactive";
+          const action =
+            rule && rule.action
+              ? rule.action.toLowerCase() === "block"
+                ? "Block"
+                : rule.action
+              : "N/A";
+          const actionClass =
+            rule && rule.action
+              ? rule.action.toLowerCase() === "block" ||
+                rule.action.toLowerCase() === "deny"
+                ? "action-deny"
+                : "action-allow"
+              : "";
+          const ruleId = rule && rule.id ? rule.id : "N/A";
+          const displayId =
+            ruleId.length > 20 ? ruleId.substring(0, 17) + "..." : ruleId;
+          const fullId = ruleId;
+
+          const row = `
+<tr>
+   <td title="${fullId}">${displayId}</td>
+   <td><span class="action-badge ${actionClass}">${action}</span></td>
+   <td>${rule && rule.protocol ? rule.protocol : "any"}</td>
+   <td>${rule && rule.source_ip ? rule.source_ip : "any"}:${
+            rule && rule.source_port ? rule.source_port : "any"
+          }</td>
+   <td>${rule && rule.destination_ip ? rule.destination_ip : "any"}:${
+            rule && rule.destination_port ? rule.destination_port : "any"
+          }</td>
+   <td><span class="status-badge ${statusClass}">${
+            rule && rule.status ? rule.status : "N/A"
+          }</span></td>
+   <td>
+       <div class="action-buttons">
+           <button class="action-btn btn-view" onclick="viewRuleDetails('${ruleId}'); event.stopPropagation()" title="View Details">
+  <i class="fas fa-eye"></i>
+           </button>
+           <button class="action-btn btn-edit" onclick="editRule('${ruleId}'); event.stopPropagation()" title="Edit">
+  <i class="fas fa-edit"></i>
+           </button>
+           <button class="action-btn btn-toggle ${
+             rule && rule.status === "active" ? "btn-success" : "btn-warning"
+           }" 
+  onclick="toggleRuleStatus('${ruleId}', '${
+            rule && rule.status ? rule.status : "inactive"
+          }', event)" 
+  title="${rule && rule.status === "active" ? "Disable" : "Enable"}">
+  <i class="fas fa-power-off"></i>
+           </button>
+           <button class="action-btn btn-delete" onclick="deleteRule('${ruleId}', event)">
+  <i class="fas fa-trash"></i>
+           </button>
+       </div>
+   </td>
+</tr>
+        `;
+          tbody.append(row);
+        });
+      }
+
+      //thanh tìm kiếm
+      function filterRules() {
+        const searchTerm = $("#searchInput").val().toLowerCase();
+
+        if (!allRules) {
+          allRules = [];
+        }
+
+        filteredRules = allRules.filter((rule) => {
+          if (!rule) return false;
+
+          // Chuẩn hóa action (xử lý Block như Deny)
+          const normalizedAction =
+            rule.action && rule.action.toLowerCase() === "block"
+              ? "deny"
+              : rule.action
+              ? rule.action.toLowerCase()
+              : "";
+
+          // Lọc theo từ tìm kiếm
+          const matchesSearch =
+            searchTerm === "" ||
+            (rule.id &&
+              rule.id.toString().toLowerCase().includes(searchTerm)) ||
+            (normalizedAction && normalizedAction.includes(searchTerm)) ||
+            (rule.protocol &&
+              rule.protocol.toLowerCase().includes(searchTerm)) ||
+            (rule.source_ip &&
+              rule.source_ip.toLowerCase().includes(searchTerm)) ||
+            (rule.destination_ip &&
+              rule.destination_ip.toLowerCase().includes(searchTerm)) ||
+            (rule.status && rule.status.toLowerCase().includes(searchTerm));
+
+          //lọc theo cột
+          const matchesAction =
+            currentFilters.action === "" ||
+            normalizedAction === currentFilters.action;
+
+          const matchesProtocol =
+            currentFilters.protocol === "" ||
+            (rule.protocol &&
+              rule.protocol.toLowerCase() === currentFilters.protocol);
+
+          const matchesStatus =
+            currentFilters.status === "" ||
+            (rule.status &&
+              rule.status.toLowerCase() === currentFilters.status);
+
+          return (
+            matchesSearch && matchesAction && matchesProtocol && matchesStatus
+          );
+        });
+
+        sortTable(currentSort.column);
+      }
+
+      // Đóng dropdown khi click ra ngoài
+      $(document).click(function () {
+        $(".column-filter-dropdown").hide();
+        $(".filter-header i")
+          .removeClass("fa-caret-up")
+          .addClass("fa-caret-down");
+      });
+
+      // Thêm event listener cho các option lọc
+      $(document).on("click", ".filter-option", function () {
+        const filterType = $(this)
+          .parent()
+          .attr("id")
+          .replace("FilterDropdown", "");
+        const value = $(this).data("value");
+        applyFilter(filterType, value);
+      });
+
+      // Sort table
+      function sortTable(column) {
+        // Update current sort
+        if (currentSort.column === column) {
+          currentSort.direction =
+            currentSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          currentSort.column = column;
+          currentSort.direction = "asc"; // Mặc định tăng dần
+        }
+
+        $(".filter-header i")
+          .removeClass("fa-sort-up fa-sort-down")
+          .addClass("fa-sort");
+        const iconClass =
+          currentSort.direction === "asc" ? "fa-sort-up" : "fa-sort-down";
+        $(`[data-sort-type="${column}"] i`)
+          .removeClass("fa-sort")
+          .addClass(iconClass);
+
+        filteredRules.sort((a, b) => {
+          let valueA, valueB;
+
+          if (column === "id") {
+            // Xử lý đặc biệt cho ID - giữ nguyên dạng chuỗi để sắp xếp theo bảng chữ cái
+            valueA = String(a.id || "").toLowerCase();
+            valueB = String(b.id || "").toLowerCase();
+          } else if (column === "protocol") {
+            valueA = (a.protocol || "any").toLowerCase();
+            valueB = (b.protocol || "any").toLowerCase();
+          } else {
+            valueA = String(a[column] || "").toLowerCase();
+            valueB = String(b[column] || "").toLowerCase();
+          }
+
+          // So sánh
+          if (valueA < valueB) {
+            return currentSort.direction === "asc" ? -1 : 1;
+          }
+          if (valueA > valueB) {
+            return currentSort.direction === "asc" ? 1 : -1;
+          }
+          return 0;
+        });
+
+        renderRulesTable();
+      }
+
+      function showAddRuleModal() {
+        $("#addRuleModal").show();
+      }
+
+      function editRule(ruleId) {
+        const rule = allRules.find((r) => r.id === ruleId);
+        if (!rule) {
+          toastr.error("Rule not found");
+          return;
+        }
+
+        $("#editRuleId").val(rule.id);
+        $("#editRuleAction").val(rule.action);
+        $("#editRuleType").val(rule.type || "in");
+        $("#editRuleProtocol").val(rule.protocol || "any");
+        $("#editRuleSource").val(rule.source_ip || "any");
+        $("#editRuleDestination").val(rule.destination_ip || "any");
+        $("#editRulePorts").val(rule.port_range || "");
+
+        $("#editRuleModal").show();
+      }
+
+      function viewRuleDetails(ruleId) {
+        const rule = allRules.find(
+          (r) => r.id == ruleId || (r.full_name && r.full_name.includes(ruleId))
+        );
+        if (!rule) {
+          toastr.error("Rule not found");
+          return;
+        }
+
+        // Điền thông tin vào modal
+        $("#ruleDetailId").text(rule.full_name || rule.id || "N/A"); // Hiển thị tên đầy đủ nếu có
+
+        // Tạo badge cho action
+        const actionClass =
+          rule.action === "allow" ? "action-allow" : "action-deny";
+        $("#ruleDetailAction").html(
+          `<span class="action-badge ${actionClass}">${
+            rule.action || "N/A"
+          }</span>`
+        );
+
+        $("#ruleDetailDirection").text(
+          rule.type === "in" ? "Inbound" : "Outbound"
+        );
+        $("#ruleDetailProtocol").text(rule.protocol || "any");
+        $("#ruleDetailSource").text(
+          `${rule.source_ip || "any"}:${rule.source_port || "any"}`
+        );
+        $("#ruleDetailDestination").text(
+          `${rule.destination_ip || "any"}:${rule.destination_port || "any"}`
+        );
+        $("#ruleDetailPorts").text(rule.port_range || "any");
+
+        // Tạo badge cho status
+        const statusClass =
+          rule.status === "active" ? "status-active" : "status-inactive";
+        $("#ruleDetailStatus").html(
+          `<span class="status-badge ${statusClass}">${
+            rule.status || "N/A"
+          }</span>`
+        );
+
+        $("#ruleDetailModal").show();
+      }
+
+      // nút trạng thái firewall
+      function toggleFirewall(action) {
+        if (!confirm(`Are you sure you want to ${action} the firewall?`)) {
+          // reset nếu thoát
+          $("#firewallToggle").prop(
+            "checked",
+            !$("#firewallToggle").prop("checked")
+          );
+          return;
+        }
+
+        const loadingToast = toastr.info(
+          `${action === "enable" ? "Enabling" : "Disabling"} firewall...`,
+          {
+            timeOut: 0,
+            extendedTimeOut: 0,
+          }
+        );
+
+        $.ajax({
+          url: `/firewall/api/firewall-toggle?host=${currentHost}&action=${action}`,
+          type: "POST",
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+              // reset nếu lỗi
+              $("#firewallToggle").prop(
+                "checked",
+                !$("#firewallToggle").prop("checked")
+              );
+            } else {
+              toastr.success(
+                response.message || `Firewall ${action}d successfully`
+              );
+              loadFirewallData();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error(`Error ${action} firewall: ${errorMsg}`);
+
+            $("#firewallToggle").prop(
+              "checked",
+              !$("#firewallToggle").prop("checked")
+            );
+          },
+        });
+      }
+
+      // Add rule
+      $("#addRuleForm").submit(function (e) {
+        e.preventDefault();
+
+        const ruleData = {
+          host: currentHost,
+          action: $("#ruleAction").val(),
+          type: $("#ruleType").val(),
+          protocol: $("#ruleProtocol").val(),
+          source_ip: $("#ruleSource").val(),
+          destination_ip: $("#ruleDestination").val(),
+          port_range: $("#rulePorts").val(),
+        };
+
+        const loadingToast = toastr.info("Adding firewall rule...", {
+          timeOut: 0,
+          extendedTimeOut: 0,
+        });
+
+        $.ajax({
+          url: "/firewall/api/firewall-rules",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(ruleData),
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+            } else {
+              toastr.success(response.message || "Rule added successfully");
+              closeModal("addRuleModal");
+              loadFirewallData();
+              $("#addRuleForm")[0].reset();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error("Error adding rule: " + errorMsg);
+          },
+        });
+      });
+
+      // Update rule
+      $("#editRuleForm").submit(function (e) {
+        e.preventDefault();
+
+        const ruleData = {
+          host: currentHost,
+          action: $("#editRuleAction").val(),
+          type: $("#editRuleType").val(),
+          protocol: $("#editRuleProtocol").val(),
+          source_ip: $("#editRuleSource").val(),
+          destination_ip: $("#editRuleDestination").val(),
+          port_range: $("#editRulePorts").val(),
+        };
+
+        const ruleId = $("#editRuleId").val();
+        const loadingToast = toastr.info("Updating firewall rule...", {
+          timeOut: 0,
+          extendedTimeOut: 0,
+        });
+
+        $.ajax({
+          url: `/firewall/api/firewall-rules/${ruleId}`,
+          type: "PUT",
+          contentType: "application/json",
+          data: JSON.stringify(ruleData),
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+            } else {
+              toastr.success(response.message || "Rule updated successfully");
+              closeModal("editRuleModal");
+              loadFirewallData();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error("Error updating rule: " + errorMsg);
+          },
+        });
+      });
+
+      // nút trạng thái từng rule
+      function toggleRuleStatus(ruleId, currentStatus, event) {
+        event.stopPropagation();
+
+        // tìm quy tắc để lấy tên đầy đủ của nó (windows)
+        const rule = allRules.find(
+          (r) =>
+            r.id === ruleId || (r.full_name && r.full_name.includes(ruleId))
+        );
+        if (!rule) {
+          toastr.error("Rule not found");
+          return;
+        }
+
+        const ruleIdentifier = rule.full_name || ruleId;
+        const action = currentStatus === "active" ? "disable" : "enable";
+
+        if (!confirm(`Are you sure you want to ${action} this rule?`)) {
+          return;
+        }
+
+        const loadingToast = toastr.info(
+          `${action === "enable" ? "Enabling" : "Disabling"} rule...`,
+          {
+            timeOut: 0,
+            extendedTimeOut: 0,
+          }
+        );
+
+        $.ajax({
+          url: `/firewall/api/firewall-rules/${encodeURIComponent(
+            ruleIdentifier
+          )}/toggle?host=${currentHost}`,
+          type: "PATCH",
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+            } else {
+              toastr.success(
+                response.message || `Rule ${action}d successfully`
+              );
+              // cập nhật nầu theo trạng thái
+              const btn = $(event.target).closest(".btn-toggle");
+              if (action === "enable") {
+                btn.removeClass("btn-warning").addClass("btn-success");
+                btn.attr("title", "Disable");
+              } else {
+                btn.removeClass("btn-success").addClass("btn-warning");
+                btn.attr("title", "Enable");
+              }
+              loadFirewallData();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error(`Error ${action} rule: ${errorMsg}`);
+          },
+        });
+      }
+
+      // Delete rule
+      function deleteRule(ruleId, event) {
+        event.stopPropagation();
+
+        if (!confirm("Are you sure you want to delete this rule?")) {
+          return;
+        }
+
+        const loadingToast = toastr.info("Deleting rule...", {
+          timeOut: 0,
+          extendedTimeOut: 0,
+        });
+
+        $.ajax({
+          url: `/firewall/api/firewall-rules/${ruleId}?host=${currentHost}`,
+          type: "DELETE",
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+            } else {
+              toastr.success(response.message || "Rule deleted successfully");
+              loadFirewallData();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error("Error deleting rule: " + errorMsg);
+          },
+        });
+      }
+
+      // Load logs firewall
+      function loadFirewallLogs() {
+        $("#logsContent").html(
+          '<div class="loading-spinner"></div> Loading logs...'
+        );
+
+        $.ajax({
+          url: `/firewall/api/firewall-logs?host=${currentHost}&lines=50`,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              $("#logsContent").text("Error: " + response.error);
+              return;
+            }
+
+            let html = "";
+            if (response.logs && response.logs.length > 0) {
+              response.logs.forEach((log) => {
+                html += `
+     <div class="log-item">
+       <strong>${log.timestamp || "Unknown time"}</strong> - 
+       <span class="${log.action === "allow" ? "action-allow" : "action-deny"}">
+         ${log.action || "unknown"}
+       </span> ${log.protocol || ""} 
+       from ${log.source_ip || "unknown"}:${log.source_port || "any"} 
+       to ${log.destination_ip || "unknown"}:${log.destination_port || "any"}
+     </div>
+   `;
+              });
+            } else {
+              html = "No firewall logs found";
+            }
+
+            $("#logsContent").html(html);
+          },
+          error: function (xhr, status, error) {
+            $("#logsContent").text("Error loading logs: " + error);
+          },
+        });
+      }
+
+      // xóa toàn bộ log
+      function clearLogs() {
+        if (!confirm("Are you sure you want to clear all firewall logs?")) {
+          return;
+        }
+
+        const loadingToast = toastr.info("Clearing logs...", {
+          timeOut: 0,
+          extendedTimeOut: 0,
+        });
+
+        $.ajax({
+          url: `/firewall/api/firewall-logs/clear?host=${currentHost}`,
+          type: "DELETE",
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+            } else {
+              toastr.success(response.message || "Logs cleared successfully");
+              loadFirewallLogs();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error("Error clearing logs: " + errorMsg);
+          },
+        });
+      }
+
+      function refreshLogs() {
+        loadFirewallLogs();
+      }
+
+      function refreshFirewall() {
+        loadFirewallData();
+      }
+
+      function exportRules() {
+        const dataStr = JSON.stringify(
+          {
+            status: firewallData,
+            rules: allRules,
+          },
+          null,
+          2
+        );
+        const dataBlob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `firewall_${currentHost}_${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+        toastr.success("Firewall data exported successfully");
+      }
+
+      function closeModal(modalId) {
+        $("#" + modalId).hide();
+        // Dừng real-time updates khi đóng modal logs
+        if (modalId === "logsEnhancedModal") {
+          clearInterval(realTimeUpdateInterval);
+          realTimeUpdateEnabled = false;
+          $("#realTimeBtn")
+            .removeClass("btn-success")
+            .addClass("btn-secondary")
+            .html('<i class="fas fa-bolt"></i> Real-time');
+        }
+      }
+      // thoát khi clicck ra ngoài
+      $(window).click(function (event) {
+        if ($(event.target).hasClass("modal")) {
+          $(event.target).hide();
+        }
+      });
+
+      let allLogs = [];
+      let filteredLogs = [];
+      let currentLogsSort = {
+        column: "timestamp",
+        direction: "desc",
+      };
+
+      function showEnhancedLogs() {
+        $("#logsEnhancedModal").show();
+        loadLogsEnhanced();
+        // reset trạng thái real-time khi mở modal
+        realTimeUpdateEnabled = false;
+        clearInterval(realTimeUpdateInterval);
+        $("#realTimeBtn")
+          .removeClass("btn-success")
+          .addClass("btn-secondary")
+          .html('<i class="fas fa-bolt"></i> Real-time');
+      }
+
+      function loadLogsEnhanced() {
+        $.ajax({
+          url: `/firewall/api/firewall-logs?host=${currentHost}&lines=200`,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              toastr.error("Error loading logs: " + response.error);
+              return;
+            }
+            // Cập nhật dữ liệu logs
+            allLogs = response.logs || [];
+            // Áp dụng bộ lọc hiện tại
+            filterLogs();
+            // Áp dụng sắp xếp hiện tại
+            sortLogsTable(currentLogsSort.column);
+          },
+          error: function (xhr, status, error) {
+            toastr.error("Error loading logs: " + error);
+          },
+        });
+      }
+
+      function renderLogsTable() {
+        const tbody = $("#enhancedLogsTableBody");
+        tbody.empty();
+
+        if (filteredLogs.length === 0) {
+          tbody.html(`
+        <tr>
+          <td colspan="6" class="empty-state">
+<i class="fas fa-search"></i>
+<div>No logs found</div>
+          </td>
+        </tr>
+      `);
+          return;
+        }
+
+        filteredLogs.forEach((log) => {
+          const actionClass =
+            log.action === "allow" ? "action-allow" : "action-deny";
+          const timestamp = formatTimestamp(log.timestamp);
+
+          const row = `
+        <tr onclick="showLogDetail(${JSON.stringify(log).replace(
+          /"/g,
+          "&quot;"
+        )})">
+          <td>${timestamp}</td>
+          <td><span class="action-badge ${actionClass}">${
+            log.action || "unknown"
+          }</span></td>
+          <td>${log.protocol || "any"}</td>
+          <td>${log.source_ip || "unknown"}:${log.source_port || "any"}</td>
+          <td>${log.destination_ip || "unknown"}:${
+            log.destination_port || "any"
+          }</td>
+          <td style="text-align: left; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${
+            log.message || ""
+          }">
+${log.message || "No message"}
+          </td>
+        </tr>
+      `;
+          tbody.append(row);
+        });
+      }
+
+      function filterLogs() {
+        const searchTerm = $("#logsSearchInput").val().toLowerCase();
+
+        filteredLogs = allLogs.filter((log) => {
+          return (
+            (log.timestamp &&
+              log.timestamp.toLowerCase().includes(searchTerm)) ||
+            (log.action && log.action.toLowerCase().includes(searchTerm)) ||
+            (log.protocol && log.protocol.toLowerCase().includes(searchTerm)) ||
+            (log.source_ip &&
+              log.source_ip.toLowerCase().includes(searchTerm)) ||
+            (log.destination_ip &&
+              log.destination_ip.toLowerCase().includes(searchTerm)) ||
+            (log.message && log.message.toLowerCase().includes(searchTerm))
+          );
+        });
+
+        // Sau khi lọc, áp dụng sắp xếp hiện tại
+        sortLogsTable(currentLogsSort.column);
+      }
+
+      function sortLogsTable(column) {
+        // Cập nhật cột và hướng sắp xếp
+        if (currentLogsSort.column === column) {
+          currentLogsSort.direction =
+            currentLogsSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          currentLogsSort.column = column;
+          currentLogsSort.direction = "asc";
+        }
+
+        // Cập nhật biểu tượng sắp xếp
+        $("#enhancedLogsTable th i")
+          .removeClass("fa-sort-up fa-sort-down")
+          .addClass("fa-sort");
+
+        const iconClass =
+          currentLogsSort.direction === "asc" ? "fa-sort-up" : "fa-sort-down";
+        $(`#enhancedLogsTable th[onclick*="${column}"] i`)
+          .removeClass("fa-sort")
+          .addClass(iconClass);
+
+        // Sắp xếp dữ liệu đã lọc
+        filteredLogs.sort((a, b) => {
+          let valueA, valueB;
+
+          if (column === "timestamp") {
+            valueA = new Date(a.timestamp || 0).getTime();
+            valueB = new Date(b.timestamp || 0).getTime();
+          } else {
+            valueA = a[column] || "";
+            valueB = b[column] || "";
+            valueA = String(valueA).toLowerCase();
+            valueB = String(valueB).toLowerCase();
+          }
+
+          if (valueA < valueB) {
+            return currentLogsSort.direction === "asc" ? -1 : 1;
+          }
+          if (valueA > valueB) {
+            return currentLogsSort.direction === "asc" ? 1 : -1;
+          }
+          return 0;
+        });
+
+        renderLogsTable();
+      }
+
+      function sortLogsTable(column) {
+        if (currentLogsSort.column === column) {
+          currentLogsSort.direction =
+            currentLogsSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          currentLogsSort.column = column;
+          currentLogsSort.direction = "asc";
+        }
+
+        $("#enhancedLogsTable th i")
+          .removeClass("fa-sort-up fa-sort-down")
+          .addClass("fa-sort");
+
+        const iconClass =
+          currentLogsSort.direction === "asc" ? "fa-sort-up" : "fa-sort-down";
+        $(
+          `#enhancedLogsTable th:contains('${
+            column.charAt(0).toUpperCase() + column.slice(1)
+          }') i`
+        )
+          .removeClass("fa-sort")
+          .addClass(iconClass);
+
+        filteredLogs.sort((a, b) => {
+          let valueA, valueB;
+
+          if (column === "timestamp") {
+            valueA = new Date(a.timestamp || 0).getTime();
+            valueB = new Date(b.timestamp || 0).getTime();
+          } else {
+            valueA = a[column] || "";
+            valueB = b[column] || "";
+
+            valueA = String(valueA).toLowerCase();
+            valueB = String(valueB).toLowerCase();
+          }
+
+          if (valueA < valueB) {
+            return currentLogsSort.direction === "asc" ? -1 : 1;
+          }
+          if (valueA > valueB) {
+            return currentLogsSort.direction === "asc" ? 1 : -1;
+          }
+          return 0;
+        });
+
+        renderLogsTable();
+      }
+
+      function refreshLogsEnhanced() {
+        loadLogsEnhanced();
+        // Nếu đang ở chế độ real-time, hủy interval cũ và tạo mới
+        if (realTimeUpdateEnabled) {
+          clearInterval(realTimeUpdateInterval);
+          realTimeUpdateInterval = setInterval(loadLogsEnhanced, 10000);
+        }
+      }
+      function toggleRealTimeUpdates() {
+        realTimeUpdateEnabled = !realTimeUpdateEnabled;
+        const realTimeBtn = $("#realTimeBtn");
+
+        if (realTimeUpdateEnabled) {
+          realTimeBtn.removeClass("btn-secondary").addClass("real-time-active");
+          realTimeBtn.html('<i class="fas fa-bolt"></i> Real-time ON');
+          // Load ngay lập tức và sau đó mỗi 10 giây
+          loadLogsEnhanced();
+          realTimeUpdateInterval = setInterval(loadLogsEnhanced, 10000);
+          toastr.success("Real-time updates enabled");
+        } else {
+          realTimeBtn.removeClass("real-time-active").addClass("btn-secondary");
+          realTimeBtn.html('<i class="fas fa-bolt"></i> Real-time');
+          clearInterval(realTimeUpdateInterval);
+          toastr.info("Real-time updates disabled");
+        }
+      }
+
+      function clearLogsEnhanced() {
+        if (!confirm("Are you sure you want to clear all firewall logs?")) {
+          return;
+        }
+
+        const loadingToast = toastr.info("Clearing logs...", {
+          timeOut: 0,
+          extendedTimeOut: 0,
+        });
+
+        $.ajax({
+          url: `/firewall/api/firewall-logs/clear?host=${currentHost}`,
+          type: "DELETE",
+          success: function (response) {
+            toastr.clear(loadingToast);
+            if (response.error) {
+              toastr.error(response.error);
+            } else {
+              toastr.success(response.message || "Logs cleared successfully");
+              loadLogsEnhanced();
+            }
+          },
+          error: function (xhr) {
+            toastr.clear(loadingToast);
+            const errorMsg = xhr.responseJSON?.error || "Request failed";
+            toastr.error("Error clearing logs: " + errorMsg);
+          },
+        });
+      }
+      function showLogDetail(log) {
+        $("#logDetailTimestamp").text(log.timestamp || "Unknown");
+        $("#logDetailAction").html(
+          `<span class="action-badge ${
+            log.action === "allow" ? "action-allow" : "action-deny"
+          }">${log.action || "unknown"}</span>`
+        );
+        $("#logDetailProtocol").text(log.protocol || "any");
+        $("#logDetailSource").text(
+          `${log.source_ip || "unknown"}:${log.source_port || "any"}`
+        );
+        $("#logDetailDestination").text(
+          `${log.destination_ip || "unknown"}:${log.destination_port || "any"}`
+        );
+        $("#logDetailMessage").text(log.message || "No message available");
+
+        $("#logDetailModal").show();
+      }
+      function formatTimestamp(timestamp) {
+        if (!timestamp) return "Unknown";
+
+        // Nếu timestamp là đối tượng Date hoặc chuỗi ISO
+        const date = new Date(timestamp);
+        if (!isNaN(date.getTime())) {
+          const options = {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true,
+          };
+          return date.toLocaleString("en-US", options);
+        }
+
+        // Giữ nguyên nếu đã đúng định dạng
+        return timestamp;
+      }
+      let currentFilters = {
+        action: "",
+        protocol: "",
+        status: "",
+      };
+      // Hàm hiển thị/ẩn dropdown lọc
+      function toggleFilterDropdown(filterType, event) {
+        event.stopPropagation();
+        // Đóng tất cả dropdown khác
+        $(".column-filter-dropdown").not(`#${filterType}FilterDropdown`).hide();
+        // Toggle dropdown hiện tại
+        $(`#${filterType}FilterDropdown`).toggle();
+
+        $(".filter-header i")
+          .not($(event.currentTarget).find("i"))
+          .removeClass("fa-caret-up")
+          .addClass("fa-caret-down");
+        $(event.currentTarget)
+          .find("i")
+          .toggleClass("fa-caret-up fa-caret-down");
+      }
+
+      function applyFilter(filterType, value) {
+        currentFilters[filterType] = value;
+
+        $(`#${filterType}FilterDropdown .filter-option`).removeClass("active");
+        $(
+          `#${filterType}FilterDropdown .filter-option[data-value="${value}"]`
+        ).addClass("active");
+
+        $(`#${filterType}FilterDropdown`).hide();
+        $(`[data-filter-type="${filterType}"] i`)
+          .removeClass("fa-caret-up")
+          .addClass("fa-caret-down");
+
+        filterRules();
+      }
+
+      function loadCompactSecuritySummary() {
+        $.ajax({
+          url: "/firewall/api/firewall-security-summary?host=" + currentHost,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              console.error("Error:", response.error);
+              return;
+            }
+            renderCompactSecuritySummary(response);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error loading security summary:", error);
+          },
+        });
+      }
+
+      function renderCompactSecuritySummary(data) {
+        const summaryHtml = `
+        <div class="compact-summary-item">
+<span class="compact-label">Total Events:</span>
+<span class="compact-value">${data.totalEvents || 0}</span>
+        </div>
+        <div class="compact-summary-item">
+<span class="compact-label">Allow Events:</span>
+<span class="compact-value">${data.allowEvents || 0}</span>
+        </div>
+        <div class="compact-summary-item">
+<span class="compact-label">Deny Events:</span>
+<span class="compact-value">${data.denyEvents || 0}</span>
+        </div>
+        <div class="compact-summary-item">
+<span class="compact-label">Multicast Events:</span>
+<span class="compact-value">${data.multicastEvents || 0}</span>
+        </div>
+        <div class="compact-summary-item highlight">
+<span class="compact-label">Top Source IP:</span>
+<span class="compact-value">${data.topSourceIp || "N/A"} (${
+          data.topSourceIpCount || 0
+        })</span>
+        </div>
+    `;
+
+        $("#compactSecuritySummary").html(summaryHtml);
+      }
+
+      function loadCompactSecurityWarnings() {
+        $.ajax({
+          url: "/firewall/api/firewall-security-warnings?host=" + currentHost,
+          type: "GET",
+          success: function (response) {
+            if (response.error) {
+              console.error("Error:", response.error);
+              return;
+            }
+            renderCompactSecurityWarnings(response.warnings);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error loading security warnings:", error);
+          },
+        });
+      }
+
+      function renderCompactSecurityWarnings(warnings) {
+        const container = $("#compactSecurityWarnings");
+        container.empty();
+
+        if (!warnings || warnings.length === 0) {
+          container.html(`
+<div class="no-warnings">
+   <i class="fas fa-check-circle"></i>
+   No warnings detected
+</div>
+        `);
+
+          return;
+        }
+
+        warnings.forEach((warning) => {
+          // Lấy IP từ warning object hoặc từ description
+          const ip =
+            warning.ip ||
+            (warning.description &&
+              warning.description.match(/\d+\.\d+\.\d+\.\d+/)?.[0]);
+          if (!ip) return; // Bỏ qua nếu không có IP
+
+          const warningHtml = `
+<div class="compact-warning">
+   <span class="warning-text">
+       <strong>${warning.title || "Warning"}</strong><br>
+       ${warning.description || "No description"}
+   </span>
+</div>
+        `;
+          container.append(warningHtml);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <title>IDS - Terminal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/sharedparts.css}" />
+    <link rel="stylesheet" th:href="@{/css/nav-server.css}" />
+    <link rel="stylesheet" th:href="@{/css/server.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/nav-server.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ansi_up@5.1.0/ansi_up.min.js"></script>
+    <style>
+      .container {
+        justify-content: flex-start;
+        margin-top: 10px;
+      }
+      .container1 p {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-weight: bold;
+        font-style: italic;
+        color: #888;
+        font-size: 1rem;
+        padding: 0.5rem 2rem 0 0;
+        margin: 0;
+      }
+
+      #terminal {
+        padding: 1rem 2rem;
+        background-color: #000;
+        color: #0f0;
+        width: 70vw;
+        height: 60vh;
+        box-sizing: border-box;
+        display: block;
+        border-radius: 20px;
+        overflow-y: auto; /*cho phép cuộn dọc */
+        font-family: monospace;
+        /*chỉnh thanh cuộn*/
+        scroll-behavior: smooth;
+      }
+      #terminal::-webkit-scrollbar {
+        /*ẩn hoàn toàn thanh cuộn*/
+        display: none;
+      }
+      .prompt {
+        display: inline;
+      }
+      .command-line {
+        outline: none;
+        display: inline;
+      }
+      .output {
+        white-space: pre-wrap;
+        margin-left: 3rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <aside th:replace="sharedparts/sidebar-server::sidebar-server"></aside>
+    <div class="main">
+      <header th:replace="sharedparts/header::header"></header>
+      <div class="container">
+        <h1>Terminal</h1>
+        <div class="container1">
+          <p>OS: <span th:text="${server.os_type}"></span></p>
+          <div id="terminal"></div>
+        </div>
+      </div>
+    </div>
+    <div th:replace="sharedparts/nav-server::nav-server"></div>
+
+    <script th:inline="javascript">
+  /*<![CDATA[*/
+  const host = /*[[${host}]]*/ "";
+  const user = /*[[${server.user}]]*/ "";
+  const terminal = document.getElementById("terminal");
+  const commandHistory = [];
+  let historyIndex = -1;
+
+  function placeCursorAtEnd(el) {//tự động đi đến cuối lệnh 
+    const range = document.createRange();
+    const sel = window.getSelection();
+    range.selectNodeContents(el);
+    range.collapse(false);// cuộn về cuối
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  function createPromptLine(isPassword = false) {
+    const line = document.createElement("div");
+    const prompt = document.createElement("span");
+    prompt.textContent = isPassword ? `>>> Password: ` : `${user}@${host} >>>  `;
+    prompt.className = "prompt";
+
+    const input = isPassword
+      ? document.createElement("input")//nếu là psw dùng input password không thì dùng thẻ span
+      : document.createElement("span");
+
+    input.className = "command-line";
+    input.spellcheck = false;
+
+    if (isPassword) {
+      input.type = "password";
+      input.style.background = "transparent";
+      input.style.color = "#0f0";
+      input.style.border = "none";
+      input.style.outline = "none";
+      input.style.fontFamily = "monospace";
+    } else {
+      input.contentEditable = true;
+    }
+
+    line.appendChild(prompt);//	dưa dòng mới vào terminal
+    line.appendChild(input);
+    terminal.appendChild(line);
+    input.focus();
+    terminal.scrollTop = terminal.scrollHeight;//tự động cuộn xuống dòng mới
+
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const command = isPassword ? input.value.trim() : input.innerText.trim();
+        input.contentEditable = false;
+        input.disabled = true;
+
+        if (command === "") {
+          createPromptLine();
+          return;
+        }
+        //xử lý các lệnh đặt biệt
+        if (!isPassword && (command === "clear" || command === "cls")) {
+          terminal.innerHTML = "";
+          createPromptLine();
+          return;
+        }
+
+        if (!isPassword && (command === "exit" || command === "logout")) {
+          const exitMsg = document.createElement("div");
+          exitMsg.textContent = "(Phiên làm việc kết thúc)";
+          terminal.appendChild(exitMsg);
+          return;
+        }
+
+        // Chỉ lưu vào lịch sử nếu không phải mật khẩu
+        if (!isPassword) {
+          commandHistory.push(command);
+          historyIndex = commandHistory.length;
+        }
+
+        const output = document.createElement("div");
+        output.className = "output";
+        output.textContent = "...";
+        terminal.appendChild(output);
+        terminal.scrollTop = terminal.scrollHeight;
+        //gửi lệnh
+        fetch(
+          "/terminal/execute?host=" +
+            encodeURIComponent(host) +
+            "&command=" +
+            encodeURIComponent(command)
+        )
+          .then((res) => res.text())
+          .then((text) => {
+            output.textContent = text || "(Không có kết quả)";
+            terminal.scrollTop = terminal.scrollHeight;
+
+            // Nếu có yêu cầu mật khẩu → hiện input dạng password
+            if (/password[:]?/i.test(text)) {
+              createPromptLine(true);
+            } else {
+              createPromptLine();
+            }
+          })
+          .catch((err) => {
+            output.textContent = "Lỗi: " + err.message;
+            createPromptLine();
+          });
+      }
+
+      // Duyệt lịch sử nếu không phải mật khẩu
+      if (!isPassword && e.key === "ArrowUp") {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          historyIndex--;
+          input.innerText = commandHistory[historyIndex];
+          placeCursorAtEnd(input);
+        }
+      }
+
+      if (!isPassword && e.key === "ArrowDown") {
+        e.preventDefault();
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          input.innerText = commandHistory[historyIndex];
+          placeCursorAtEnd(input);
+        } else {
+          input.innerText = "";
+          historyIndex = commandHistory.length;
+        }
+      }
+    });
+  }
+
+  createPromptLine();
+  /*]]>*/
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,86 @@
+.control-navbar {
+  position: fixed;
+  right: 20px;
+  top: 70px;
+  z-index: 1000;
+}
+
+.control-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.control-dropdown-content.active {
+  display: block;
+}
+
+.control-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.control-toggle i {
+  font-size: 1.5rem;
+  color: #ff7000;
+  transition: transform 0.3s;
+}
+
+.control-toggle.active i {
+  transform: rotate(180deg);
+}
+/* Control buttons styling */
+.control-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 15px;
+  margin: 4px 0;
+  border: none;
+  background: #f8f9fa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn i {
+  width: 25px;
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.control-btn:hover {
+  background: #ff7000;
+  color: white;
+}
+
+.control-btn.danger {
+  background: #ffeef0;
+  color: #dc3545;
+}
+
+.control-btn.danger:hover {
+  background: #dc3545;
+  color: white;
+}
+
+/* Header styling */
+.control-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 8px;
+}
+
+.control-header h5 {
+  color: #ff7000;
+  font-size: 1rem;
+  margin: 0;
+}

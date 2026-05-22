@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDS - Login</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="shortcut icon" th:href="@{/img/logo.png}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="form-box login">
+        <form th:action="@{/home}" method="post" autocomplete="off" >
+          <h1>Login</h1>
+          <div class="input-box">
+            <input type="email" name="email" placeholder="Email" required />
+            <i class="bx bxs-user"></i>
+          </div>
+          <div class="input-box">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <i class="bx bxs-lock-alt"></i>
+          </div>
+          <div th:if="${error}" style="color: red">
+            <p th:text="${error}"></p>
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+      </div>
+
+      <div class="form-box contact">
+        <div class="admin-info">
+          <h1>Thông tin</h1>
+          <p><strong>Họ Tên:</strong> Trần Thành Tính</p>
+          <p><strong>Ngành:</strong> An toàn thông tin</p>
+          <p><strong>Lớp:</strong> DI22D2A1</p>
+          <p><strong>MSSV:</strong> B2203743</p>
+          <p><strong>Giảng viên hướng dẫn:</strong> TS Lâm Chí Nguyện</p>
+          <p>Liên hệ qua các nền tảng khác:</p>
+          <div class="social-icons">
+            <a
+              href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=tinhb2203743@student.ctu.edu.vn"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bx bxl-gmail"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/thanhtinh.tran.9400"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bx bxl-facebook"></i
+            ></a>
+            <a
+              href="https://github.com/TTinh131"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bx bxl-github"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/t%C3%ADnh-tr%E1%BA%A7n-th%C3%A0nh-299b55360"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="bx bxl-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-box">
+        <div class="toggle-panel toggle-left">
+          <img th:src="@{/img/logo.png}" alt="Logo" />
+          <h1>Xin Chào!</h1>
+          <p>Liên hệ với Admin để được hỗ trợ thêm!</p>
+          <button class="btn contact-btn">Liên hệ Admin</button>
+        </div>
+
+        <div class="toggle-panel toggle-right">
+          <img th:src="@{/img/logo.png}" alt="Logo" />
+          <h1>Hello!</h1>
+          <p>Trở về đăng nhập!</p>
+          <button class="btn login-btn">Login</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const container = document.querySelector(".container");
+      const contactBtn = document.querySelector(".contact-btn");
+      const loginBtn = document.querySelector(".login-btn");
+
+      contactBtn.addEventListener("click", () => {
+        container.classList.add("active");
+      });
+
+      loginBtn.addEventListener("click", () => {
+        container.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
